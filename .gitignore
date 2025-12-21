@@ -1,8 +1,8 @@
 notes/
 output/*
-!output
+!output/.gitkeep
 input/*
-!input
+!input/.gitkeep
 
 # Python
 __pycache__/

@@ -8,11 +8,11 @@ Generate customizable icons from Iconify with easy export to PNG, SVG, WebP form
 
 ## Features
 
-- 🎨 Access 200,000+ icons from Iconify
-- 🎯 Customize colors and sizes
-- 📦 Export to SVG format
-- 🚀 Simple and intuitive API
-- 🔧 CLI support (coming soon)
+- Access 200,000+ icons from Iconify
+- Customize colors and sizes
+- Export to SVG format
+- Simple and intuitive API
+- CLI support (coming soon)
 
 ## Installation
 ```bash
