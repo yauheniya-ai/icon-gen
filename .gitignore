@@ -1,6 +1,9 @@
 notes/
 output/*
-!output/.gitkeep
+!output/claude.svg
+!output/openai.svg
+!output/gemini.svg
+!output/mistral.svg
 input/*
 !input/.gitkeep
 

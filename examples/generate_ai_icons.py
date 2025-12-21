@@ -31,6 +31,7 @@ def main():
     ai_icons.update({
         'openai': 'simple-icons:openai',
         'gemini': 'simple-icons:googlegemini',
+        'mistral': 'simple-icons:mistralai',
     })
     
     print("=" * 60)

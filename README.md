@@ -26,32 +26,28 @@ from icon_gen import IconGenerator
 # Initialize generator
 generator = IconGenerator(output_dir="output")
 
-# Generate a single icon
-generator.generate_icon(
-    'simple-icons:openai',
-    output_name='openai',
-    color='white',
-    size=256
-)
-
 # Generate multiple icons at once
-icons = {
-    'github': 'mdi:github',
-    'twitter': 'mdi:twitter',
-    'python': 'mdi:language-python',
-}
-generator.generate_batch(icons, color='white', size=256)
-
-# Use direct URLs for icons not in Iconify
-custom_icons = {
-    'custom': {
-        'url': 'https://example.com/icon.svg',
-        'color': 'blue',
-        'size': 512
+ai_icons = {
+    'openai': 'simple-icons:openai',
+    'gemini': 'simple-icons:googlegemini',
+    'mistral': 'simple-icons:mistralai',
+    'claude': {
+        'url': 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg'
     }
 }
-generator.generate_batch(custom_icons)
+
+generator.generate_batch(ai_icons, color='white', size=256)
+
 ```
+
+## Example Output
+
+<div align="center" style="background: linear-gradient(90deg, #8B76E9 0%, #EA2081 100%); padding: 40px; border-radius: 10px;">
+  <img src="./output/claude.svg" width="70" alt="Claude" style="margin: 0 20px;">
+  <img src="./output/openai.svg" width="70" alt="OpenAI" style="margin: 0 20px;">
+  <img src="./output/gemini.svg" width="70" alt="Gemini" style="margin: 0 20px;">
+  <img src="./output/mistral.svg" width="70" alt="Mistral" style="margin: 0 20px;">
+</div>
 
 ## Finding Icons
 
