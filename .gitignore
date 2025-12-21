@@ -1,9 +1,9 @@
 notes/
 output/*
-!output/claude.svg
-!output/openai.svg
-!output/gemini.svg
-!output/mistral.svg
+!output/claude_white_purple_bg.svg
+!output/gemini_white_pink_bg.svg
+!output/mistral_white_gradient_bg.svg
+!output/openai_purple_transparent_bg.svg
 input/*
 !input/.gitkeep
 
