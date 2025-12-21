@@ -44,9 +44,9 @@ generator.generate_batch(ai_icons, color='white', size=256)
 
 <div align="center" style="padding: 40px; border-radius: 10px;">
   <img src="./output/claude_white_purple_bg.svg" width="70" alt="Claude" style="margin: 0 20px;">
-  <img src="./output/gemini_white_pink_bg.svg" width="70" alt="OpenAI" style="margin: 0 20px;">
-  <img src="./output/mistral_white_gradient_bg.svg" width="70" alt="Gemini" style="margin: 0 20px;">
-  <img src="./output/openai_purple_transparent_bg.svg" width="70" alt="Mistral" style="margin: 0 20px;">
+  <img src="./output/gemini_white_pink_bg.svg" width="70" alt="Gemini" style="margin: 0 20px;">
+  <img src="./output/mistral_white_gradient_bg.svg" width="70" alt="Mistral" style="margin: 0 20px;">
+  <img src="./output/openai_purple_transparent_bg.svg" width="70" alt="OpenAI" style="margin: 0 20px;">
 </div>
 
 ## Finding Icons
