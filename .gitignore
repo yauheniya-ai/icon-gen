@@ -1,4 +1,8 @@
 notes/
+output/*
+!output
+input/*
+!input
 
 # Python
 __pycache__/
