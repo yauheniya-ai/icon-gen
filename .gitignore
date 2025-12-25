@@ -6,6 +6,7 @@ output/*
 !output/openai_gradient_transparent_bg.svg
 input/*
 !input/.gitkeep
+test_output/*
 
 # Python
 __pycache__/
