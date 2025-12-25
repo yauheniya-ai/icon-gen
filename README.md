@@ -4,17 +4,21 @@ Generate customizable icons from Iconify with easy export to PNG, SVG, WebP form
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](https://github.com/yauheniya-ai/icon-gen)
+[![Coverage](https://img.shields.io/badge/coverage-48%25-yellow.svg)](https://github.com/yauheniya-ai/icon-gen)
 
 ## Features
 
 - Access 200,000+ icons from Iconify
 - Customize colors and sizes
+- Custom backgrounds
+- Adjustable border radius
 - Export to SVG format
 - Simple and intuitive API
-- CLI support (coming soon)
+- CLI and Python API
 
 ## Installation
+
 ```bash
 pip install icon-gen
 ```
@@ -69,16 +73,17 @@ Check out the `examples/` directory for more use cases:
 - `generate_judge_icon.py` - Generate legal/law icons
 
 ## Development
+
 ```bash
 # Clone the repository
 git clone https://github.com/yauheniya-ai/icon-gen.git
 cd icon-gen
 
-# Install with development dependencies
-pip install -e ".[dev]"
+# Install all dependencies (including dev tools)
+uv sync
 
 # Run tests
-pytest
+uv run pytest
 ```
 
 ## License
