@@ -1,11 +1,14 @@
 # icon-gen
 
-Generate customizable icons from Iconify with easy export to PNG, SVG, WebP formats.
-
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](https://github.com/yauheniya-ai/icon-gen)
 [![Coverage](https://img.shields.io/badge/coverage-48%25-yellow.svg)](https://github.com/yauheniya-ai/icon-gen)
+[![PyPI version](https://img.shields.io/pypi/v/icon-gen-ai?color=blue&label=PyPI)](https://pypi.org/project/icon-gen-ai/)
+[![TestPyPI version](https://img.shields.io/pypi/v/icon-gen-ai?color=orange&label=TestPyPI)](https://test.pypi.org/project/icon-gen-ai/)
+[![GitHub last commit](https://img.shields.io/github/last-commit/yauheniya-ai/icon-gen)](https://github.com/yauheniya-ai/icon-gen/commits/main)
+
+Generate customizable icons from Iconify with easy export to PNG, SVG, WebP formats.
 
 ## Features
 
@@ -41,7 +44,6 @@ ai_icons = {
 }
 
 generator.generate_batch(ai_icons, color='white', size=256)
-
 ```
 
 ## Example Output

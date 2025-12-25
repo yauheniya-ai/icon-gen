@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "icon-gen"
-version = "0.1.0"
+name = "icon-gen-ai"  # <-- changed to unique name
+version = "0.1.4"
 description = "Generate customizable icons from Iconify with easy export to PNG, SVG, WebP"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -28,7 +28,7 @@ dependencies = [
     "requests>=2.31.0",
     "pillow>=10.0.0",
     "cairosvg>=2.7.0", # For SVG to PNG conversion
-    "click>=8.1.0", # For CLI
+    "click>=8.1.0",    # For CLI
 ]
 
 [project.urls]
@@ -38,10 +38,13 @@ Repository = "https://github.com/yauheniya-ai/icon-gen"
 "Bug Tracker" = "https://github.com/yauheniya-ai/icon-gen/issues"
 
 [project.scripts]
-icon-gen = "icon_gen.cli:main"
+icon-gen-ai = "icon_gen.cli:main"  # <-- update CLI entry to match new name
+
+[tool.hatch.build]
+sources = ["src"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/icon_gen"]
+packages = ["icon_gen"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
