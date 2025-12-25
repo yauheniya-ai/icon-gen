@@ -49,7 +49,7 @@ generator.generate_batch(ai_icons, color='white', size=256)
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
   <img src="./output/mistral_white_gradient_bg.svg" width="70" alt="Mistral">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="./output/openai_purple_transparent_bg.svg" width="70" alt="OpenAI">
+  <img src="./output/openai_gradient_transparent_bg.svg" width="70" alt="OpenAI">
 </div>
 
 ## Finding Icons

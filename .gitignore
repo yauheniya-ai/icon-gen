@@ -3,7 +3,7 @@ output/*
 !output/claude_white_purple_bg.svg
 !output/gemini_white_pink_bg.svg
 !output/mistral_white_gradient_bg.svg
-!output/openai_purple_transparent_bg.svg
+!output/openai_gradient_transparent_bg.svg
 input/*
 !input/.gitkeep
 

@@ -41,9 +41,9 @@ def main():
             'size': 256
         },
         
-        'openai_purple_transparent_bg': {
+        'openai_gradient_transparent_bg': {
             'icon': 'simple-icons:openai',
-            'color': '#8B76E9',  # Gradient icon
+            'color': ('#8B76E9', '#EA2081'),  # Gradient icon
             'bg_color': None,  # Transparent background
             'size': 256
         }
