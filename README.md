@@ -12,13 +12,13 @@ Generate customizable icons from Iconify, direct URLs, or local files with easy 
 
 ## Features
 
-- Access 200,000+ icons from Iconify
-- Customize colors, sizes, and backgrounds
-- Gradient color option for icons and backgrounds
-- Adjustable border radius
-- Export to SVG, PNG, or WEBP format
-- Simple and intuitive CLI and Python API
 - AI-assisted icon search and generation
+- Simple and intuitive CLI and Python API
+- Access 200,000+ icons from Iconify
+- Unlimited icons from direct URLs or local files
+- Customize colors, sizes, and backgrounds and adjust border radius
+- Gradient color option for icons and backgrounds
+- Export to SVG, PNG, or WEBP format
 
 ## Installation
 
