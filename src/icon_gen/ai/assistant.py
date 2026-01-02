@@ -215,7 +215,8 @@ class IconAssistant:
         enhanced_query = get_enhanced_prompt(query, context)
         
         # Query LLM
-        print(f"Querying {self.provider.get_provider_name()}...")
+        print(f"Querying Iconify using {self.provider.get_provider_name()} (model: {self.provider.model})...")
+
         response = self.provider.query(
             user_prompt=enhanced_query,
             system_prompt=ICON_DISCOVERY_SYSTEM_PROMPT,

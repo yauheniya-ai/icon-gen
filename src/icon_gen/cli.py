@@ -26,7 +26,7 @@ def cli():
 @click.argument('icon_name', required=False)
 @click.option('--input', '-i', 'input_file', type=str,
               help='Local image file or direct URL (PNG, JPG, SVG)')
-@click.option('--color', default='white', help='Icon color (e.g., white, #FF0000, or gradient: "(#FF0000,#00FF00)")')
+@click.option('--color', default=None, help='Icon color (e.g., white, #FF0000, or gradient: "(#FF0000,#00FF00)"). Leave empty to preserve original colors.')
 @click.option('--size', default=256, help='Icon size in pixels')
 @click.option('--format', 'output_format', default='svg', 
               type=click.Choice(['png', 'svg', 'webp']))
@@ -50,6 +50,9 @@ def generate(icon_name, input_file, color, size, output_format, output, bg_color
         # From local file:
         icon-gen-ai generate -i input/deepseek-icon.png -o output/deepseek-icon.svg \
   --color white --bg-color '(#8B76E9,#EA2081)' --border-radius 10 --size 128
+        
+        # Preserve original colors:
+        icon-gen-ai generate -i input/pypi-icon.svg --bg-color '(tan,cyan)' --size 128 --border-radius 64
         
     """
     # Resolve input source (local file vs direct URL)
@@ -82,6 +85,20 @@ def generate(icon_name, input_file, color, size, output_format, output, bg_color
     output_dir = "output" if not output else str(Path(output).parent)
     generator = IconGenerator(output_dir=output_dir)
     
+    # Parse color (support gradients)
+    parsed_color = None
+    if color:
+        # Check if it's a gradient tuple: (#color1,#color2) or (color1,color2)
+        if color.startswith('(') and color.endswith(')'):
+            colors = color[1:-1].split(',')
+            if len(colors) == 2:
+                parsed_color = (colors[0].strip(), colors[1].strip())
+            else:
+                click.echo("✗ Error: Gradient must have exactly 2 colors: (color1,color2)", err=True)
+                raise click.Abort()
+        else:
+            parsed_color = color
+    
     # Parse background color
     parsed_bg_color = None
     if bg_color and bg_color.lower() != 'none':
@@ -104,17 +121,26 @@ def generate(icon_name, input_file, color, size, output_format, output, bg_color
             output_name = Path(urlparse(input_file).path).stem or "icon"
         else:
             output_name = Path(input_file).stem
-
     else:
         output_name = icon_name.replace(':', '_').replace('/', '_')
     
     # Display generation info
     if input_file:
-        click.echo(f"Converting local file: {input_file}")
+        if is_url(input_file):
+            click.echo(f"Converting from URL: {input_file}")
+        else:
+            click.echo(f"Converting local file: {input_file}")
     else:
         click.echo(f"Generating {icon_name}...")
     
-    click.echo(f"  Color: {color}")
+    # Display color info
+    if parsed_color is None:
+        click.echo(f"  Color: original")
+    elif isinstance(parsed_color, tuple):
+        click.echo(f"  Color: gradient {parsed_color[0]} → {parsed_color[1]}")
+    else:
+        click.echo(f"  Color: {parsed_color}")
+    
     click.echo(f"  Size: {size}px")
     
     # Display background info
@@ -129,7 +155,7 @@ def generate(icon_name, input_file, color, size, output_format, output, bg_color
     result = generator.generate_icon(
         icon_name=icon_name,
         output_name=output_name,
-        color=color,
+        color=parsed_color,
         size=size,
         format=output_format,
         bg_color=parsed_bg_color,

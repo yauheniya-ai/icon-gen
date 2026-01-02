@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>icon-gen-ai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 1rem;
+      color: #eaeaea;
+      background: #0f0f12;
+    }
+    h1 { font-size: 2.2rem; }
+    .demo {
+      margin: 2rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,.4);
+    }
+    code {
+      background: #1e1e24;
+      padding: 0.2rem 0.4rem;
+      border-radius: 6px;
+    }
+    a { color: #8b76e9; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<h1>icon-gen-ai</h1>
+<p>
+  AI-powered icon generator from Iconify, direct URLs, or local files.
+</p>
+
+<div class="demo">
+  <object type="image/svg+xml" data="demo.svg"></object>
+</div>
+
+<h2>Install</h2>
+<pre><code>pip install icon-gen-ai</code></pre>
+
+<h2>Try it</h2>
+<pre><code>
+pip install icon-gen-ai
+
+icon-gen-ai generate -i input/pypi-icon.svg -o output/pypi-icon.svg --bg-color '(tan,cyan)' --size 128 --border-radius 64 
+
+pip install icon-gen-ai[ai]
+
+export OPENAI_API_KEY=sk-proj-...
+
+icon-gen-ai providers
+
+icon-gen-ai search "GitHub logo and icons"
+
+icon-gen-ai generate simple-icons:github -o output/github-icon.svg --bg-color '(#8B76E9,#EA2081)' --color black --size 128 --border-radius 64
+</code></pre>
+
+<p style="margin-top: 32px;">
+  <a href="https://github.com/yauheniya-ai/icon-gen-ai">
+    <img src="github-icon.svg" alt="GitHub" width="32" height="32" style="margin-right: 16px;">
+  </a> 
+  <a href="https://pypi.org/project/icon-gen-ai/">
+    <img src="pypi-icon.svg" alt="PyPI" width="32" height="32">
+  </a>
+</p>
+
+
+
+</body>
+</html>
