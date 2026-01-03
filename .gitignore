@@ -4,10 +4,10 @@ output/*
 !output/gemini_white_pink_bg.svg
 !output/mistral_white_gradient_bg.svg
 !output/openai_gradient_transparent_bg.svg
-!output/grok_pink.svg
-!output/deepseek_pink.svg
-!output/nemotron_pink.svg
-!output/llama_pink.svg
+!output/grok_blue.svg
+!output/deepseek_blue.svg
+!output/nemotron_blue.svg
+!output/llama_blue.svg
 input/*
 !input/.gitkeep
 test_output/*

@@ -15,20 +15,20 @@ def main():
     
     # Define the AI model icons we want
     ai_icons = {
-        'llama_pink': 'simple-icons:meta',
-        'deepseek_pink': {
+        'llama_blue': 'simple-icons:meta',
+        'deepseek_blue': {
             'local_file': 'input/deepseek-icon.png'
         },
-        'nemotron_pink': {
+        'nemotron_blue': {
             'url': 'https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
         },
-        'grok_pink': {
+        'grok_blue': {
             'url': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/grok.svg'
         }
     }
     
     # Configuration
-    color = '#EA2081'  # Pink/magenta color
+    color = '#52bcff'  # Blue color
     size = 256
     
     print("=" * 60)

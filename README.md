@@ -100,13 +100,13 @@ generator.generate_icon(
 ### Generate Multiple Icons (Batch)
 
 <div align="center" style="padding: 40px; ">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/llama_pink.svg" width="70" alt="Llama">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/llama_blue.svg" width="70" alt="Llama">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/deepseek_pink.svg" width="70" alt="DeepSeek">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/deepseek_blue.svg" width="70" alt="DeepSeek">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/nemotron_pink.svg" width="70" alt="Nemotron">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/nemotron_blue.svg" width="70" alt="Nemotron">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/grok_pink.svg" width="70" alt="Grok">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/grok_blue.svg" width="70" alt="Grok">
 </div>
 
 ```python
@@ -116,14 +116,14 @@ generator = IconGenerator(output_dir="output")
 
 # Generate multiple icons at once
 ai_icons = {
-    'llama_pink': 'simple-icons:meta',
-    'deepseek_pink': {
+    'llama_blue': 'simple-icons:meta',
+    'deepseek_blue': {
         'local_file': 'input/deepseek-icon.png'
     },
-    'nemotron_pink': {
+    'nemotron_blue': {
         'url': 'https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
     },
-    'grok_pink': {
+    'grok_blue': {
         'url': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/grok.svg'
     }
 }
