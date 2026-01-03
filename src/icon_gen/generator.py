@@ -174,15 +174,15 @@ class IconGenerator:
         outline_width: int = 0,
         outline_color: Optional[str] = None,
     ) -> str:
-        """Wrap SVG icon with a background and optional outline."""
+        """Wrap SVG icon with a background and optional outline (correct stroke rendering)."""
         try:
             root = ET.fromstring(svg_content)
             vb = root.get("viewBox", "0 0 24 24").split()
             vb_x, vb_y, vb_w, vb_h = map(float, vb)
-            icon_elements = ''.join(
+            icon_elements = "".join(
                 ET.tostring(child, encoding="unicode") for child in root
             )
-        except:
+        except Exception:
             vb_w = vb_h = 24
             icon_elements = svg_content
 
@@ -190,27 +190,49 @@ class IconGenerator:
         if bg_color is None:
             bg_fill = "none"
         elif isinstance(bg_color, tuple):
-            gradient_def = self.create_gradient_def("bgGradient", bg_color[0], bg_color[1])
+            gradient_def = self.create_gradient_def(
+                "bgGradient", bg_color[0], bg_color[1]
+            )
             bg_fill = "url(#bgGradient)"
         else:
             bg_fill = bg_color
 
+        # --- Stroke-safe geometry ---
+        half_stroke = outline_width / 2 if outline_width > 0 else 0
+        rect_size = size - outline_width
+        rect_radius = max(0, border_radius - half_stroke)
+
+        outline_attrs = ""
+        if outline_width > 0 and outline_color:
+            outline_attrs = (
+                f' stroke="{outline_color}" '
+                f'stroke-width="{outline_width}"'
+            )
+
+        # Icon transform
         scale = size / max(vb_w, vb_h) * 0.7
         tx = size / 2
         ty = size / 2
 
-        # Build outline attributes
-        outline_attrs = ""
-        if outline_width > 0 and outline_color:
-            outline_attrs = f' stroke="{outline_color}" stroke-width="{outline_width}"'
+        return f"""<svg xmlns="http://www.w3.org/2000/svg"
+        width="{size}" height="{size}"
+        viewBox="0 0 {size} {size}">
+    {gradient_def}
+    <rect
+        x="{half_stroke}"
+        y="{half_stroke}"
+        width="{rect_size}"
+        height="{rect_size}"
+        rx="{rect_radius}"
+        ry="{rect_radius}"
+        fill="{bg_fill}"
+        {outline_attrs}
+    />
+    <g transform="translate({tx},{ty}) scale({scale}) translate({-vb_w/2},{-vb_h/2})">
+    {icon_elements}
+    </g>
+    </svg>"""
 
-        return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">
-{gradient_def}
-  <rect width="{size}" height="{size}" rx="{border_radius}" ry="{border_radius}" fill="{bg_fill}"{outline_attrs} />
-  <g transform="translate({tx},{ty}) scale({scale}) translate({-vb_w/2},{-vb_h/2})">
-{icon_elements}
-  </g>
-</svg>"""
 
     # -------------------- MODIFY SVG --------------------
     def modify_svg(

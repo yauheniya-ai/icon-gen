@@ -43,7 +43,7 @@ def main():
     print()
     
     # Generate all icons with specified color and size
-    generated = generator.generate_batch(ai_icons, color=color, size=size, outline_color=color, outline_width=7, border_radius=25)
+    generated = generator.generate_batch(ai_icons, color=color, size=size, outline_color=color, outline_width=8, border_radius=48)
     
     # Summary
     print("\n" + "=" * 60)

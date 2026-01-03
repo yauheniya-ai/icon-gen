@@ -56,7 +56,7 @@ def main():
         output_name='mistral_white_gradient_bg',
         color='white',
         bg_color=('mediumslateblue', 'deeppink'),  # Gradient
-        border_radius=40,  # Rounded corners
+        border_radius=48,  # Rounded corners
         size=256
     )
     if result:
