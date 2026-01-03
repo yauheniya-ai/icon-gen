@@ -128,7 +128,7 @@ ai_icons = {
     }
 }
 
-generator.generate_batch(ai_icons, color='#EA2081', size=256)
+generator.generate_batch(ai_icons, color='#52bcff', size=256)
 ```
 
 ## Icon Sources
