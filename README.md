@@ -10,6 +10,10 @@
 
 Generate customizable icons from Iconify, direct URLs, or local files with easy export to PNG, SVG, WebP formats.
 
+<div align="center" style="padding: 40px; ">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/docs/demo.svg" width="700" alt="CLI Demo">
+</div>
+
 ## Features
 
 - AI-assisted icon search and generation
@@ -53,7 +57,7 @@ generator.generate_batch(ai_icons, color='white', size=256)
 
 ## Example Output
 
-<div align="center" style="padding: 40px; border-radius: 10px;">
+<div align="center" style="padding: 40px; ">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/claude_white_purple_bg.svg" width="70" alt="Claude">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/gemini_white_pink_bg.svg" width="70" alt="Gemini">
