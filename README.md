@@ -151,17 +151,17 @@ icon-gen-ai search "payment icons for checkout" --generate
 ```
 
 ### 2. Direct URL
-Any public image URL (SVG, PNG, JPG):
+Any public image URL (SVG, PNG):
 ```python
 direct_url='https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg'
 direct_url='https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
 ```
 
 ### 3. Local File
-PNG (with transparent background) or SVG:
+SVG or PNG (with transparent background):
 ```python
-local_file='input/my-icon.png'
 local_file='input/my-icon.svg'
+local_file='input/my-icon.png'
 ```
 
 ## Examples
