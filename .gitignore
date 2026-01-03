@@ -1,13 +1,13 @@
 notes/
 output/*
-!output/claude_white_purple_bg.svg
-!output/gemini_white_pink_bg.svg
+!output/claude_white_mediumslateblue_bg.svg
+!output/gemini_white_deeppink_bg.svg
 !output/mistral_white_gradient_bg.svg
 !output/openai_gradient_transparent_bg.svg
-!output/grok_blue.svg
-!output/deepseek_blue.svg
-!output/nemotron_blue.svg
-!output/llama_blue.svg
+!output/grok_deepskyblue.svg
+!output/deepseek_deepskyblue.svg
+!output/nemotron_deepskyblue.svg
+!output/llama_deepskyblue.svg
 input/*
 !input/.gitkeep
 test_output/*
@@ -55,13 +55,3 @@ htmlcov/
 # UV
 .uv/
 ```
-
-### 5. **Create a LICENSE file**
-
-For MIT License (most permissive):
-```
-MIT License
-
-Copyright (c) 2024 Your Name
-
-Permission is hereby granted, free of charge, to any person obtaining a copy...

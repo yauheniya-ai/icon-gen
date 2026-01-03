@@ -43,9 +43,9 @@ pip install icon-gen-ai[ai]
 ### Generate Single Icons
 
 <div align="center" style="padding: 40px; ">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/claude_white_purple_bg.svg" width="70" alt="Claude">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/claude_white_mediumslateblue_bg.svg" width="70" alt="Claude">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/gemini_white_pink_bg.svg" width="70" alt="Gemini">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/gemini_white_deeppink_bg.svg" width="70" alt="Gemini">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/mistral_white_gradient_bg.svg" width="70" alt="Mistral">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
@@ -57,41 +57,41 @@ from icon_gen import IconGenerator
 
 generator = IconGenerator(output_dir="output")
 
-# From URL (white icon, purple background)
+# From URL
 generator.generate_icon(
     direct_url='https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg',
-    output_name='claude_white_purple_bg',
+    output_name='claude_white_mediumslateblue_bg',
     color='white',
-    bg_color='#8B76E9',
+    bg_color='mediumslateblue',
     border_radius=0,
     size=256
 )
 
-# From Iconify (white icon, pink background, circle)
+# From Iconify
 generator.generate_icon(
     icon_name='simple-icons:googlegemini',
-    output_name='gemini_white_pink_bg',
+    output_name='gemini_white_deeppink_bg',
     color='white',
-    bg_color='#EA2081',
+    bg_color='deeppink',
     border_radius=128,  # Circle (half of size)
     size=256
 )
 
-# From Iconify (white icon, gradient background, rounded)
+# From Iconify 
 generator.generate_icon(
     icon_name='simple-icons:mistralai',
     output_name='mistral_white_gradient_bg',
     color='white',
-    bg_color=('#8B76E9', '#EA2081'),  # Gradient
+    bg_color=('mediumslateblue', 'deeppink'),  # Gradient
     border_radius=40,
     size=256
 )
 
-# From Iconify (gradient icon, transparent background)
+# From Iconify 
 generator.generate_icon(
     icon_name='simple-icons:openai',
     output_name='openai_gradient_transparent_bg',
-    color=('#8B76E9', '#EA2081'),  # Gradient icon
+    color=('mediumslateblue', 'deeppink'),  # Gradient icon
     bg_color=None,
     size=256
 )
@@ -100,13 +100,13 @@ generator.generate_icon(
 ### Generate Multiple Icons (Batch)
 
 <div align="center" style="padding: 40px; ">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/llama_blue.svg" width="70" alt="Llama">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/llama_deepskyblue.svg" width="70" alt="Llama">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/deepseek_blue.svg" width="70" alt="DeepSeek">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/deepseek_deepskyblue.svg" width="70" alt="DeepSeek">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/nemotron_blue.svg" width="70" alt="Nemotron">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/nemotron_deepskyblue.svg" width="70" alt="Nemotron">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/grok_blue.svg" width="70" alt="Grok">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/grok_deepskyblue.svg" width="70" alt="Grok">
 </div>
 
 ```python
@@ -116,19 +116,19 @@ generator = IconGenerator(output_dir="output")
 
 # Generate multiple icons at once
 ai_icons = {
-    'llama_blue': 'simple-icons:meta',
-    'deepseek_blue': {
+    'llama_deepskyblue': 'simple-icons:meta',
+    'deepseek_deepskyblue': {
         'local_file': 'input/deepseek-icon.png'
     },
-    'nemotron_blue': {
+    'nemotron_deepskyblue': {
         'url': 'https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
     },
-    'grok_blue': {
+    'grok_deepskyblue': {
         'url': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/grok.svg'
     }
 }
 
-generator.generate_batch(ai_icons, color='#52bcff', size=256)
+generator.generate_batch(ai_icons, color='deepskyblue', size=256, outline_color='deepskyblue', outline_width=7, border_radius=25)
 ```
 
 ## Icon Sources
@@ -153,7 +153,7 @@ icon-gen-ai search "payment icons for checkout" --generate
 ```
 
 ### 2. Direct URL
-Any public image URL (SVG, PNG):
+Any public image URL (SVG, PNG with transparent background):
 ```python
 direct_url='https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg'
 direct_url='https://companieslogo.com/img/orig/NVDA-df4c2377.svg'

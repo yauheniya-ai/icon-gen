@@ -3,12 +3,12 @@
 import requests
 import re
 from pathlib import Path
-from typing import Optional, Literal, Union
+from typing import Optional, Literal, Union, Tuple
 from xml.etree import ElementTree as ET
 from io import BytesIO
 
 try:
-    from PIL import Image
+    from PIL import Image, ImageColor
     import cairosvg
     RASTER_AVAILABLE = True
 except ImportError:
@@ -16,6 +16,15 @@ except ImportError:
     print("Warning: PIL/cairosvg not available. Gradient icons may not work properly.")
 
 FormatType = Literal["svg", "png", "webp"]
+
+
+def parse_color(color: str) -> Tuple[int, int, int]:
+    """Parse color string to RGB tuple (supports hex and CSS3 named colors)."""
+    try:
+        rgb = ImageColor.getrgb(color)
+        return rgb[:3] if len(rgb) >= 3 else rgb
+    except:
+        return (255, 255, 255)  # Default to white
 
 
 class IconGenerator:
@@ -62,8 +71,10 @@ class IconGenerator:
             )
             img = Image.open(BytesIO(png_data)).convert("RGBA")
             width, height = img.size
-            left_rgb = tuple(int(color1.lstrip('#')[i:i+2], 16) for i in (0, 2, 4))
-            right_rgb = tuple(int(color2.lstrip('#')[i:i+2], 16) for i in (0, 2, 4))
+            
+            left_rgb = parse_color(color1)
+            right_rgb = parse_color(color2)
+            
             pixels = list(img.getdata())
             new_data = []
             for y in range(height):
@@ -115,21 +126,7 @@ class IconGenerator:
             return svg_content
         
         try:
-            # Parse target color
-            if target_color.startswith('#'):
-                target_rgb = tuple(int(target_color.lstrip('#')[i:i+2], 16) for i in (0, 2, 4))
-            else:
-                color_map = {
-                    'red': (255,0,0), 'green': (0,255,0), 'blue': (0,0,255),
-                    'yellow': (255,255,0), 'cyan': (0,255,255), 'magenta': (255,0,255),
-                    'white': (255,255,255), 'black': (0,0,0),
-                    'gray': (128,128,128), 'grey': (128,128,128),
-                    'orange': (255,165,0), 'purple': (128,0,128), 'pink': (255,192,203),
-                    'brown': (165,42,42), 'lime': (0,255,0), 'navy': (0,0,128),
-                    'teal': (0,128,128), 'olive': (128,128,0), 'maroon': (128,0,0),
-                    'crimson': (220,20,60), 'indigo': (75,0,130), 'violet': (238,130,238),
-                }
-                target_rgb = color_map.get(target_color.lower(), (255,255,255))
+            target_rgb = parse_color(target_color)
             
             # Convert SVG to PNG
             png_data = cairosvg.svg2png(
@@ -174,8 +171,10 @@ class IconGenerator:
         size: int,
         bg_color: Optional[Union[str, tuple[str, str]]] = None,
         border_radius: int = 0,
+        outline_width: int = 0,
+        outline_color: Optional[str] = None,
     ) -> str:
-        """Wrap SVG icon with a background."""
+        """Wrap SVG icon with a background and optional outline."""
         try:
             root = ET.fromstring(svg_content)
             vb = root.get("viewBox", "0 0 24 24").split()
@@ -200,9 +199,14 @@ class IconGenerator:
         tx = size / 2
         ty = size / 2
 
+        # Build outline attributes
+        outline_attrs = ""
+        if outline_width > 0 and outline_color:
+            outline_attrs = f' stroke="{outline_color}" stroke-width="{outline_width}"'
+
         return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">
 {gradient_def}
-  <rect width="{size}" height="{size}" rx="{border_radius}" ry="{border_radius}" fill="{bg_fill}" />
+  <rect width="{size}" height="{size}" rx="{border_radius}" ry="{border_radius}" fill="{bg_fill}"{outline_attrs} />
   <g transform="translate({tx},{ty}) scale({scale}) translate({-vb_w/2},{-vb_h/2})">
 {icon_elements}
   </g>
@@ -291,21 +295,7 @@ class IconGenerator:
             
             # Apply color transformation if requested
             if target_color:
-                # Parse target color
-                if target_color.startswith('#'):
-                    target_rgb = tuple(int(target_color.lstrip('#')[i:i+2], 16) for i in (0, 2, 4))
-                else:
-                    color_map = {
-                        'red': (255,0,0), 'green': (0,255,0), 'blue': (0,0,255),
-                        'yellow': (255,255,0), 'cyan': (0,255,255), 'magenta': (255,0,255),
-                        'white': (255,255,255), 'black': (0,0,0),
-                        'gray': (128,128,128), 'grey': (128,128,128),
-                        'orange': (255,165,0), 'purple': (128,0,128), 'pink': (255,192,203),
-                        'brown': (165,42,42), 'lime': (0,255,0), 'navy': (0,0,128),
-                        'teal': (0,128,128), 'olive': (128,128,0), 'maroon': (128,0,0),
-                        'crimson': (220,20,60), 'indigo': (75,0,130), 'violet': (238,130,238),
-                    }
-                    target_rgb = color_map.get(target_color.lower(), (255,255,255))
+                target_rgb = parse_color(target_color)
                 
                 # Recolor non-transparent pixels
                 pixels = list(img.getdata())
@@ -365,32 +355,36 @@ class IconGenerator:
         self,
         icon_name: Optional[str] = None,
         output_name: Optional[str] = None,
-        color: Optional[Union[str, tuple[str,str]]] = None,
+        color: Optional[Union[str, tuple[str, str]]] = None,
         size: Optional[int] = None,
         format: FormatType = "svg",
         direct_url: Optional[str] = None,
-        bg_color: Optional[Union[str, tuple[str,str]]] = None,
+        bg_color: Optional[Union[str, tuple[str, str]]] = None,
         border_radius: int = 0,
         local_file: Optional[str] = None,
+        outline_width: int = 0,
+        outline_color: Optional[str] = None,
     ) -> Optional[Path]:
         size = size or 256
         is_raster_source = False
 
         if local_file:
-            # Pass size to load_local_file for proper resizing of raster images
             result = self.load_local_file(
-                local_file, 
+                local_file,
                 color if color and not isinstance(color, tuple) else None,
-                size
+                size,
             )
             if result is None:
                 return None
             svg_content, is_raster_source = result
+
         elif direct_url:
             svg_content = self.get_icon_from_url(direct_url)
+
         elif icon_name:
             fetch_color = "black" if isinstance(color, tuple) else (color or "currentColor")
             svg_content = self.get_icon_svg(icon_name, fetch_color)
+
         else:
             print("Error: Must provide icon_name, direct_url, or local_file")
             return None
@@ -398,55 +392,80 @@ class IconGenerator:
         if not svg_content:
             return None
 
-        # Apply color and size modifications
-        # For raster sources, color and size are already applied during load
+        # Apply color + size only for vector sources
         if not is_raster_source:
             svg_content = self.modify_svg(svg_content, color, size)
 
-        if bg_color is not None or border_radius > 0:
-            svg_content = self.wrap_with_background(svg_content, size, bg_color, border_radius)
+        # Background / outline wrapper
+        if bg_color is not None or border_radius > 0 or outline_width > 0:
+            svg_content = self.wrap_with_background(
+                svg_content,
+                size,
+                bg_color,
+                border_radius,
+                outline_width,
+                outline_color,
+            )
 
         if output_name is None:
-            output_name = Path(local_file).stem if local_file else icon_name.replace(":", "_").replace("/", "_") if icon_name else "icon"
+            if local_file:
+                output_name = Path(local_file).stem
+            elif icon_name:
+                output_name = icon_name.replace(":", "_").replace("/", "_")
+            else:
+                output_name = "icon"
 
         output_path = self.output_dir / f"{output_name}.svg"
         return output_path if self.save_svg(svg_content, output_path) else None
+
 
     # -------------------- BATCH --------------------
     def generate_batch(
         self,
         icons: dict[str, str | dict],
-        color: Optional[Union[str, tuple[str,str]]] = None,
+        color: Optional[Union[str, tuple[str, str]]] = None,
         size: Optional[int] = None,
-        bg_color: Optional[Union[str, tuple[str,str]]] = None,
+        bg_color: Optional[Union[str, tuple[str, str]]] = None,
         border_radius: int = 0,
+        outline_width: int = 0,
+        outline_color: Optional[str] = None,
     ) -> list[Path]:
-        results = []
+        results: list[Path] = []
+
         for output_name, icon_config in icons.items():
             print(f"\nGenerating {output_name}...")
+
             if isinstance(icon_config, str):
                 path = self.generate_icon(
-                    icon_config,
-                    output_name,
-                    color,
-                    size,
+                    icon_name=icon_config,
+                    output_name=output_name,
+                    color=color,
+                    size=size,
                     bg_color=bg_color,
                     border_radius=border_radius,
+                    outline_width=outline_width,
+                    outline_color=outline_color,
                 )
+
             elif isinstance(icon_config, dict):
                 path = self.generate_icon(
-                    icon_config.get("icon"),
-                    output_name,
-                    icon_config.get("color", color),
-                    icon_config.get("size", size),
+                    icon_name=icon_config.get("icon"),
+                    output_name=output_name,
+                    color=icon_config.get("color", color),
+                    size=icon_config.get("size", size),
                     direct_url=icon_config.get("url"),
+                    local_file=icon_config.get("local_file"),
                     bg_color=icon_config.get("bg_color", bg_color),
                     border_radius=icon_config.get("border_radius", border_radius),
-                    local_file=icon_config.get("local_file"),
+                    outline_width=icon_config.get("outline_width", outline_width),
+                    outline_color=icon_config.get("outline_color", outline_color),
                 )
+
             else:
                 print(f"Invalid config for {output_name}")
                 continue
+
             if path:
                 results.append(path)
+
         return results

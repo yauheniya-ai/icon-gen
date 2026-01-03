@@ -12,24 +12,26 @@ def main():
     """Generate colored SVG icons for major AI models."""
     # Initialize generator
     generator = IconGenerator(output_dir="output")
-    
+
+    # Configuration
+    color = 'deepskyblue'  # Blue color
+    size = 256
+
     # Define the AI model icons we want
     ai_icons = {
-        'llama_blue': 'simple-icons:meta',
-        'deepseek_blue': {
+        f'llama_{color}': 'simple-icons:meta',
+        f'deepseek_{color}': {
             'local_file': 'input/deepseek-icon.png'
         },
-        'nemotron_blue': {
+        f'nemotron_{color}': {
             'url': 'https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
         },
-        'grok_blue': {
+        f'grok_{color}': {
             'url': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/grok.svg'
         }
     }
     
-    # Configuration
-    color = '#52bcff'  # Blue color
-    size = 256
+
     
     print("=" * 60)
     print("AI Model Icon Generator")
@@ -41,7 +43,7 @@ def main():
     print()
     
     # Generate all icons with specified color and size
-    generated = generator.generate_batch(ai_icons, color=color, size=size)
+    generated = generator.generate_batch(ai_icons, color=color, size=size, outline_color=color, outline_width=7, border_radius=25)
     
     # Summary
     print("\n" + "=" * 60)

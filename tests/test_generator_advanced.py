@@ -14,7 +14,7 @@ def test_gradient_background(tmp_path):
         output_name='test_gradient_bg',
         color='white',
         size=128,
-        bg_color=('#8B76E9', '#EA2081'),
+        bg_color=('mediumslateblue', 'deeppink'),
         border_radius=20
     )
     
@@ -49,7 +49,7 @@ def test_circular_icon(tmp_path):
         output_name='test_circle',
         color='white',
         size=256,
-        bg_color='#6366f1',
+        bg_color='mediumslateblue',
         border_radius=128  # Half of size = circle
     )
     
@@ -123,7 +123,7 @@ def test_apply_gradient_via_raster_without_cairosvg(tmp_path, monkeypatch):
     generator = IconGenerator(output_dir=str(tmp_path))
     svg = '<svg><rect width="100" height="100"/></svg>'
     
-    result = generator.apply_gradient_via_raster(svg, '#FF0000', '#0000FF', 256)
+    result = generator.apply_gradient_via_raster(svg, 'deeppink', 'mediumslateblue', 256)
     # Should return original SVG when raster not available
     assert result == svg
 
@@ -157,7 +157,7 @@ def test_modify_svg_with_gradient(tmp_path):
     generator = IconGenerator(output_dir=str(tmp_path))
     
     svg = '<svg width="24" height="24"><path d="M0 0"/></svg>'
-    modified = generator.modify_svg(svg, color=('#FF0000', '#00FF00'), size=128)
+    modified = generator.modify_svg(svg, color=('deeppink', 'mediumslateblue'), size=128)
     
     assert 'width="128"' in modified
     # May contain gradient if cairosvg available

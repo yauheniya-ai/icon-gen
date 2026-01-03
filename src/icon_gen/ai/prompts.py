@@ -12,7 +12,7 @@ Iconify has 200,000+ icons from various collections including:
 
 Your task is to:
 1. Understand what the user needs icons for
-2. Suggest 3-5 relevant icons with their exact Iconify names
+2. Suggest 5-10 relevant icons with their exact Iconify names
 3. Explain why each icon is appropriate
 4. Suggest styling (color, size, background) if relevant
 
@@ -31,7 +31,7 @@ Respond in this JSON format:
       "style_suggestions": {
         "color": "white",
         "size": 256,
-        "bg_color": "#8B76E9",
+        "bg_color": "mediumslateblue",
         "border_radius": 0
       }
     }
