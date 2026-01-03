@@ -129,24 +129,52 @@ ai_icons = {
 generator.generate_batch(ai_icons, color='#EA2081', size=256)
 ```
 
-## Finding Icons
+## Icon Sources
 
-Browse available icons at [Iconify](https://icon-sets.iconify.design/)
+**Three ways to get icons:**
 
-Icon naming format: `collection:icon-name`
-- `simple-icons:openai` - Company logos
-- `mdi:github` - Material Design Icons
-- `fa6-solid:scale-balanced` - Font Awesome icons
-- `heroicons:scale` - HeroIcons
+### 1. Iconify (200,000+ icons)
+Browse at [Iconify](https://icon-sets.iconify.design/)
+
+**Format:** `collection:icon-name`
+```python
+# Popular collections:
+'simple-icons:openai'           # Company logos
+'mdi:github'                    # Material Design Icons  
+'fa6-solid:scale-balanced'      # Font Awesome
+'heroicons:scale'               # HeroIcons
+```
+
+**AI-powered search** (requires `pip install icon-gen-ai[ai]`):
+```bash
+icon-gen-ai search "payment icons for checkout" --generate
+```
+
+### 2. Direct URL
+Any public image URL (SVG, PNG, JPG):
+```python
+direct_url='https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg'
+direct_url='https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
+```
+
+### 3. Local File
+PNG (with transparent background) or SVG:
+```python
+local_file='input/my-icon.png'
+local_file='input/my-icon.svg'
+```
 
 ## Examples
 
 Check out the `examples/` directory for more use cases:
-- `generate_ai_icons.py` - Generate AI model icons (Claude, OpenAI, Gemini)
-- `generate_ai_icons_on_bg.py` - Generate icons on different backgrounds
-- `generate_judge_icon.py` - Generate legal/law icons
-- `ai_simple_usage.py` - Use natural language to search and generate icons
-- `ai_icon_search.py` - Use natural language to search and generate icons with custom style
+
+**Basic Generation:**
+- `generate_ai_icons_singular.py` - Generate icons one-by-one with custom backgrounds & gradients
+- `generate_ai_icons_batch.py` - Generate multiple AI model icons at once (batch mode)
+
+**AI-Powered Search** (requires `pip install icon-gen-ai[ai]`):
+- `ai_simple_usage.py` - Search and generate icons using natural language
+- `ai_icon_search.py` - Advanced search with custom styles and project context
 
 
 ## Development
