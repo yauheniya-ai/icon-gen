@@ -19,13 +19,13 @@ Generate customizable icons from Iconify, direct URLs, or local files with easy 
 
 ## Features
 
-<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/output/feat_ai.svg" height="12px"> AI-assisted icon search and generation  
-<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/output/feat_python.svg" height="12px"> Simple and intuitive CLI and Python API  
-<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/output/feat_iconify.svg" height="12px"> Access 200,000+ icons from Iconify  
-<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/output/feat_image.svg" height="12px"> Unlimited icons from direct URLs or local files  
-<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/output/feat_customize.svg" height="12px"> Customize colors, sizes, and backgrounds and adjust border radius  
-<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/output/feat_gradient.svg" height="12px"> Gradient color option for icons and backgrounds  
-<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/output/feat_save.svg" height="12px"> Export to SVG, PNG, or WEBP format  
+<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_ai.svg" height="12px"> AI-assisted icon search and generation  
+<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_python.svg" height="12px"> Simple and intuitive CLI and Python API  
+<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_iconify.svg" height="12px"> Access 200,000+ icons from Iconify  
+<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_image.svg" height="12px"> Unlimited icons from direct URLs or local files  
+<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_customize.svg" height="12px"> Customize colors, sizes, and backgrounds and adjust border radius  
+<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_gradient.svg" height="12px"> Gradient color option for icons and backgrounds  
+<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_save.svg" height="12px"> Export to SVG, PNG, or WEBP format  
 
 ## Installation
 
