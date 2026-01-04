@@ -174,7 +174,7 @@ class IconGenerator:
         outline_width: int = 0,
         outline_color: Optional[str] = None,
     ) -> str:
-        """Wrap SVG icon with a background and optional outline (correct stroke rendering)."""
+        """Wrap SVG icon with a background and optional outline."""
         try:
             root = ET.fromstring(svg_content)
             vb = root.get("viewBox", "0 0 24 24").split()
@@ -197,7 +197,7 @@ class IconGenerator:
         else:
             bg_fill = bg_color
 
-        # --- Stroke-safe geometry ---
+        # Stroke-safe geometry
         half_stroke = outline_width / 2 if outline_width > 0 else 0
         rect_size = size - outline_width
         rect_radius = max(0, border_radius - half_stroke)
@@ -214,25 +214,13 @@ class IconGenerator:
         tx = size / 2
         ty = size / 2
 
-        return f"""<svg xmlns="http://www.w3.org/2000/svg"
-        width="{size}" height="{size}"
-        viewBox="0 0 {size} {size}">
-    {gradient_def}
-    <rect
-        x="{half_stroke}"
-        y="{half_stroke}"
-        width="{rect_size}"
-        height="{rect_size}"
-        rx="{rect_radius}"
-        ry="{rect_radius}"
-        fill="{bg_fill}"
-        {outline_attrs}
-    />
-    <g transform="translate({tx},{ty}) scale({scale}) translate({-vb_w/2},{-vb_h/2})">
-    {icon_elements}
-    </g>
-    </svg>"""
-
+        return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">
+{gradient_def}
+  <rect x="{half_stroke}" y="{half_stroke}" width="{rect_size}" height="{rect_size}" rx="{rect_radius}" ry="{rect_radius}" fill="{bg_fill}"{outline_attrs} />
+  <g transform="translate({tx},{ty}) scale({scale}) translate({-vb_w/2},{-vb_h/2})">
+{icon_elements}
+  </g>
+</svg>"""
 
     # -------------------- MODIFY SVG --------------------
     def modify_svg(
@@ -240,12 +228,16 @@ class IconGenerator:
         svg_content: str,
         color: Optional[Union[str, tuple[str, str]]] = None,
         size: Optional[int] = None,
+        preserve_animations: bool = True,
     ) -> str:
         """Modify SVG content to apply color and size.
         
         If color is None, preserves original colors.
-        If color is a tuple, applies gradient.
-        If color is a string, recolors all non-transparent pixels to that color.
+        If color is a tuple, applies gradient (loses animations).
+        If color is a string, attempts to recolor while preserving animations.
+        
+        Args:
+            preserve_animations: If True, tries to preserve <style>, <animate>, etc.
         """
         try:
             # If no color specified, just apply size
@@ -269,11 +261,61 @@ class IconGenerator:
                     print(f"Warning: Could not modify SVG: {e}")
                     return svg_content
             
-            # Handle gradient colors - always use raster method
+            # Handle gradient colors - must use raster method (loses animations)
             if isinstance(color, tuple):
                 return self.apply_gradient_via_raster(svg_content, color[0], color[1], size or 256)
             
-            # For solid colors, use raster method for reliable multi-color recoloring
+            # For solid colors with animation preservation
+            if color and preserve_animations:
+                try:
+                    root = ET.fromstring(svg_content)
+                    
+                    # Ensure viewBox exists
+                    if not root.get("viewBox"):
+                        w = re.sub(r"[^\d.]", "", root.get("width", "24"))
+                        h = re.sub(r"[^\d.]", "", root.get("height", "24"))
+                        root.set("viewBox", f"0 0 {w} {h}")
+
+                    # Apply size
+                    if size:
+                        root.set("width", str(size))
+                        root.set("height", str(size))
+
+                    # Apply color to fill/stroke attributes (preserves animations)
+                    def apply_color_preserve_animation(el):
+                        tag = el.tag.split('}')[-1] if '}' in el.tag else el.tag
+                        
+                        # Skip animation elements
+                        if tag in ('animate', 'animateTransform', 'animateMotion', 'set', 'style'):
+                            return
+                        
+                        visual_tags = {
+                            'path', 'circle', 'rect', 'polygon', 'ellipse',
+                            'polyline', 'line', 'text', 'g'
+                        }
+                        
+                        if tag in visual_tags:
+                            current_fill = el.get('fill', '')
+                            if current_fill and current_fill.lower() not in ('none', 'transparent', 'currentcolor'):
+                                el.set('fill', color)
+                            elif not current_fill and tag != 'g':
+                                el.set('fill', color)
+                            
+                            if el.get('stroke') and el.get('stroke').lower() not in ('none', 'transparent'):
+                                el.set('stroke', color)
+                        
+                        for child in el:
+                            apply_color_preserve_animation(child)
+                    
+                    apply_color_preserve_animation(root)
+                    return ET.tostring(root, encoding="unicode")
+                    
+                except Exception as e:
+                    print(f"Warning: Could not apply color with animation preservation: {e}")
+                    # Fall back to raster method if XML manipulation fails
+                    return self.recolor_svg_to_single_color(svg_content, color, size or 256)
+            
+            # For solid colors without animation preservation (multi-color recoloring)
             if color:
                 return self.recolor_svg_to_single_color(svg_content, color, size or 256)
         
@@ -416,7 +458,7 @@ class IconGenerator:
 
         # Apply color + size only for vector sources
         if not is_raster_source:
-            svg_content = self.modify_svg(svg_content, color, size)
+            svg_content = self.modify_svg(svg_content, color, size, preserve_animations=True)
 
         # Background / outline wrapper
         if bg_color is not None or border_radius > 0 or outline_width > 0:
@@ -440,7 +482,6 @@ class IconGenerator:
         output_path = self.output_dir / f"{output_name}.svg"
         return output_path if self.save_svg(svg_content, output_path) else None
 
-
     # -------------------- BATCH --------------------
     def generate_batch(
         self,
@@ -452,6 +493,7 @@ class IconGenerator:
         outline_width: int = 0,
         outline_color: Optional[str] = None,
     ) -> list[Path]:
+        """Generate multiple icons at once."""
         results: list[Path] = []
 
         for output_name, icon_config in icons.items():

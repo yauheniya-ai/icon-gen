@@ -83,7 +83,7 @@ generator.generate_icon(
     output_name='mistral_white_gradient_bg',
     color='white',
     bg_color=('mediumslateblue', 'deeppink'),  # Gradient
-    border_radius=40,
+    border_radius=48,
     size=256
 )
 
@@ -128,8 +128,50 @@ ai_icons = {
     }
 }
 
-generator.generate_batch(ai_icons, color='deepskyblue', size=256, outline_color='deepskyblue', outline_width=7, border_radius=25)
+generator.generate_batch(ai_icons, color='deepskyblue', size=256, outline_color='deepskyblue', outline_width=8, border_radius=48)
 ```
+
+### Animation Support
+
+When you apply a solid color to an animated SVG icon, the animations are automatically preserved:
+
+<div align="center" style="padding: 40px; ">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/bars_scale_middle_mediumslateblue.svg" width="70" alt="bars scale middle">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/my_location_loop_mediumslateblue.svg" width="70" alt="my location loop">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/speedometer_loop_mediumslateblue.svg" width="70" alt="speedometer loop">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/upload_outline_loop_mediumslateblue.svg" width="70" alt="upload outline loop">
+</div>
+
+
+```python
+from icon_gen import IconGenerator
+
+generator = IconGenerator(output_dir="output")
+
+color = 'mediumslateblue' 
+
+animated_icons = {
+    f'speedometer_loop_{color}': 'line-md:speedometer-loop',
+    f'upload_outline_loop_{color}': 'line-md:upload-outline-loop',
+    f'my_location_loop_{color}': 'line-md:my-location-loop',
+    f'bars_scale_middle_{color}': 'svg-spinners:bars-scale-middle'
+}
+
+generator.generate_batch(ai_icons, color=color, size=256, outline_color='deeppink', bg_color='snow', outline_width=8, border_radius=48)
+```
+
+**What preserves animations:**
+- Solid colors
+- No color specified (original colors)
+- Backgrounds and outlines
+
+**What removes animations:**
+- Gradient colors on the icon itself: `color=('deeppink', 'mediumslateblue')`
+
+**Note:** Background gradients don't affect icon animations - only icon color gradients do.
 
 ## Icon Sources
 
