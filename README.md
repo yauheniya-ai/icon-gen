@@ -182,10 +182,10 @@ Browse at [Iconify](https://icon-sets.iconify.design/)
 
 ```python
 # Format: collection:icon-name
-'simple-icons:openai'           # Simple Iconsby Simple Icons Collaborators (License: CC0 1.0)  
-'mdi:github'                    # Material Design Iconsby Pictogrammers (License: Apache 2.0)  
-'devicon:fastapi'               # Deviconby konpa (License: MIT)  
-'gis:drone'                     # Font-GISby Jean-Marc Viglino (License: CC BY 4.0)  
+'simple-icons:openai'           # Simple Icons by Simple Icons Collaborators (License: CC0 1.0)  
+'mdi:github'                    # Material Design Icons by Pictogrammers (License: Apache 2.0)  
+'devicon:fastapi'               # Devicon by konpa (License: MIT)  
+'gis:drone'                     # Font-GIS by Jean-Marc Viglino (License: CC BY 4.0)  
 ```
 
 **AI-powered search** (requires `pip install icon-gen-ai[ai]`):
