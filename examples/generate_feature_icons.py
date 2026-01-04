@@ -16,7 +16,7 @@ def main():
     color = 'white' 
     size = 24
     border_radius = 12
-    bg_color = ('gold','royalblue')
+    bg_color = 'navy'
     category = 'feat'
 
     feature_icons = {
