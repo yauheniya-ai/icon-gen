@@ -1,6 +1,6 @@
 """icon-gen: Generate customizable icons from Iconify."""
 
-__version__ = "0.2.5"
+__version__ = "0.2.8"
 
 def _check_deps():
     try:

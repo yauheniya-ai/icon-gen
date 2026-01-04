@@ -3,7 +3,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version](https://img.shields.io/pypi/v/icon-gen-ai?color=blue&label=PyPI)](https://pypi.org/project/icon-gen-ai/)
-[![TestPyPI version](https://img.shields.io/pypi/v/icon-gen-ai?color=orange&label=TestPyPI)](https://test.pypi.org/project/icon-gen-ai/)
+[![Tests](https://github.com/yauheniya-ai/icon-gen-ai/actions/workflows/tests.yml/badge.svg)](https://github.com/yauheniya-ai/icon-gen-ai/actions/workflows/tests.yml)
 [![Coverage](https://img.shields.io/badge/coverage-60%25-yellow.svg)](https://github.com/yauheniya-ai/icon-gen-ai)
 [![GitHub last commit](https://img.shields.io/github/last-commit/yauheniya-ai/icon-gen)](https://github.com/yauheniya-ai/icon-gen/commits/main)
 [![Downloads](https://pepy.tech/badge/icon-gen-ai)](https://pepy.tech/project/icon-gen-ai)
