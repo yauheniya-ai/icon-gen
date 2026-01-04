@@ -22,7 +22,7 @@ def main():
         f'speedometer_loop_{color}': 'line-md:speedometer-loop',
         f'upload_outline_loop_{color}': 'line-md:upload-outline-loop',
         f'my_location_loop_{color}': 'line-md:my-location-loop',
-        f'bars_scale_middle_{color}': 'svg-spinners:bars-scale-middle'
+        f'bars_scale_{color}': 'svg-spinners:bars-scale'
     }
     
     print("=" * 60)
