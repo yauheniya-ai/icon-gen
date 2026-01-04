@@ -281,6 +281,11 @@ class IconGenerator:
                         root.set("width", str(size))
                         root.set("height", str(size))
 
+                    # ----- REMOVE STYLE FILLS HERE -----
+                    for style in root.findall(".//{http://www.w3.org/2000/svg}style"):
+                        if 'fill' in (style.text or ''):
+                            root.remove(style)
+
                     # Apply color to fill/stroke attributes (preserves animations)
                     def apply_color_preserve_animation(el):
                         tag = el.tag.split('}')[-1] if '}' in el.tag else el.tag
