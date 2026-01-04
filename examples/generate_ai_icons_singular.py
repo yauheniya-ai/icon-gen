@@ -1,4 +1,4 @@
-"""Generate AI model icons with custom backgrounds and gradients (one by one)."""
+"""Generate AI model icons with custom backgrounds and gradients (one by one)"""
 from pathlib import Path
 import sys
 

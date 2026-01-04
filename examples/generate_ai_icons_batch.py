@@ -1,4 +1,4 @@
-"""Generate AI model icons: Claude, OpenAI, Gemini, and DeepSeek."""
+"""Generate AI model icons as a batch"""
 from pathlib import Path
 import sys
 

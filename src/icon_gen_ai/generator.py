@@ -15,7 +15,7 @@ except ImportError:
     RASTER_AVAILABLE = False
     print("Warning: PIL/cairosvg not available. Gradient icons may not work properly.")
 
-FormatType = Literal["svg", "png", "webp"]
+FormatType = Literal["svg", "png", "webp", "ico"]
 
 
 def parse_color(color: str) -> Tuple[int, int, int]:
@@ -419,6 +419,41 @@ class IconGenerator:
             print(f"Error saving {output_path}: {e}")
             return False
 
+    def generate_ico(
+        self,
+        svg_content: str,
+        output_path: Path,
+        sizes: list[int] | None = None,
+    ) -> Path:
+        """Generate multi-size ICO from SVG content."""
+        if not RASTER_AVAILABLE:
+            raise RuntimeError(
+                "ICO generation requires Pillow and cairosvg. "
+            )
+
+        sizes = sizes or [16, 32, 48, 64, 128, 256]
+
+        images: list[Image.Image] = []
+
+        for size in sizes:
+            png_bytes = cairosvg.svg2png(
+                bytestring=svg_content.encode("utf-8"),
+                output_width=size,
+                output_height=size,
+            )
+            img = Image.open(BytesIO(png_bytes)).convert("RGBA")
+            images.append(img)
+
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        images[0].save(
+            output_path,
+            format="ICO",
+            sizes=[(s, s) for s in sizes],
+        )
+
+        return output_path
+
     # -------------------- GENERATE ICON --------------------
     def generate_icon(
         self,
@@ -484,8 +519,18 @@ class IconGenerator:
             else:
                 output_name = "icon"
 
-        output_path = self.output_dir / f"{output_name}.svg"
-        return output_path if self.save_svg(svg_content, output_path) else None
+        format = (format or "svg").lower()
+
+        output_path = self.output_dir / f"{output_name}.{format}"
+
+        if format == "svg":
+            return output_path if self.save_svg(svg_content, output_path) else None
+
+        elif format == "ico":
+            return self.generate_ico(svg_content, output_path)
+
+        else:
+            raise ValueError(f"Unsupported format: {format}")
 
     # -------------------- BATCH --------------------
     def generate_batch(
