@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version](https://img.shields.io/pypi/v/icon-gen-ai?color=blue&label=PyPI)](https://pypi.org/project/icon-gen-ai/)
 [![Tests](https://github.com/yauheniya-ai/icon-gen-ai/actions/workflows/tests.yml/badge.svg)](https://github.com/yauheniya-ai/icon-gen-ai/actions/workflows/tests.yml)
-[![Coverage](https://img.shields.io/badge/coverage-60%25-yellow.svg)](https://github.com/yauheniya-ai/icon-gen-ai)
+[![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yauheniya-ai/0c3d87e9fd5394624952e6402af9b08e/raw/coverage.json)](https://github.com/yauheniya-ai/icon-gen-ai/actions/workflows/tests.yml)
 [![GitHub last commit](https://img.shields.io/github/last-commit/yauheniya-ai/icon-gen)](https://github.com/yauheniya-ai/icon-gen/commits/main)
 [![Downloads](https://pepy.tech/badge/icon-gen-ai)](https://pepy.tech/project/icon-gen-ai)
 

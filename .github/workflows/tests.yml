@@ -10,7 +10,25 @@ jobs:
       run: curl -LsSf https://astral.sh/uv/install.sh | sh
       
     - name: Install dependencies
-      run: uv sync --extra ai --dev  # ✅ dev + ai extras
+      run: uv sync --extra ai --dev  # ✅ ai extras + dev 
       
     - name: Run tests with coverage
       run: uv run pytest --cov=src --cov-report=term-missing
+
+    - name: Extract coverage percentage
+      id: coverage
+      run: |
+        COVERAGE=$(uv run pytest --cov=src --cov-report=term-missing | grep "TOTAL" | awk '{print $NF}' | sed 's/%//')
+        echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+        echo "Coverage: ${COVERAGE}%" >> $GITHUB_STEP_SUMMARY
+
+    - name: Update coverage badge
+      uses: schneegans/dynamic-badges-action@v1.4.0
+      with:
+        auth: ${{ secrets.GIST_TOKEN }}
+        gistID: 0c3d87e9fd5394624952e6402af9b08e
+        filename: coverage.json
+        label: coverage
+        message: ${{ steps.coverage.outputs.coverage }}%
+        color: yellow
+        badgeWidth: 96
