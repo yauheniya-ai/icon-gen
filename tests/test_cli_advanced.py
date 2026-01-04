@@ -10,7 +10,7 @@ def test_cli_group():
     runner = CliRunner()
     result = runner.invoke(cli, ['--help'])
     assert result.exit_code == 0
-    assert 'Icon-gen-ai' in result.output
+    assert 'generate icons from Iconify' in result.output
 
 
 def test_generate_command():
@@ -40,20 +40,19 @@ def test_providers_command():
     """Test providers status command."""
     runner = CliRunner()
     result = runner.invoke(providers)
-    # Should not crash even without AI installed
     assert result.exit_code == 0
 
 
 def test_generate_with_output_path():
-    """Test generate with custom output path."""
     runner = CliRunner()
     with runner.isolated_filesystem():
+        output_path = 'output/icon.svg'
         result = runner.invoke(generate, [
             'mdi:home',
-            '-o', 'custom/path/icon.svg'
+            '-o', output_path
         ])
-        # May fail but shouldn't crash
-        assert 'Error' in result.output or 'Success' in result.output
+        assert result.exit_code == 0
+        assert 'Saved to' in result.output or 'Error' in result.output
 
 
 def test_main_legacy_command():
@@ -62,5 +61,5 @@ def test_main_legacy_command():
     runner = CliRunner()
     
     with runner.isolated_filesystem():
-        result = runner.invoke(main, ['mdi:test', '--size', '64'])
+        result = runner.invoke(cli, ['mdi:test', '--size', '64'])
         assert result.exit_code == 0 or 'Error' in result.output

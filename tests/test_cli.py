@@ -2,13 +2,13 @@
 
 import pytest
 from click.testing import CliRunner
-from icon_gen.cli import main
+from icon_gen.cli import cli
 
 
 def test_cli_help():
     """Test CLI help command."""
     runner = CliRunner()
-    result = runner.invoke(main, ['--help'])
+    result = runner.invoke(cli, ['--help'])
     assert result.exit_code == 0
     assert 'Generate icons from Iconify' in result.output
 
@@ -17,6 +17,7 @@ def test_cli_basic_generation():
     """Test basic icon generation via CLI."""
     runner = CliRunner()
     with runner.isolated_filesystem():
-        result = runner.invoke(main, ['mdi:github', '--size', '64'])
+        result = runner.invoke(cli, ['generate', 'mdi:github', '--size', '64'])
         assert result.exit_code == 0
-        assert 'Success' in result.output
+        # Check that it saved the file
+        assert 'Saved to output/mdi_github.svg' in result.output

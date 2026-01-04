@@ -14,7 +14,7 @@ def main():
     generator = IconGenerator(output_dir="output")
 
     # Configuration
-    color = 'deepskyblue'  # Blue color
+    color = 'deepskyblue' 
     size = 256
 
     # Define the AI model icons we want

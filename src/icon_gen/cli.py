@@ -241,5 +241,17 @@ def providers():
         click.echo("⚠ No provider configured")
 
 
+# -------------------- ENTRYPOINT --------------------
+def main(args=None):
+    """
+    Entry point for console_scripts and testing.
+    
+    Args:
+        args (list[str], optional): Command-line arguments to pass to Click CLI.
+    """
+    # If args is None, Click will use sys.argv by default
+    cli(args=args)
+
 if __name__ == "__main__":
-    cli()
+    main()
+
