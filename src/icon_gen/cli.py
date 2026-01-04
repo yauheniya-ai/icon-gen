@@ -5,7 +5,9 @@ import click
 from pathlib import Path
 from urllib.parse import urlparse
 from .generator import IconGenerator
+from importlib.metadata import version
 
+VERSION = version("icon-gen-ai")
 
 # -------------------- HELPERS --------------------
 
@@ -30,7 +32,7 @@ def parse_color(value: str | None, label: str):
 
 
 # -------------------- CLI --------------------
-
+@click.version_option(version=VERSION, package_name="icon-gen-ai")
 @click.group()
 def cli():
     """icon-gen-ai — generate icons from Iconify, URLs, or local files."""

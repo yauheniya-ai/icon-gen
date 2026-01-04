@@ -1,6 +1,8 @@
 """icon-gen: Generate customizable icons from Iconify."""
 
-__version__ = "0.2.8"
+from importlib.metadata import version
+
+__version__ = version("icon-gen-ai")
 
 def _check_deps():
     try:
