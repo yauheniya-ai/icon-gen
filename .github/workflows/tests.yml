@@ -31,4 +31,3 @@ jobs:
         label: coverage
         message: ${{ steps.coverage.outputs.coverage }}%
         color: yellow
-        badgeWidth: 96
