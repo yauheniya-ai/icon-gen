@@ -17,22 +17,12 @@ def main():
     color = 'mediumslateblue' 
     size = 256
 
-    # Define the AI model icons we want
     animated_icons = {
         f'speedometer_loop_{color}': 'line-md:speedometer-loop',
         f'upload_outline_loop_{color}': 'line-md:upload-outline-loop',
         f'my_location_loop_{color}': 'line-md:my-location-loop',
         f'bars_scale_{color}': 'svg-spinners:bars-scale'
     }
-    
-    print("=" * 60)
-    print("Animated SVG Icon Generator")
-    print("=" * 60)
-    print(f"Output directory: {generator.output_dir.absolute()}")
-    print(f"Color: {color}")
-    print(f"Size: {size}px")
-    print(f"Format: SVG")
-    print()
     
     # Generate all icons with specified color and size
     generated = generator.generate_batch(
@@ -45,16 +35,12 @@ def main():
         border_radius=48)
     
     # Summary
-    print("\n" + "=" * 60)
     print(f"Successfully generated {len(generated)}/{len(animated_icons)} icons:")
     for path in generated:
         print(f"  ✓ {path.name}")
     
     if len(generated) < len(animated_icons):
         print(f"\n⚠ Failed to generate {len(animated_icons) - len(generated)} icon(s)")
-    
-    print("=" * 60)
-
 
 if __name__ == "__main__":
     main()

@@ -12,6 +12,15 @@ output/*
 !output/my_location_loop_mediumslateblue.svg
 !output/speedometer_loop_mediumslateblue.svg
 !output/upload_outline_loop_mediumslateblue.svg
+
+!output/feat_ai.svg
+!output/feat_customize.svg
+!output/feat_gradient.svg
+!output/feat_iconify.svg
+!output/feat_image.svg
+!output/feat_python.svg
+!output/feat_save.svg
+
 input/*
 !input/.gitkeep
 test_output/*
