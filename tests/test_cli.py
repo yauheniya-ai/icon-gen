@@ -2,7 +2,7 @@
 
 import pytest
 from click.testing import CliRunner
-from icon_gen.cli import cli
+from icon_gen_ai.cli import cli
 
 
 def test_cli_help():

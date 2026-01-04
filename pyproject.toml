@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "icon-gen-ai"
-version = "0.2.10"
+version = "0.2.11"
 description = "Generate customizable icons from Iconify with easy export to PNG, SVG, WebP"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -30,7 +30,7 @@ ai = [
 ]
 
 [project.scripts]
-icon-gen-ai = "icon_gen.cli:cli"
+icon-gen-ai = "icon_gen_ai.cli:cli"
 
 [project.urls]
 Homepage = "https://yauheniya-ai.github.io/icon-gen-ai/"

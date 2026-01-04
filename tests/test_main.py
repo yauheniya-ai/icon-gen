@@ -8,7 +8,7 @@ from pathlib import Path
 def test_main_module_runs():
     """Test that __main__ can be executed."""
     result = subprocess.run(
-        [sys.executable, "-m", "icon_gen", "--help"],
+        [sys.executable, "-m", "icon_gen_ai", "--help"],
         capture_output=True,
         text=True,
         cwd=Path(__file__).parent.parent,  # Run from project root
@@ -23,7 +23,7 @@ def test_main_module_runs():
 
 def test_main_entrypoint():
     """Test direct execution of __main__.py covers the entrypoint."""
-    from icon_gen.cli import main
+    from icon_gen_ai.cli import main
     import sys
     
     # Capture SystemExit from Click CLI
@@ -37,5 +37,5 @@ def test_main_entrypoint():
 
 def test_main_if_name_main():
     """Force coverage of __main__.py if __name__ block."""
-    import icon_gen.__main__  # Triggers import
-    assert icon_gen.__main__.__file__.endswith('__main__.py')
+    import icon_gen_ai.__main__  # Triggers import
+    assert icon_gen_ai.__main__.__file__.endswith('__main__.py')

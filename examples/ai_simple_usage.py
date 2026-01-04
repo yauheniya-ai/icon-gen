@@ -12,7 +12,7 @@ os.makedirs("output/ai", exist_ok=True)
 def simple_example():
     """Simplest possible AI icon generation."""
     
-    from icon_gen import IconGenerator, IconAssistant
+    from icon_gen_ai import IconGenerator, IconAssistant
     
     # Initialize
     assistant = IconAssistant()
@@ -40,7 +40,7 @@ def simple_example():
 def with_context_example():
     """Example with project context."""
     
-    from icon_gen import IconGenerator, IconAssistant
+    from icon_gen_ai import IconGenerator, IconAssistant
     
     assistant = IconAssistant()
     generator = IconGenerator(output_dir="output/ai")

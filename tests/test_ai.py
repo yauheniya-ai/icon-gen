@@ -1,7 +1,7 @@
 """Tests for AI module."""
 
 import pytest
-from icon_gen.ai import is_ai_available, get_available_providers
+from icon_gen_ai.ai import is_ai_available, get_available_providers
 
 
 def test_is_ai_available():
@@ -20,13 +20,13 @@ def test_get_available_providers():
 @pytest.mark.skipif(not is_ai_available(), reason="AI features not installed")
 def test_icon_assistant_import():
     """Test IconAssistant can be imported when AI is available."""
-    from icon_gen import IconAssistant
+    from icon_gen_ai import IconAssistant
     assert IconAssistant is not None
 
 
 def test_base_llm_provider():
     """Test base LLM provider classes."""
-    from icon_gen.ai.base import IconSuggestion, LLMResponse
+    from icon_gen_ai.ai.base import IconSuggestion, LLMResponse
     
     suggestion = IconSuggestion(
         icon_name='mdi:test',

@@ -1,7 +1,7 @@
 """Tests for AI prompts."""
 
 import pytest
-from icon_gen.ai.prompts import (
+from icon_gen_ai.ai.prompts import (
     get_enhanced_prompt,
     get_style_recommendations,
     USE_CASE_EXAMPLES,

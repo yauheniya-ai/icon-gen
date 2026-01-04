@@ -7,7 +7,7 @@ import sys
 # Add src to path for local development
 sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
 
-from icon_gen import IconGenerator, IconAssistant, check_ai_available
+from icon_gen_ai import IconGenerator, IconAssistant, check_ai_available
 
 os.makedirs("output/ai", exist_ok=True)
 

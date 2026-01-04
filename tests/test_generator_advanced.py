@@ -2,7 +2,7 @@
 
 import pytest
 from pathlib import Path
-from icon_gen.generator import IconGenerator
+from icon_gen_ai.generator import IconGenerator
 
 
 def test_gradient_background(tmp_path):
@@ -117,7 +117,7 @@ def test_direct_url_icon(tmp_path):
 def test_apply_gradient_via_raster_without_cairosvg(tmp_path, monkeypatch):
     """Test gradient application when cairosvg not available."""
     # Mock RASTER_AVAILABLE as False
-    import icon_gen.generator as gen_module
+    import icon_gen_ai.generator as gen_module
     monkeypatch.setattr(gen_module, 'RASTER_AVAILABLE', False)
     
     generator = IconGenerator(output_dir=str(tmp_path))

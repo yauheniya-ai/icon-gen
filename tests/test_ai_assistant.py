@@ -2,8 +2,8 @@
 
 import pytest
 from pathlib import Path
-from icon_gen.ai.assistant import IconAssistant
-from icon_gen.ai.base import IconSuggestion, LLMResponse
+from icon_gen_ai.ai.assistant import IconAssistant
+from icon_gen_ai.ai.base import IconSuggestion, LLMResponse
 
 
 def test_assistant_initialization_default():

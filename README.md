@@ -53,7 +53,7 @@ pip install icon-gen-ai[ai]
 </div>
 
 ```python
-from icon_gen import IconGenerator
+from icon_gen_ai import IconGenerator
 
 generator = IconGenerator(output_dir="output")
 
@@ -110,7 +110,7 @@ generator.generate_icon(
 </div>
 
 ```python
-from icon_gen import IconGenerator
+from icon_gen_ai import IconGenerator
 
 generator = IconGenerator(output_dir="output")
 
@@ -147,7 +147,7 @@ When you apply a solid color to an animated SVG icon, the animations are automat
 
 
 ```python
-from icon_gen import IconGenerator
+from icon_gen_ai import IconGenerator
 
 generator = IconGenerator(output_dir="output")
 

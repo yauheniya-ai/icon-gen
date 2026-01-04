@@ -2,7 +2,7 @@
 
 from pathlib import Path
 import pytest
-from icon_gen.generator import IconGenerator
+from icon_gen_ai.generator import IconGenerator
 
 OUTPUT_DIR = "test_output"  # persistent folder for inspection
 
@@ -43,7 +43,7 @@ def test_generate_batch():
 
 def test_create_gradient_def():
     """Test gradient definition creation."""
-    from icon_gen.generator import IconGenerator
+    from icon_gen_ai.generator import IconGenerator
     generator = IconGenerator()
     
     gradient = generator.create_gradient_def('testGrad', '#FF0000', '#0000FF')
@@ -54,7 +54,7 @@ def test_create_gradient_def():
 
 def test_modify_svg_with_size():
     """Test SVG size modification."""
-    from icon_gen.generator import IconGenerator
+    from icon_gen_ai.generator import IconGenerator
     generator = IconGenerator()
     
     svg = '<svg width="24" height="24"><path d="M0 0h24v24H0z"/></svg>'
@@ -66,7 +66,7 @@ def test_modify_svg_with_size():
 
 def test_wrap_with_background():
     """Test wrapping SVG with background."""
-    from icon_gen.generator import IconGenerator
+    from icon_gen_ai.generator import IconGenerator
     generator = IconGenerator()
     
     svg = '<svg viewBox="0 0 24 24"><path d="M0 0h24v24H0z"/></svg>'

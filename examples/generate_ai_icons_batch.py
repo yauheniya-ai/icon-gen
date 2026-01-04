@@ -5,7 +5,7 @@ import sys
 # Add src to path for local development
 sys.path.insert(0, str(Path(__file__).parent / 'src'))
 
-from icon_gen.generator import IconGenerator
+from icon_gen_ai.generator import IconGenerator
 
 
 def main():

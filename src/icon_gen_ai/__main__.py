@@ -1,4 +1,4 @@
-"""Allow running as `python -m icon_gen`."""
+"""Allow running as `python -m icon_gen_ai`."""
 
 from .cli import main
 

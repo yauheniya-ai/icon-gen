@@ -2,7 +2,7 @@
 
 import pytest
 from click.testing import CliRunner
-from icon_gen.cli import cli, generate, providers
+from icon_gen_ai.cli import cli, generate, providers
 
 
 def test_cli_group():
@@ -57,7 +57,7 @@ def test_generate_with_output_path():
 
 def test_main_legacy_command():
     """Test legacy main command (backwards compatibility)."""
-    from icon_gen.cli import main
+    from icon_gen_ai.cli import main
     runner = CliRunner()
     
     with runner.isolated_filesystem():
