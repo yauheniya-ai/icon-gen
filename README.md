@@ -8,6 +8,14 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/yauheniya-ai/icon-gen)](https://github.com/yauheniya-ai/icon-gen/commits/main)
 [![Downloads](https://pepy.tech/badge/icon-gen-ai)](https://pepy.tech/project/icon-gen-ai)
 
+<div align="center">
+  <sub>
+    <a href="https://yauheniya-ai.github.io/icon-gen-ai-playground/">Interactive Playground</a> → Try icon generation live
+  </sub>
+</div>
+
+<br>
+
 Generate customizable icons from Iconify, direct URLs, or local files with easy export to PNG, SVG, WebP, and ICO formats.
 
 <div align="center">
