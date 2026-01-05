@@ -14,7 +14,7 @@ def main():
     generator = IconGenerator(output_dir="output")
 
     size = 256
-    border_radius = 128
+    border_radius = 48
 
     # Gradient background
     bg_color = ("deeppink", "mediumslateblue")
@@ -43,7 +43,6 @@ def main():
     )
 
     print(f"✓ ICO created: {ico_path}")
-    print("\nDone! Use favicon.ico in your web app.")
 
 
 if __name__ == "__main__":

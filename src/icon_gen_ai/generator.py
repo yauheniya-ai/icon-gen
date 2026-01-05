@@ -419,39 +419,16 @@ class IconGenerator:
             print(f"Error saving {output_path}: {e}")
             return False
 
-    def generate_ico(
-        self,
-        svg_content: str,
-        output_path: Path,
-        sizes: list[int] | None = None,
-    ) -> Path:
-        """Generate multi-size ICO from SVG content."""
-        if not RASTER_AVAILABLE:
-            raise RuntimeError(
-                "ICO generation requires Pillow and cairosvg. "
-            )
-
-        sizes = sizes or [48, 64, 128, 256]
-
-        images: list[Image.Image] = []
-
-        for size in sizes:
-            png_bytes = cairosvg.svg2png(
-                bytestring=svg_content.encode("utf-8"),
-                output_width=size,
-                output_height=size,
-            )
-            img = Image.open(BytesIO(png_bytes)).convert("RGBA")
-            images.append(img)
-
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-
-        images[0].save(
-            output_path,
-            format="ICO",
-            sizes=[(s, s) for s in sizes],
+    def generate_ico(self, svg_content: str, output_path: Path, size: int = 256) -> Path:
+        """Generate ICO from SVG."""
+        png_bytes = cairosvg.svg2png(
+            bytestring=svg_content.encode("utf-8"),
+            output_width=size,
+            output_height=size,
         )
-
+        img = Image.open(BytesIO(png_bytes)).convert("RGBA")
+        img.save(output_path, format="ICO", sizes=[(size, size)])
+        img.close()
         return output_path
 
     # -------------------- GENERATE ICON --------------------
