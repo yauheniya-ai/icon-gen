@@ -431,7 +431,7 @@ class IconGenerator:
                 "ICO generation requires Pillow and cairosvg. "
             )
 
-        sizes = sizes or [16, 32, 48, 64, 128, 256]
+        sizes = sizes or [48, 64, 128, 256]
 
         images: list[Image.Image] = []
 
