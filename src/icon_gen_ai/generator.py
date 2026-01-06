@@ -44,6 +44,8 @@ class IconGenerator:
     ) -> str:
         if direction == "vertical":
             x1, y1, x2, y2 = "0%", "0%", "0%", "100%"
+        elif direction == "diagonal":
+            x1, y1, x2, y2 = "0%", "0%", "100%", "100%"
         else:
             x1, y1, x2, y2 = "0%", "0%", "100%", "0%"
         return f"""<defs>
@@ -58,7 +60,8 @@ class IconGenerator:
         svg_content: str,
         color1: str,
         color2: str,
-        size: int = 256
+        size: int = 256,
+        direction: str = "horizontal",
     ) -> str:
         if not RASTER_AVAILABLE:
             print("Cannot apply gradient: PIL/cairosvg not installed")
@@ -82,7 +85,12 @@ class IconGenerator:
                     idx = y * width + x
                     r, g, b, a = pixels[idx]
                     if a > 0:
-                        ratio = x / (width - 1) if width > 1 else 0
+                        if direction == "vertical":
+                            ratio = y / (height - 1) if height > 1 else 0
+                        elif direction == "diagonal":
+                            ratio = (x + y) / (width + height - 2) if (width + height) > 2 else 0
+                        else:  # horizontal
+                            ratio = x / (width - 1) if width > 1 else 0
                         new_r = int(left_rgb[0] * (1 - ratio) + right_rgb[0] * ratio)
                         new_g = int(left_rgb[1] * (1 - ratio) + right_rgb[1] * ratio)
                         new_b = int(left_rgb[2] * (1 - ratio) + right_rgb[2] * ratio)
@@ -173,6 +181,7 @@ class IconGenerator:
         border_radius: int = 0,
         outline_width: int = 0,
         outline_color: Optional[str] = None,
+        direction: str = "horizontal",
     ) -> str:
         """Wrap SVG icon with a background and optional outline."""
         try:
@@ -191,7 +200,7 @@ class IconGenerator:
             bg_fill = "none"
         elif isinstance(bg_color, tuple):
             gradient_def = self.create_gradient_def(
-                "bgGradient", bg_color[0], bg_color[1]
+                "bgGradient", bg_color[0], bg_color[1], direction=direction
             )
             bg_fill = "url(#bgGradient)"
         else:
@@ -229,6 +238,7 @@ class IconGenerator:
         color: Optional[Union[str, tuple[str, str]]] = None,
         size: Optional[int] = None,
         preserve_animations: bool = True,
+        direction: str = "horizontal",
     ) -> str:
         """Modify SVG content to apply color and size.
         
@@ -263,7 +273,13 @@ class IconGenerator:
             
             # Handle gradient colors - must use raster method (loses animations)
             if isinstance(color, tuple):
-                return self.apply_gradient_via_raster(svg_content, color[0], color[1], size or 256)
+                return self.apply_gradient_via_raster(
+                    svg_content, 
+                    color[0], 
+                    color[1], 
+                    size or 256,
+                    direction=direction
+                )
             
             # For solid colors with animation preservation
             if color and preserve_animations:
@@ -445,6 +461,7 @@ class IconGenerator:
         local_file: Optional[str] = None,
         outline_width: int = 0,
         outline_color: Optional[str] = None,
+        direction: str = "horizontal",
     ) -> Optional[Path]:
         size = size or 256
         is_raster_source = False
@@ -475,7 +492,13 @@ class IconGenerator:
 
         # Apply color + size only for vector sources
         if not is_raster_source:
-            svg_content = self.modify_svg(svg_content, color, size, preserve_animations=True)
+            svg_content = self.modify_svg(
+                svg_content, 
+                color, 
+                size, 
+                preserve_animations=True, 
+                direction=direction
+            )
 
         # Background / outline wrapper
         if bg_color is not None or border_radius > 0 or outline_width > 0:
@@ -486,6 +509,7 @@ class IconGenerator:
                 border_radius,
                 outline_width,
                 outline_color,
+                direction=direction,
             )
 
         if output_name is None:

@@ -56,6 +56,7 @@ def main():
         output_name='mistral_white_gradient_bg',
         color='white',
         bg_color=('mediumslateblue', 'deeppink'),  # Gradient
+        direction="vertical",
         border_radius=48,  # Rounded corners
         size=256
     )
@@ -69,6 +70,7 @@ def main():
         icon_name='simple-icons:openai',
         output_name='openai_gradient_transparent_bg',
         color=('mediumslateblue', 'deeppink'),  # Gradient icon
+        direction="diagonal",
         bg_color=None,  # Transparent background
         size=256
     )
