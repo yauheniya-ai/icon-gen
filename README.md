@@ -91,6 +91,7 @@ generator.generate_icon(
     output_name='mistral_white_gradient_bg',
     color='white',
     bg_color=('mediumslateblue', 'deeppink'),  # Gradient
+    direction="vertical",
     border_radius=48,
     size=256
 )
@@ -100,6 +101,7 @@ generator.generate_icon(
     icon_name='simple-icons:openai',
     output_name='openai_gradient_transparent_bg',
     color=('mediumslateblue', 'deeppink'),  # Gradient icon
+    direction="diagonal",
     bg_color=None,
     size=256
 )
