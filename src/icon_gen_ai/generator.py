@@ -181,7 +181,7 @@ class IconGenerator:
         border_radius: int = 0,
         outline_width: int = 0,
         outline_color: Optional[str] = None,
-        direction: str = "horizontal",
+        bg_direction: str = "horizontal",
     ) -> str:
         """Wrap SVG icon with a background and optional outline."""
         try:
@@ -200,7 +200,7 @@ class IconGenerator:
             bg_fill = "none"
         elif isinstance(bg_color, tuple):
             gradient_def = self.create_gradient_def(
-                "bgGradient", bg_color[0], bg_color[1], direction=direction
+                "bgGradient", bg_color[0], bg_color[1], direction=bg_direction
             )
             bg_fill = "url(#bgGradient)"
         else:
@@ -462,6 +462,7 @@ class IconGenerator:
         outline_width: int = 0,
         outline_color: Optional[str] = None,
         direction: str = "horizontal",
+        bg_direction: str = "horizontal",
     ) -> Optional[Path]:
         size = size or 256
         is_raster_source = False
@@ -509,7 +510,7 @@ class IconGenerator:
                 border_radius,
                 outline_width,
                 outline_color,
-                direction=direction,
+                bg_direction=bg_direction,
             )
 
         if output_name is None:
@@ -543,6 +544,8 @@ class IconGenerator:
         border_radius: int = 0,
         outline_width: int = 0,
         outline_color: Optional[str] = None,
+        direction: str = "horizontal",
+        bg_direction: str = "horizontal",
     ) -> list[Path]:
         """Generate multiple icons at once."""
         results: list[Path] = []
@@ -560,6 +563,8 @@ class IconGenerator:
                     border_radius=border_radius,
                     outline_width=outline_width,
                     outline_color=outline_color,
+                    direction=direction,
+                    bg_direction=bg_direction,
                 )
 
             elif isinstance(icon_config, dict):
@@ -574,6 +579,8 @@ class IconGenerator:
                     border_radius=icon_config.get("border_radius", border_radius),
                     outline_width=icon_config.get("outline_width", outline_width),
                     outline_color=icon_config.get("outline_color", outline_color),
+                    direction=icon_config.get("direction", direction),
+                    bg_direction=icon_config.get("bg_direction", bg_direction),
                 )
 
             else:
