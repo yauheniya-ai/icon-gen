@@ -13,7 +13,7 @@ Generate customizable icons from Iconify, direct URLs, or local files with easy 
 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/docs/screenrecording.webp" width="100%" alt="Playground Demo">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/docs/ScreenRecordingIconGenAI.webp" width="100%" alt="Playground Demo">
   <br><sub>
     <a href="https://yauheniya-ai.github.io/icon-gen-ai/">Read the Documentation</a> | <a href="https://yauheniya-ai.github.io/icon-gen-ai-playground/">Try the Interactive Playground</a>
   </sub>
