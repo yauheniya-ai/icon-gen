@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+
+  <rect x="2.0" y="2.0" width="60" height="60" rx="6.0" ry="6.0" fill="none" stroke="deepskyblue" stroke-width="4" />
+  <g transform="translate(32.0,32.0) scale(1.8666666666666665) translate(-12.0,-12.0)">
+<ns0:path xmlns:ns0="http://www.w3.org/2000/svg" fill="deepskyblue" d="M17.143 3.429v3.428h-3.429v3.429h-3.428V6.857H6.857V3.43H3.43v13.714H0v3.428h10.286v-3.428H6.857v-3.429h3.429v3.429h3.429v-3.429h3.428v3.429h-3.428v3.428H24v-3.428h-3.43V3.429z" />
+  </g>
+</svg>

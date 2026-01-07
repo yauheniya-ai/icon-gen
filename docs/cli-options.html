@@ -1,0 +1,114 @@
+    <h4>Global Options</h4>
+    <table class="params-table">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--help</code></td>
+          <td>Show help message and exit</td>
+          <td><code>icon-gen-ai --help</code></td>
+        </tr>
+        <tr>
+          <td><code>--version</code></td>
+          <td>Show the CLI version and exit</td>
+          <td><code>icon-gen-ai --version</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Generate Command Options</h4>
+    <p><code>icon-gen-ai generate [ICON] [OPTIONS]</code></p>
+    <table class="params-table">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>-i, --input</code></td>
+          <td>Local file path or direct URL</td>
+          <td><code>-i input/icon.png</code></td>
+        </tr>
+        <tr>
+          <td><code>-o, --output</code></td>
+          <td>Output file path</td>
+          <td><code>-o icon.svg</code></td>
+        </tr>
+        <tr>
+          <td><code>--color</code></td>
+          <td>Icon color (solid or gradient)</td>
+          <td><code>--color blue</code></td>
+        </tr>
+        <tr>
+          <td><code>--size</code></td>
+          <td>Size in pixels</td>
+          <td><code>--size 256</code></td>
+        </tr>
+        <tr>
+          <td><code>--bg-color</code></td>
+          <td>Background color or gradient</td>
+          <td><code>--bg-color '(red,blue)'</code></td>
+        </tr>
+        <tr>
+          <td><code>--border-radius</code></td>
+          <td>Corner radius (0=square, size/2=circle)</td>
+          <td><code>--border-radius 128</code></td>
+        </tr>
+        <tr>
+          <td><code>--outline-width</code></td>
+          <td>Outline width in pixels</td>
+          <td><code>--outline-width 4</code></td>
+        </tr>
+        <tr>
+          <td><code>--outline-color</code></td>
+          <td>Outline color</td>
+          <td><code>--outline-color black</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Search Command Options</h4>
+    <p><code>icon-gen-ai search QUERY [OPTIONS]</code></p>
+    <table class="params-table">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>-n, --count</code></td>
+          <td>Number of icons to return</td>
+          <td><code>-n 5</code></td>
+        </tr>
+        <tr>
+          <td><code>-g, --generate</code></td>
+          <td>Automatically generate icons from search results</td>
+          <td><code>--generate</code></td>
+        </tr>
+        <tr>
+          <td><code>--style</code></td>
+          <td>Optional design style for AI-generated icons</td>
+          <td><code>--style modern</code></td>
+        </tr>
+        <tr>
+          <td><code>--project-type</code></td>
+          <td>Optional project context for AI-generated icons</td>
+          <td><code>--project-type "web app"</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Providers Command</h4>
+    <p><code>icon-gen-ai providers</code></p>
+    <p>Shows installed AI providers and the currently active provider.</p>

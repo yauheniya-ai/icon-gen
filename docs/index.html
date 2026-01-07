@@ -2,88 +2,499 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>icon-gen-ai</title>
+  <title>icon-gen-ai - Documentation</title>
+  <link rel="stylesheet" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 1rem;
-      color: #eaeaea;
-      background: #0f0f12;
-    }
-    h1 { font-size: 2.2rem; }
-    .demo {
-      margin: 2rem 0;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,.4);
-      background: #000;
-    }
-    .demo-svg {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    code {
-      background: #1e1e24;
-      padding: 0.2rem 0.4rem;
-      border-radius: 6px;
-    }
-    a { color: mediumslateblue; text-decoration: none; }
-    pre {
-      font-size: 0.7rem;
-      line-height: 1.5;
-      padding: 1rem;
-      padding-top: 0rem;
-      background: #16161d;
-      border-radius: 10px;
-      overflow-x: auto;
-    }
-    pre code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .icon-links {
-      margin-top: 32px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
-    }
-
-  </style>
 </head>
 <body>
 
-<h1>icon-gen-ai</h1>
-<p>
-  AI-powered icon generator from Iconify, direct URLs, or local files.
-</p>
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <h2>icon-gen-ai</h2>
+    
+    <div class="nav-section">
+      <h3>Getting Started</h3>
+      <ul>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#cli-usage">CLI Usage</a></li>
+        <li><a href="#cli-options">CLI Options</a></li>
+        <li><a href="#cli-demo">CLI Demo</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-section">
+      <h3>Python API</h3>
+      <ul>
+        <li><a href="#python-basics">Basic Usage</a></li>
+        <li><a href="#generate-icon">generate_icon()</a></li>
+        <li><a href="#generate-batch">generate_batch()</a></li>
+        <li><a href="#colors">Solid Colors</a></li>
+        <li><a href="#gradients">Gradients</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-section">
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="https://github.com/yauheniya-ai/icon-gen-ai" target="_blank">GitHub</a></li>
+        <li><a href="https://pypi.org/project/icon-gen-ai/" target="_blank">PyPI</a></li>
+        <li><a href="https://yauheniya-ai.github.io/icon-gen-ai-playground/" target="_blank">Playground UI</a></li>
+        <li><a href="https://huggingface.co/spaces/Yauheniya/icon-gen-ai-api" target="_blank">Playground API</a></li>
+      </ul>
+    </div>
+  </nav>
 
-<div class="demo">
-  <img src="demo.svg" alt="CLI Demo" class="demo-svg" />
-</div>
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Header -->
+    <div class="header">
+      <h1>icon-gen-ai</h1>
+      <p class="tagline">AI-powered icon generator from Iconify, direct URLs, or local files</p>
+      <div class="badges">
+        <span class="badge">Python 3.10+</span>
+        <span class="badge">CLI + API</span>
+        <span class="badge">SVG, PNG, WebP, ICO</span>
+      </div>
+    </div>
 
-<h2>Try it</h2>
-<pre><code>
-pip install icon-gen-ai
-icon-gen-ai generate -i input/pypi-icon.svg -o output/pypi-icon.svg --bg-color '(tan,cyan)' --size 128 --border-radius 64 
-pip install icon-gen-ai[ai]
-[ -f .env ] && echo ".env exists" || echo ".env doesn't exist, alternative: export OPENAI_API_KEY=sk-proj-..."
-icon-gen-ai providers
-icon-gen-ai search "github icon and logo"
-icon-gen-ai generate simple-icons:github -o output/github-icon.svg --bg-color '(mediumslateblue,deeppink)' --color black --size 128 --border-radius 64
-</code></pre>
+    <!-- Installation -->
+    <section id="installation">
+      <h2>Installation</h2>
+      
+      <h3>Basic Installation</h3>
+      <pre><code>pip install icon-gen-ai</code></pre>
+      
+      <h3>With AI Features (Optional)</h3>
+      <pre><code>pip install icon-gen-ai[ai]</code></pre>
+      
+      <div class="alert alert-warning">
+        <strong>Note:</strong> For using the AI features you need an API-key from <code>anthropic</code> or <code>openai</code>.
+      </div>
+    </section>
 
-<p class="icon-links">
-  <a href="https://github.com/yauheniya-ai/icon-gen-ai">
-    <img src="github-icon.svg" alt="GitHub" width="32" height="32">
-  </a>
-  <a href="https://pypi.org/project/icon-gen-ai/">
-    <img src="pypi-icon.svg" alt="PyPI" width="32" height="32">
-  </a>
-</p>
+    <!-- CLI Usage -->
+    <section>
+      <h2 id="cli-usage">CLI Usage</h2>
+
+      <h3>Basic Commands</h3>
+      
+      <div class="alert alert-info">
+        <strong>Generate from Iconify</strong>
+      </div>
+      <pre class="cmd"><code>icon-gen-ai generate fa7-brands:openai -o docs/output/openai.svg \
+  --color deeppink --size 64</code></pre>
+      <pre class="out"><code>Generating icon
+  Source: fa7-brands:openai
+  Size: 64px
+  Color: deeppink
+  Background: transparent
+  Border radius: 0px
+
+✓ Saved to docs/output/openai.svg</code></pre>
+      <div class="icon-row">
+        <img src="./output/openai.svg" alt="OpenAI Icon">
+      </div>
+
+      <div class="alert alert-info">
+        <strong>Search and Generate with AI</strong>
+      </div>
+      <pre class="cmd"><code>icon-gen-ai search "github icon and logo" --generate</code></pre>
+      <pre class="out"><code>Searching: github icon and logo
+
+Using cached response (saved 696 tokens)
+1. simple-icons:github
+   This is the official GitHub logo, perfect for representing the brand directly.
+
+2. mdi:git
+   This icon represents Git, which is the underlying version control system used by GitHub.
+
+Generating icons...</code></pre>
+      <div class="icon-row">
+        <img src="./output/simple-icons_github.svg" alt="GitHub Icon"> 
+        <img src="./output/mdi_git.svg" alt="Git Icon">
+      </div>
+
+      <div class="alert alert-info">
+        <strong>List Providers</strong>
+      </div>
+      <pre class="cmd"><code>icon-gen-ai providers</code></pre>
+      <pre class="out"><code>Installed providers: openai, anthropic
+✓ Active: openai (gpt-4o-mini)</code></pre>
+      
+      <h2 id="cli-options">CLI Options</h2>
+      <section id="cli-options-container">
+        <!-- CLI Options will be loaded here -->
+      </section>
+
+      <!-- Demo -->
+      <h2 id="cli-demo">CLI Demo</h2>
+      <div class="demo">
+        <img src="demo.svg" alt="CLI Demo" class="demo-svg" />
+      </div>
+    </section>
+
+    <!-- Python Basics -->
+    <section id="python-basics">
+      <h2>Python API</h2>
+      <h3>Basic Usage</h3>
+      <div class="alert alert-info">
+        <strong>Initialize the icon generator and create a star icon with an embedded CSV animation</strong>
+      </div>
+      
+      <pre class="cmd"><code>from icon_gen_ai import IconGenerator
+
+gen = IconGenerator(output_dir="docs")
+
+gen.generate_icon(
+    icon_name="meteocons:star-fill",
+    size=64,
+    bg_color="navy",
+    border_radius=4,
+    output_name="output/star-fill"
+)</code></pre>
+      <div class="icon-row">
+        <img src="./output/star-fill.svg" alt="Star Icon">
+      </div>
+
+      <div class="alert alert-info">
+        <strong>Create a series of icons from different sources with the same styling</strong>
+      </div>
+
+      <pre class="cmd"><code>from icon_gen_ai import IconGenerator
+
+gen = IconGenerator(output_dir="docs")
+
+ai_icons = {
+    'output/genb_openai': 'simple-icons:openai',
+    'output/genb_claude': 'simple-icons:claude',
+    'output/genb_googlegemini': 'simple-icons:googlegemini',
+    'output/genb_mistralai': 'simple-icons:mistralai',
+    'output/genb_llama': 'simple-icons:meta',
+    'output/genb_deepseek': {
+        'local_file': 'input/deepseek-icon.png'
+    },
+    'output/genb_nemotron': {
+        'url': 'https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
+    },
+}
+
+gen.generate_batch(
+    ai_icons, 
+    color='deepskyblue', 
+    size=64, 
+    outline_color='deepskyblue', 
+    outline_width=4, 
+    border_radius=8
+)</code></pre>
+      <div class="icon-row">
+        <img src="./output/genb_openai.svg" alt="OpenAI">
+        <img src="./output/genb_claude.svg" alt="Claude">
+        <img src="./output/genb_googlegemini.svg" alt="Gemini">
+        <img src="./output/genb_mistralai.svg" alt="Mistral">
+        <img src="./output/genb_llama.svg" alt="Meta">
+        <img src="./output/genb_deepseek.svg" alt="DeepSeek">
+        <img src="./output/genb_nemotron.svg" alt="Nemotron">
+      </div>
+    </section>
+
+    <!-- generate_icon() -->
+    <section id="generate-icon">
+      <h2>generate_icon()</h2>
+      <p>Generate a single icon with full customization.</p>
+
+      <h3>Signature</h3>
+      <pre><code>generate_icon(
+    icon_name: Optional[str] = None,
+    output_name: Optional[str] = None,
+    color: Optional[Union[str, tuple[str, str]]] = None,
+    size: Optional[int] = None,
+    format: str = "svg",
+    direct_url: Optional[str] = None,
+    bg_color: Optional[Union[str, tuple[str, str]]] = None,
+    border_radius: int = 0,
+    local_file: Optional[str] = None,
+    outline_width: int = 0,
+    outline_color: Optional[str] = None,
+    direction: str = "horizontal",
+    bg_direction: str = "horizontal",
+) -> Optional[Path]</code></pre>
+
+      <h3>Parameters</h3>
+      <section id="api-parameters-container">
+        <!-- CLI Options will be loaded here -->
+      </section>
+
+      <div class="alert alert-warning">
+        <strong>Note:</strong> Provide one input source: <code>icon_name</code>, <code>direct_url</code>, or <code>local_file</code>.
+      </div>
+    </section>
+
+    <!-- generate_batch() -->
+    <section id="generate-batch">
+      <h2>generate_batch()</h2>
+      <p>Generate multiple icons at once with shared default settings.</p>
+
+      <h3>Signature</h3>
+      <pre><code>generate_batch(
+    icons: dict[str, str | dict],
+    color: Optional[Union[str, tuple[str, str]]] = None,
+    size: Optional[int] = None,
+    bg_color: Optional[Union[str, tuple[str, str]]] = None,
+    border_radius: int = 0,
+    outline_width: int = 0,
+    outline_color: Optional[str] = None,
+    direction: str = "horizontal",
+    bg_direction: str = "horizontal",
+) -> list[Path]</code></pre>
+    </section>
+
+    <!-- Colors -->
+    <section id="colors">
+      <h2>Color Options</h2>
+
+      <h3>Solid Colors</h3>
+      <p>
+        You can specify the <code>color</code> of your icon using any valid <strong>CSS color name</strong> supported by <code>Pillow</code> (Python Imaging Library). This includes
+        all <a href="https://matplotlib.org/stable/gallery/color/named_colors.html" target="_blank">named CSS colors</a> such as <code>white</code>, <code>black</code>, etc. 
+        There are currently <strong>140+ named colors</strong> available.
+      </p>
+      <p>
+        You can also use <strong>hex color codes</strong> or <strong>RGB colors</strong> to specify the icon color. Tip: You can also use any <a href="https://www.w3schools.com/colors/colors_picker.asp" target="_blank">CSS color picker</a> to get hex or RGB values.
+      </p>
+      <p>Skip providing <code>color</code> or set <code>color=None</code> to keep the original icon colors. Examples:</p>
+      <pre class="cmd"><code>from icon_gen_ai import IconGenerator
+
+gen = IconGenerator(output_dir="docs/output")
+
+# Color name
+gen.generate_icon(icon_name="gis:search-data", color="deepskyblue")
+
+# Hex colors
+gen.generate_icon(icon_name="mdi:star", color="#FFD700")  # gold
+
+# RGB colors
+gen.generate_icon(icon_name="fluent:heart-pulse-24-filled", color="rgb(255, 0, 0)")  # red
+
+gen.generate_icon(
+    direct_url="https://upload.wikimedia.org/wikipedia/commons/0/04/PyPI-Logo-notext.svg",
+    color=None,  # or skip to preserve original colors
+)</code></pre>
+      <div class="icon-row">
+        <img src="./output/gis_search-data.svg" alt="Search Data">
+        <img src="./output/mdi_star.svg" alt="Star">
+        <img src="./output/fluent_heart-pulse-24-filled.svg" alt="Heart Pulse">
+        <img src="./output/PyPI-icon.svg" alt="PyPI">
+      </div>
+    </section>
+
+    <!-- Gradients -->
+    <section id="gradients">
+      <h3>Gradients</h3>
+      <p>
+        You can apply gradients to your icons by passing a tuple of two colors to the <code>color</code> or <code>bg_color</code> parameters. 
+        The <code>direction</code> and <code>bg_direction</code> options let you control the orientation of the gradient: <code>horizontal</code> (default), <code>vertical</code>, or <code>diagonal</code>.      
+      </p>
+      <pre class="cmd"><code>from icon_gen_ai import IconGenerator
+
+gen = IconGenerator(output_dir="docs/output")
+size = 64
+border_radius = 8
+
+# Icon gradient with default (horizontal) direction
+gen.generate_icon(
+    icon_name="cryptocurrency:bch", 
+    color=("gold", "crimson"), 
+    bg_color="ivory", 
+    size=size, 
+    border_radius=border_radius
+)
+
+# Icon gradient with vertical direction
+gen.generate_icon(
+    icon_name="cryptocurrency:eth", 
+    color=("royalblue", "violet"), 
+    direction="vertical", 
+    bg_color="ivory", 
+    size=size, 
+    border_radius=border_radius
+) 
+
+# Background gradient with diagonal direction
+gen.generate_icon(
+    icon_name="cryptocurrency:bnb", 
+    color="ivory", 
+    bg_color=("gold", "crimson"), 
+    bg_direction="diagonal", 
+    size=size, 
+    border_radius=border_radius
+) 
+
+# Icon and background gradients with different directions
+gen.generate_icon(
+    icon_name="cryptocurrency:usdc", 
+    color=("aqua", "indigo"), 
+    direction="diagonal", 
+    bg_color=("lime", "white"), 
+    bg_direction="vertical", 
+    size=size, 
+    border_radius=border_radius
+)</code></pre>
+      <div class="icon-row">
+        <img src="./output/cryptocurrency_bch.svg" alt="BCH">
+        <img src="./output/cryptocurrency_eth.svg" alt="ETH">
+        <img src="./output/cryptocurrency_bnb.svg" alt="BNB">
+        <img src="./output/cryptocurrency_usdc.svg" alt="USDC">
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid #2a2a32; text-align: center; color: #888;">
+      <p>
+        <a href="https://github.com/yauheniya-ai/icon-gen-ai" target="_blank">
+          <img src="./output/github-icon.svg" alt="GitHub" width="24" height="24" style="vertical-align: middle; margin-right: 8px;">
+          Repository
+        </a>
+        &nbsp;&nbsp;•&nbsp;&nbsp;
+        <a href="https://pypi.org/project/icon-gen-ai/" target="_blank">
+          <img src="./output/pypi-icon.svg" alt="PyPI" width="24" height="24" style="vertical-align: middle; margin-right: 8px;">
+          PyPI
+        </a>
+        &nbsp;&nbsp;•&nbsp;&nbsp;
+        <a href="https://pypi.org/project/icon-gen-ai/" target="_blank">
+          <img src="./output/react-icon.svg" alt="React" width="24" height="24" style="vertical-align: middle; margin-right: 8px;">
+          Playground UI
+        </a>
+        &nbsp;&nbsp;•&nbsp;&nbsp;
+        <a href="https://pypi.org/project/icon-gen-ai/" target="_blank">
+          <img src="./output/hf-icon.svg" alt="Hugging Face" width="24" height="24" style="vertical-align: middle; margin-right: 8px;">
+          Playground API
+        </a>
+      </p>
+    </footer>
+
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Only select <pre class="cmd">
+      document.querySelectorAll("pre.cmd").forEach(pre => {
+        const code = pre.querySelector("code");
+        if (!code) return;
+
+        // Skip if button already exists
+        if (pre.querySelector(".copy-btn")) return;
+
+        // Create the button
+        const btn = document.createElement("button");
+        btn.className = "copy-btn";
+        btn.textContent = "⧉ Copy code";
+
+        // Append button inside <pre>
+        pre.appendChild(btn);
+
+        // Copy functionality
+        btn.addEventListener("click", () => {
+          navigator.clipboard.writeText(code.innerText).then(() => {
+            btn.textContent = "✔ Copied";
+            setTimeout(() => {
+              btn.textContent = "⧉ Copy code";
+            }, 1500);
+          });
+        });
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("cli-options-container");
+      if (!container) return;
+
+      fetch("cli-options.html")
+        .then(response => response.text())
+        .then(html => {
+          container.innerHTML = html;
+        })
+        .catch(err => {
+          console.error("Failed to load CLI options:", err);
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("api-parameters-container");
+      if (!container) return;
+
+      fetch("api-parameters.html")
+        .then(response => response.text())
+        .then(html => {
+          container.innerHTML = html;
+        })
+        .catch(err => {
+          console.error("Failed to load CLI options:", err);
+        });
+    });
+  </script>
+  
+  <script>
+    (function() {
+      'use strict';
+
+      // Check for saved theme preference, system preference, or default to 'dark'
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      
+      // Apply theme on page load
+      document.documentElement.setAttribute('data-theme', currentTheme);
+
+      // Create and insert theme toggle button
+      function createThemeToggle() {
+        const toggle = document.createElement('button');
+        toggle.className = 'theme-toggle';
+        toggle.setAttribute('aria-label', 'Toggle theme');
+        
+        const icon = document.createElement('span');
+        icon.className = 'theme-icon';
+        
+        const text = document.createElement('span');
+        
+        // Set initial icon and text based on current theme
+        updateToggleButton(icon, text, currentTheme);
+        
+        toggle.appendChild(icon);
+        toggle.appendChild(text);
+        
+        // Add click event
+        toggle.addEventListener('click', () => {
+          const theme = document.documentElement.getAttribute('data-theme');
+          const newTheme = theme === 'dark' ? 'light' : 'dark';
+          
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          updateToggleButton(icon, text, newTheme);
+        });
+        
+        document.body.appendChild(toggle);
+      }
+
+      // Update button text and icon
+      function updateToggleButton(icon, text, theme) {
+        if (theme === 'dark') {
+          icon.textContent = '☀️';
+          text.textContent = 'Light';
+        } else {
+          icon.textContent = '🌙';
+          text.textContent = 'Dark';
+        }
+      }
+
+      // Initialize on DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', createThemeToggle);
+      } else {
+        createThemeToggle();
+      }
+    })();
+  </script>
 
 </body>
 </html>
