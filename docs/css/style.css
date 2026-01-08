@@ -107,7 +107,7 @@ body {
 .theme-toggle {
   position: fixed;
   top: 1rem;
-  right: calc((100vw - 1070px) / 2);
+  right: calc((100vw - 900px) / 2);
   z-index: 1000;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);

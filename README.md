@@ -177,6 +177,27 @@ generator.generate_batch(animated_icons, color=color, size=256, outline_color='s
 
 **Note:** Background gradients don't affect icon animations - only icon color gradients do.
 
+## CLI Usage
+
+Below is the full output of <code>icon-gen-ai --help</code>:
+
+```text
+Usage: icon-gen-ai [OPTIONS] COMMAND [ARGS]...
+
+  icon-gen-ai — generate icons from Iconify, URLs, or local files.
+
+Options:
+  --version  Show the version and exit.
+  --help     Show this message and exit.
+
+Commands:
+  generate   Generate icons from Iconify or local files.
+  providers  Show AI provider status.
+  search     Search for icons using AI-powered natural language queries.
+```
+Read the [documentation](https://yauheniya-ai.github.io/icon-gen-ai/) for more detailed instructions.
+
+
 ## Icon Sources
 
 **Three ways to get icons:**
@@ -231,7 +252,6 @@ git clone https://github.com/yauheniya-ai/icon-gen-ai.git
 cd icon-gen-ai
 
 # Install all dependencies (including dev tools)
-uv sync
 uv sync --extra ai --dev
 
 # Run tests
@@ -240,7 +260,7 @@ uv run pytest --cov=src --cov-report=term-missing
 
 ## License
 
-MIT License - see LICENSE file for details
+MIT License – see [LICENSE](LICENSE) file for details.
 
 ## Author
 
