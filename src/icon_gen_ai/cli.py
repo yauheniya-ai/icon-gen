@@ -45,10 +45,12 @@ def cli():
 @click.argument("icon", required=False)
 @click.option("-i", "--input", "input_file", help="Local image file or direct URL")
 @click.option("--color", help="Icon color or gradient '(c1,c2)'")
+@click.option("--direction", default="horizontal", type=click.Choice(["horizontal", "vertical", "diagonal"]), show_default=True, help="Icon gradient direction")
 @click.option("--size", default=256, show_default=True)
 @click.option("--format", default="svg", type=click.Choice(["svg", "png", "webp"]))
 @click.option("-o", "--output", help="Output file path")
 @click.option("--bg-color", help="Background color or gradient '(c1,c2)'")
+@click.option("--bg-direction", default="horizontal", type=click.Choice(["horizontal", "vertical", "diagonal"]), show_default=True, help="Background gradient direction")
 @click.option("--border-radius", default=0, show_default=True)
 @click.option("--outline-width", default=0, show_default=True)
 @click.option("--outline-color", help="Outline color")
@@ -56,10 +58,12 @@ def generate(
     icon,
     input_file,
     color,
+    direction,
     size,
     format,
     output,
     bg_color,
+    bg_direction,
     border_radius,
     outline_width,
     outline_color,
@@ -80,7 +84,11 @@ def generate(
   --color white --bg-color '(mediumslateblue,deeppink)' --border-radius 10 --size 128
         
         # Preserve original colors:
-        icon-gen-ai generate -i input/pypi-icon.svg --bg-color '(tan,cyan)' --size 128 --border-radius 64
+        icon-gen-ai generate -i devicon:pypi --bg-color '(tan,cyan)' --size 128 --border-radius 64
+        
+        # With gradient directions:
+        icon-gen-ai generate gis:globe --color '(deeppink,mediumslateblue)' --direction diagonal \
+  --bg-color '(lime,white)' --bg-direction vertical --size 256 -o notes/globe.svg
         
     """
 
@@ -143,6 +151,8 @@ def generate(
         border_radius=border_radius,
         outline_width=outline_width,
         outline_color=outline_color,
+        direction=direction,
+        bg_direction=bg_direction,
     )
 
     if not result:
@@ -256,4 +266,3 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
-
