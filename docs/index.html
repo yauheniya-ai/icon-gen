@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>icon-gen-ai - Documentation</title>
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
@@ -28,6 +29,7 @@
         <li><a href="#python-basics">Basic Usage</a></li>
         <li><a href="#generate-icon">generate_icon()</a></li>
         <li><a href="#generate-batch">generate_batch()</a></li>
+        <li><a href="#discover-icons">discover_icons()</a></li>
         <li><a href="#colors">Solid Colors</a></li>
         <li><a href="#gradients">Gradients</a></li>
       </ul>
@@ -181,7 +183,7 @@ Generating icons...</code></pre></details>
         <strong>Initialize the icon generator and create a star icon with an embedded SVG animation</strong>
       </div>
       
-      <pre class="cmd"><code>from icon_gen_ai import IconGenerator
+      <pre class="cmd"><code class="language-python">from icon_gen_ai import IconGenerator
 
 gen = IconGenerator(output_dir="docs")
 
@@ -200,7 +202,7 @@ gen.generate_icon(
         <strong>Create a series of icons from different sources with the same styling</strong>
       </div>
 
-      <pre class="cmd"><code>from icon_gen_ai import IconGenerator
+      <pre class="cmd"><code class="language-python">from icon_gen_ai import IconGenerator
 
 gen = IconGenerator(output_dir="docs")
 
@@ -243,7 +245,7 @@ gen.generate_batch(
       <p>Generate a single icon with full customization.</p>
 
       <h3>Signature</h3>
-      <pre><code>generate_icon(
+      <pre><code class="language-python">generate_icon(
     icon_name: Optional[str] = None,
     output_name: Optional[str] = None,
     color: Optional[Union[str, tuple[str, str]]] = None,
@@ -275,7 +277,7 @@ gen.generate_batch(
       <p>Generate multiple icons at once with shared default settings.</p>
 
       <h3>Signature</h3>
-      <pre><code>generate_batch(
+      <pre><code class="language-python">generate_batch(
     icons: dict[str, str | dict],
     color: Optional[Union[str, tuple[str, str]]] = None,
     size: Optional[int] = None,
@@ -287,6 +289,139 @@ gen.generate_batch(
     bg_direction: str = "horizontal",
 ) -> list[Path]</code></pre>
     </section>
+
+  <!-- discover_icons() -->
+  <section id="discover-icons">
+    <h2>discover_icons()</h2>
+    <p>
+      Use AI to discover relevant icons based on natural language queries and optional design context.
+      This method returns ranked icon suggestions with explanations, confidence scores, and styling hints.
+    </p>
+
+    <div class="alert alert-warning">
+      <strong>Note: </strong>Requires AI features. Install with <code>pip install icon-gen-ai[ai]</code> and set
+      <code>OPENAI_API_KEY</code> or <code>ANTHROPIC_API_KEY</code>.
+    </div>
+
+    <h3>Signature</h3>
+    <pre><code class="language-python">discover_icons(
+      query: str,
+      context: Optional[dict] = None
+  ) -> IconDiscoveryResponse</code></pre>
+
+    <h3>Basic Example</h3>
+    <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant
+
+assistant = IconAssistant()
+
+response = assistant.discover_icons(
+    "icons for a payment checkout page"
+)
+
+print(response.explanation)
+
+for suggestion in response.suggestions:
+    print(
+        suggestion.icon_name,
+        suggestion.confidence,
+        suggestion.reason
+    )</code></pre>
+    <details class="terminal-output">
+      <summary>See full terminal output</summary>
+
+      <pre class="out"><code>Querying Iconify using openai (model: gpt-4o-mini)...
+Used 963 tokens (≈$0.0003)
+The icons suggested are essential for a payment checkout page, representing different payment methods and actions a user might take.
+fa6-solid:credit-card 0.95 This icon represents credit card payments, which are commonly used in online transactions.
+mdi:paypal 0.95 The PayPal icon signifies the option to pay using this popular online payment service.
+fa6-solid:cash-register 0.9 This icon indicates cash payment options, which can be relevant for certain checkout scenarios.
+mdi:bank 0.9 The bank icon can represent bank transfers, an important payment method.
+fa6-solid:lock 0.92 A lock icon conveys security, which is crucial for assuring users their payment information is safe.
+  </code></pre>
+    </details>
+    <h3>With Design Context</h3>
+    <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant
+
+assistant = IconAssistant()
+
+response = assistant.discover_icons(
+      "finance dashboard navigation icons",
+      context={
+          "project_type": "SaaS dashboard",
+          "design_style": "modern",
+          "color_scheme": "blue and purple"
+      }
+  )
+
+print(response.explanation)
+
+for suggestion in response.suggestions:
+    print(
+        suggestion.icon_name,
+        suggestion.confidence,
+        suggestion.use_case,
+        suggestion.reason,
+        suggestion.style_suggestions
+    )</code></pre>
+    <details class="terminal-output">
+      <summary>See full terminal output</summary>
+
+      <pre class="out"><code>Querying Iconify using openai (model: gpt-4o-mini)...
+Used 941 tokens (≈$0.0003)
+The selected icons are ideal for a finance dashboard as they represent key functions and data visualizations commonly used in financial applications. They align with a modern design style and complement a blue and purple color scheme.
+mdi:view-dashboard 0.95 Use this icon for the main dashboard navigation link. This icon represents an overview of the dashboard, making it perfect for navigation. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
+mdi:chart-line 0.95 Ideal for sections displaying financial performance or trends. This icon symbolizes financial trends and analysis, which is crucial for finance dashboards. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
+mdi:table 0.95 Use this icon for sections that present tabular financial data. Represents structured data, which is essential for displaying financial reports or transactions. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
+heroicons:chart-bar 0.95 Suitable for sections highlighting key financial indicators or comparisons. This icon is associated with data visualization, perfect for displaying financial metrics. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
+lucide:layout-dashboard 0.95 Can be used for layout settings or customizable dashboard options. Represents a grid layout, which is typical in modern dashboards, enhancing user navigation. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
+  </code></pre>
+    </details>
+
+    <h3>Returned Data</h3>
+    <p>
+      Each suggestion contains rich metadata to help you decide which icon to use.
+    </p>
+
+    <pre><code>IconSuggestion:
+  - icon_name: str
+  - reason: str
+  - use_case: str
+  - confidence: float
+  - style_suggestions: dict | None</code></pre>
+
+    <h3>End-to-End Example</h3>
+    <p>
+      Discover icons with AI and immediately generate them with consistent styling.
+    </p>
+
+    <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant, IconGenerator
+
+assistant = IconAssistant()
+generator = IconGenerator(output_dir="docs/output")
+
+response = assistant.discover_icons(
+    "payment provider logos"
+)
+
+for i, suggestion in enumerate(response.suggestions, 1):
+    generator.generate_icon(
+        icon_name=suggestion.icon_name,
+        output_name=f"payment_{i}",
+        color="white",
+        bg_color=('deeppink','mediumslateblue'),
+        size=64,
+        border_radius=8
+    )</code></pre>
+    <div class="icon-row">
+      <img src="./output/payment_1.svg" alt="PayPal">
+      <img src="./output/payment_2.svg" alt="Visa">
+      <img src="./output/payment_3.svg" alt="Mastercard">
+      <img src="./output/payment_4.svg" alt="Stripe">
+    </div>
+  </section>
+
+
+
 
     <!-- Colors -->
     <section id="colors">
@@ -302,7 +437,7 @@ gen.generate_batch(
         You can also use <strong>hex color codes</strong> or <strong>RGB colors</strong> to specify the icon color. Tip: You can also use any <a href="https://www.w3schools.com/colors/colors_picker.asp" target="_blank">CSS color picker</a> to get hex or RGB values.
       </p>
       <p>Skip providing <code>color</code> or set <code>color=None</code> to keep the original icon colors. Examples:</p>
-      <pre class="cmd"><code>from icon_gen_ai import IconGenerator
+      <pre class="cmd"><code class="language-python">from icon_gen_ai import IconGenerator
 
 gen = IconGenerator(output_dir="docs/output")
 
@@ -334,7 +469,7 @@ gen.generate_icon(
         You can apply gradients to your icons by passing a tuple of two colors to the <code>color</code> or <code>bg_color</code> parameters. 
         The <code>direction</code> and <code>bg_direction</code> options let you control the orientation of the gradient: <code>horizontal</code> (default), <code>vertical</code>, or <code>diagonal</code>.      
       </p>
-      <pre class="cmd"><code>from icon_gen_ai import IconGenerator
+      <pre class="cmd"><code class="language-python">from icon_gen_ai import IconGenerator
 
 gen = IconGenerator(output_dir="docs/output")
 size = 64
@@ -534,6 +669,9 @@ gen.generate_icon(
       }
     })();
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
 
 </body>
 </html>
