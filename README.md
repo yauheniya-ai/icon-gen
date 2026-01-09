@@ -260,7 +260,7 @@ uv run pytest --cov=src --cov-report=term-missing
 
 ## License
 
-MIT License – see [LICENSE](LICENSE) file for details.
+MIT License – see [LICENSE](https://github.com/yauheniya-ai/icon-gen-ai/blob/main/LICENSE) file for details.
 
 ## Author
 
