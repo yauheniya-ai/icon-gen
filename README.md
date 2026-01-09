@@ -15,7 +15,8 @@ Generate customizable icons from Iconify, direct URLs, or local files with easy 
 <div align="center">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/docs/screen_recording_icon_gen_ai.webp" width="100%" alt="Playground Demo">
   <br><sub>
-    <a href="https://yauheniya-ai.github.io/icon-gen-ai/">Read the Documentation</a> | <a href="https://yauheniya-ai.github.io/icon-gen-ai-playground/">Try the Interactive Playground</a>
+    <a href="https://yauheniya-ai.github.io/icon-gen-ai/" target="_blank" rel="noopener noreferrer">Read the Documentation</a> • <a href="https://yauheniya-ai.github.io/icon-gen-ai-playground/" target="_blank" rel="noopener noreferrer">Try the Interactive Playground</a>
+
   </sub>
 </div>
 
@@ -195,7 +196,7 @@ Commands:
   providers  Show AI provider status.
   search     Search for icons using AI-powered natural language queries.
 ```
-Read the [documentation](https://yauheniya-ai.github.io/icon-gen-ai/) for more detailed instructions.
+Read the <a href="https://yauheniya-ai.github.io/icon-gen-ai/" target="_blank" rel="noopener noreferrer">documentation</a> for more detailed instructions.
 
 
 ## Icon Sources
@@ -203,7 +204,7 @@ Read the [documentation](https://yauheniya-ai.github.io/icon-gen-ai/) for more d
 **Three ways to get icons:**
 
 ### 1. Iconify (275,000+ icons)
-Browse at [Iconify](https://icon-sets.iconify.design/)
+Browse at <a href="https://icon-sets.iconify.design/" target="_blank" rel="noopener noreferrer">Iconify</a>
 
 ```python
 # Format: collection:icon-name
@@ -260,7 +261,7 @@ uv run pytest --cov=src --cov-report=term-missing
 
 ## License
 
-MIT License – see [LICENSE](https://github.com/yauheniya-ai/icon-gen-ai/blob/main/LICENSE) file for details.
+MIT License – see <a href="https://github.com/yauheniya-ai/icon-gen-ai/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">LICENSE</a> file for details.
 
 ## Author
 
