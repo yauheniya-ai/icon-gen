@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <title>icon-gen-ai - Documentation</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link id="prism-light" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" disabled>
+  <link id="prism-dark" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
@@ -608,70 +609,81 @@ gen.generate_icon(
     });
   </script>
 
-  <script>
-    (function() {
-      'use strict';
-
-      // Check for saved theme preference, system preference, or default to 'dark'
-      const savedTheme = localStorage.getItem('theme');
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-      
-      // Apply theme on page load
-      document.documentElement.setAttribute('data-theme', currentTheme);
-
-      // Create and insert theme toggle button
-      function createThemeToggle() {
-        const toggle = document.createElement('button');
-        toggle.className = 'theme-toggle';
-        toggle.setAttribute('aria-label', 'Toggle theme');
-        
-        const icon = document.createElement('span');
-        icon.className = 'theme-icon';
-        
-        const text = document.createElement('span');
-        
-        // Set initial icon and text based on current theme
-        updateToggleButton(icon, text, currentTheme);
-        
-        toggle.appendChild(icon);
-        toggle.appendChild(text);
-        
-        // Add click event
-        toggle.addEventListener('click', () => {
-          const theme = document.documentElement.getAttribute('data-theme');
-          const newTheme = theme === 'dark' ? 'light' : 'dark';
-          
-          document.documentElement.setAttribute('data-theme', newTheme);
-          localStorage.setItem('theme', newTheme);
-          updateToggleButton(icon, text, newTheme);
-        });
-        
-        document.body.appendChild(toggle);
-      }
-
-      // Update button text and icon
-      function updateToggleButton(icon, text, theme) {
-        if (theme === 'dark') {
-          icon.textContent = '☀️';
-          text.textContent = 'Light';
-        } else {
-          icon.textContent = '🌙';
-          text.textContent = 'Dark';
-        }
-      }
-
-      // Initialize on DOM ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', createThemeToggle);
-      } else {
-        createThemeToggle();
-      }
-    })();
-  </script>
+  <!-- Prism JS -->
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
 
+  <script>
+  (function() {
+    'use strict';
+
+    // ======= THEME MANAGEMENT =======
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+    // Apply initial theme
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updatePrismTheme(currentTheme);
+
+    // Create and insert theme toggle button
+    function createThemeToggle() {
+      const toggle = document.createElement('button');
+      toggle.className = 'theme-toggle';
+      toggle.setAttribute('aria-label', 'Toggle theme');
+
+      const icon = document.createElement('span');
+      icon.className = 'theme-icon';
+      const text = document.createElement('span');
+
+      updateToggleButton(icon, text, currentTheme);
+
+      toggle.appendChild(icon);
+      toggle.appendChild(text);
+
+      toggle.addEventListener('click', () => {
+        currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        localStorage.setItem('theme', currentTheme);
+        updateToggleButton(icon, text, currentTheme);
+        updatePrismTheme(currentTheme);
+      });
+
+      document.body.appendChild(toggle);
+    }
+
+    function updateToggleButton(icon, text, theme) {
+      if (theme === 'dark') {
+        icon.textContent = '☀️';
+        text.textContent = 'Light';
+      } else {
+        icon.textContent = '🌙';
+        text.textContent = 'Dark';
+      }
+    }
+
+    // ======= PRISM THEME SWITCH =======
+    function updatePrismTheme(theme) {
+      const light = document.getElementById('prism-light');
+      const dark = document.getElementById('prism-dark');
+
+      if (theme === 'light') {
+        light.disabled = false;
+        dark.disabled = true;
+      } else {
+        light.disabled = true;
+        dark.disabled = false;
+      }
+    }
+
+    // Initialize toggle on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', createThemeToggle);
+    } else {
+      createThemeToggle();
+    }
+  })();
+  </script>
 
 </body>
 </html>
