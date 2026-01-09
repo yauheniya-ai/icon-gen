@@ -340,6 +340,58 @@ pre.cmd:hover .copy-btn {
   margin-top: 1rem;
 }
 
+details.terminal-output summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  list-style: none;
+  user-select: none;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+/* Hide all default markers */
+details.terminal-output summary::-webkit-details-marker {
+  display: none;
+}
+
+details.terminal-output summary::marker {
+  display: none;
+}
+
+/* Custom arrow indicator - now in front */
+details.terminal-output summary::before {
+  content: "→";
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: deepskyblue;
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
+}
+
+/* Rotate arrow when open */
+details.terminal-output[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* Hover effects */
+details.terminal-output summary:hover {
+  color: var(--text-primary);
+}
+
+details.terminal-output summary:hover::before {
+  color: lightskyblue;
+}
+
+/* Style the content when expanded */
+details.terminal-output pre {
+  margin-top: 0.5rem;
+}
+
 /* ============================================
    Icon Rows
    ============================================ */
@@ -535,7 +587,7 @@ li code {
    Syntax Highlighting (works in both themes)
    ============================================ */
 
-.keyword { color: #ff79c6; }
-.string { color: #f1fa8c; }
+.keyword { color: deeppink; }
+.string { color: gold; }
 .comment { color: #6272a4; }
 .function { color: #50fa7b; }

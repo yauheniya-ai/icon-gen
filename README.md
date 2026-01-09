@@ -23,7 +23,7 @@ Generate customizable icons from Iconify, direct URLs, or local files with easy 
 
 <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_ai.svg" height="16px"> AI-assisted icon search and generation  
 <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_python.svg" height="16px"> Simple and intuitive CLI and Python API  
-<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_iconify.svg" height="16px"> Access 200,000+ icons from Iconify  
+<img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_iconify.svg" height="16px"> Access 275,000+ icons from Iconify  
 <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_image.svg" height="16px"> Unlimited icons from direct URLs or local files  
 <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_customize.svg" height="16px"> Customize colors, sizes, and backgrounds and adjust border radius  
 <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/feat_gradient.svg" height="16px"> Gradient color option for icons and backgrounds  
@@ -202,7 +202,7 @@ Read the [documentation](https://yauheniya-ai.github.io/icon-gen-ai/) for more d
 
 **Three ways to get icons:**
 
-### 1. Iconify (200,000+ icons)
+### 1. Iconify (275,000+ icons)
 Browse at [Iconify](https://icon-sets.iconify.design/)
 
 ```python
@@ -219,14 +219,14 @@ icon-gen-ai search "payment icons for checkout" --generate
 ```
 
 ### 2. Direct URL
-Any public image URL (SVG, PNG with transparent background):
+Any public image URL:
 ```python
 direct_url='https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg'
 direct_url='https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
 ```
 
 ### 3. Local File
-SVG or PNG (with transparent background):
+Locally saved images:
 ```python
 local_file='input/my-icon.svg'
 local_file='input/my-icon.png'

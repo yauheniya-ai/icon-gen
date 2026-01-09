@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="64" height="64"
+     viewBox="0 0 64 64">
+
+  <rect x="2.0" y="2.0"
+        width="60" height="60"
+        rx="6.0" ry="6.0"
+        fill="ivory" stroke="mediumslateblue" stroke-width="4" />
+  <g transform="
+      translate(32.0,32.0)
+      scale(1.9478260869565216)
+      translate(-0.0,-0.0)
+  ">
+<ns0:title xmlns:ns0="http://www.w3.org/2000/svg">React Logo</ns0:title>
+  <ns0:circle xmlns:ns0="http://www.w3.org/2000/svg" cx="0" cy="0" r="2.05" fill="#61dafb" />
+  <ns0:g xmlns:ns0="http://www.w3.org/2000/svg" stroke="#61dafb" stroke-width="1" fill="none">
+    <ns0:ellipse rx="11" ry="4.2" />
+    <ns0:ellipse rx="11" ry="4.2" transform="rotate(60)" />
+    <ns0:ellipse rx="11" ry="4.2" transform="rotate(120)" />
+  </ns0:g>
+
+  </g>
+</svg>

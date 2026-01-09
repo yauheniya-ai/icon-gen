@@ -223,10 +223,19 @@ class IconGenerator:
         tx = size / 2
         ty = size / 2
 
-        return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">
+        return f"""<svg xmlns="http://www.w3.org/2000/svg"
+     width="{size}" height="{size}"
+     viewBox="0 0 {size} {size}">
 {gradient_def}
-  <rect x="{half_stroke}" y="{half_stroke}" width="{rect_size}" height="{rect_size}" rx="{rect_radius}" ry="{rect_radius}" fill="{bg_fill}"{outline_attrs} />
-  <g transform="translate({tx},{ty}) scale({scale}) translate({-vb_w/2},{-vb_h/2})">
+  <rect x="{half_stroke}" y="{half_stroke}"
+        width="{rect_size}" height="{rect_size}"
+        rx="{rect_radius}" ry="{rect_radius}"
+        fill="{bg_fill}"{outline_attrs} />
+  <g transform="
+      translate({tx},{ty})
+      scale({scale})
+      translate({-(vb_x + vb_w/2)},{-(vb_y + vb_h/2)})
+  ">
 {icon_elements}
   </g>
 </svg>"""

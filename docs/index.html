@@ -50,10 +50,11 @@
     <!-- Header -->
     <div class="header">
       <h1>icon-gen-ai</h1>
-      <p class="tagline">AI-powered icon generator from Iconify, direct URLs, or local files</p>
+      <p class="tagline">Generate pixel-perfect icons with custom color, background, border radius, and outline and export to svg, png, webp, and ico</p>
       <div class="badges">
         <span class="badge">Python 3.10+</span>
         <span class="badge">CLI + API</span>
+        <span class="badge">Iconify, URL, local file</span>
         <span class="badge">SVG, PNG, WebP, ICO</span>
       </div>
     </div>
@@ -80,27 +81,65 @@
       <h3>Basic Commands</h3>
       
       <div class="alert alert-info">
-        <strong>Generate from Iconify</strong>
+        <strong>Generate from Iconify, URL, and local file</strong>
       </div>
-      <pre class="cmd"><code>icon-gen-ai generate fa7-brands:openai -o docs/output/openai.svg \
-  --color deeppink --size 64</code></pre>
-      <pre class="out"><code>Generating icon
-  Source: fa7-brands:openai
-  Size: 64px
-  Color: deeppink
-  Background: transparent
-  Border radius: 0px
+      <pre class="cmd"><code>icon-gen-ai generate material-icon-theme:python -o docs/output/gens_python.svg \
+  --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8
 
-✓ Saved to docs/output/openai.svg</code></pre>
+icon-gen-ai generate -i 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg' -o docs/output/gens_react.svg \
+  --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8
+
+icon-gen-ai generate -i 'docs/input/html_css_js.jpeg' -o docs/output/gens_hmtl_css_js.svg \
+  --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8</code></pre>
+      <details class="terminal-output">
+  <summary>See full terminal output</summary>
+
+  <pre class="out"><code>Generating icon
+  Source: material-icon-theme:python
+  Size: 64px
+  Color: original
+  Background: white
+  Border radius: 8px
+  Outline: 4px (mediumslateblue)
+
+✓ Saved to docs/output/gens_python.svg
+
+
+Generating icon
+  Source: https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
+  Size: 64px
+  Color: original
+  Background: white
+  Border radius: 8px
+  Outline: 4px (mediumslateblue)
+
+✓ Saved to docs/output/gens_react.svg
+
+
+Generating icon
+  Source: docs/input/html_css_js.jpeg
+  Size: 64px
+  Color: original
+  Background: white
+  Border radius: 8px
+  Outline: 4px (mediumslateblue)
+
+✓ Saved to docs/output/gens_hmtl_css_js.svg</code></pre>
+      </details>
       <div class="icon-row">
-        <img src="./output/openai.svg" alt="OpenAI Icon">
+        <img src="./output/gens_python.svg" alt="Python Icon">
+        <img src="./output/gens_react.svg" alt="React Icon">
+        <img src="./output/gens_hmtl_css_js.svg" alt="HTML CSS JS Icon">
       </div>
 
       <div class="alert alert-info">
-        <strong>Search and Generate with AI</strong>
+        <strong>Search and generate with AI</strong>
       </div>
       <pre class="cmd"><code>icon-gen-ai search "github icon and logo" --generate</code></pre>
-      <pre class="out"><code>Searching: github icon and logo
+
+      <details class="terminal-output">
+        <summary>See full terminal output</summary>
+        <pre class="out"><code>Searching: github icon and logo
 
 Using cached response (saved 696 tokens)
 1. simple-icons:github
@@ -109,14 +148,14 @@ Using cached response (saved 696 tokens)
 2. mdi:git
    This icon represents Git, which is the underlying version control system used by GitHub.
 
-Generating icons...</code></pre>
+Generating icons...</code></pre></details>
       <div class="icon-row">
         <img src="./output/simple-icons_github.svg" alt="GitHub Icon"> 
         <img src="./output/mdi_git.svg" alt="Git Icon">
       </div>
 
       <div class="alert alert-info">
-        <strong>List Providers</strong>
+        <strong>Show available providers and active LLM</strong>
       </div>
       <pre class="cmd"><code>icon-gen-ai providers</code></pre>
       <pre class="out"><code>Installed providers: openai, anthropic
