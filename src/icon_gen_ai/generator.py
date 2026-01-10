@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Optional, Literal, Union, Tuple
 from xml.etree import ElementTree as ET
 from io import BytesIO
+from .animation import Animator
 
 try:
     from PIL import Image, ImageColor
@@ -192,7 +193,10 @@ class IconGenerator:
                 ET.tostring(child, encoding="unicode") for child in root
             )
         except Exception:
-            vb_w = vb_h = 24
+            # Fallback when parsing fails: assume 24x24 viewBox at origin
+            vb_x = 0.0
+            vb_y = 0.0
+            vb_w = vb_h = 24.0
             icon_elements = svg_content
 
         gradient_def = ""
@@ -469,6 +473,7 @@ class IconGenerator:
         color: Optional[Union[str, tuple[str, str]]] = None,
         size: Optional[int] = None,
         format: FormatType = "svg",
+        animation: Optional[Union[str, dict]] = None,
         direct_url: Optional[str] = None,
         bg_color: Optional[Union[str, tuple[str, str]]] = None,
         border_radius: int = 0,
@@ -533,6 +538,13 @@ class IconGenerator:
                 preserve_animations=True, 
                 direction=direction
             )
+
+            # Apply animation presets (SVG-native) if requested
+            if animation:
+                try:
+                    svg_content = Animator().apply(svg_content, animation)
+                except Exception as e:
+                    print(f"Warning: failed to apply animation: {e}")
 
         # Background / outline wrapper
         if bg_color is not None or border_radius > 0 or outline_width > 0:
@@ -616,6 +628,7 @@ class IconGenerator:
         outline_color: Optional[str] = None,
         direction: str = "horizontal",
         bg_direction: str = "horizontal",
+        animation: Optional[Union[str, dict]] = None,
     ) -> list[Path]:
         """Generate multiple icons at once."""
         results: list[Path] = []
@@ -629,6 +642,7 @@ class IconGenerator:
                     output_name=output_name,
                     color=color,
                     size=size,
+                    animation=animation,
                     bg_color=bg_color,
                     border_radius=border_radius,
                     outline_width=outline_width,
@@ -643,6 +657,7 @@ class IconGenerator:
                     output_name=output_name,
                     color=icon_config.get("color", color),
                     size=icon_config.get("size", size),
+                    animation=icon_config.get("animation", animation),
                     direct_url=icon_config.get("url"),
                     local_file=icon_config.get("local_file"),
                     bg_color=icon_config.get("bg_color", bg_color),

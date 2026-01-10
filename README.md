@@ -134,7 +134,7 @@ ai_icons = {
 generator.generate_batch(ai_icons, color='deepskyblue', size=256, outline_color='deepskyblue', outline_width=8, border_radius=48)
 ```
 
-### Animation Support
+### Support for Embedded Animations
 
 When you apply a solid color to an animated SVG icon, the animations are automatically preserved:
 
@@ -157,10 +157,10 @@ generator = IconGenerator(output_dir="output")
 color = 'mediumslateblue' 
 
 animated_icons = {
-    f'speedometer_loop_{color}': 'line-md:speedometer-loop',
-    f'upload_outline_loop_{color}': 'line-md:upload-outline-loop',
-    f'my_location_loop_{color}': 'line-md:my-location-loop',
-    f'bars_scale_middle_{color}': 'svg-spinners:bars-scale-middle'
+    f'ani_embedded_blocks': 'svg-spinners:blocks-wave',
+    f'ani_embedded_upload': 'line-md:upload-outline-loop',
+    f'ani_embedded_location': 'line-md:my-location-loop',
+    f'ani_embedded_bars': 'svg-spinners:bars-scale-middle'
 }
 
 generator.generate_batch(animated_icons, color=color, size=256, outline_color='springgreen', bg_color='snow', outline_width=8, border_radius=48)
@@ -175,6 +175,40 @@ generator.generate_batch(animated_icons, color=color, size=256, outline_color='s
 - Gradient colors on the icon itself: `color=('deeppink', 'mediumslateblue')`
 
 **Note:** Background gradients don't affect icon animations - only icon color gradients do.
+
+### Create Custom Animations
+
+You can add four types of animations to the SVG icons: spin, pulse, flip horizontally, and flip vertically.
+
+<div align="center" style="padding: 40px; ">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_disk.svg" width="70" alt="Spinning Disk">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_circle.svg" width="70" alt="Pulsating Circle">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_coffee.svg" width="70" alt="Flipping Coffee">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_card.svg" width="70" alt="Flipping Card">
+</div>
+
+```python
+from icon_gen_ai import IconGenerator
+
+generator = IconGenerator(output_dir="output")
+
+icons_with_custom_ani = {
+    f'disk': {'icon':'qlementine-icons:disk-16',"animation":"spin:4s"},
+    f'cicle': {'icon':'clarity:dot-circle-line',"animation":"pulse:1s"},
+    f'coffee': {'icon':'gg:coffee',"animation":"flip-h:1s"},
+    f'card': {'icon':'famicons:card-outline',"animation":"flip-v:1s"},
+}
+
+generated = generator.generate_batch(
+    icons_with_custom_ani, 
+    color='white', 
+    size=256,  
+    bg_color=('deeppink','deepskyblue'), 
+    border_radius=48)
+```
 
 ## CLI Usage
 

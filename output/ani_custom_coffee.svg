@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="256" height="256"
+     viewBox="0 0 256 256">
+<defs>
+  <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="deeppink" stop-opacity="1" />
+    <stop offset="100%" stop-color="deepskyblue" stop-opacity="1" />
+  </linearGradient>
+</defs>
+  <rect x="0" y="0"
+        width="256" height="256"
+        rx="48" ry="48"
+        fill="url(#bgGradient)" />
+  <g transform="
+      translate(128.0,128.0)
+      scale(7.466666666666666)
+      translate(-12.0,-12.0)
+  ">
+<g xmlns="http://www.w3.org/2000/svg" fill="white"><g transform-box="view-box" transform-origin="12.0px 12.0px"><path d="M6 2.5a1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-1-1" fill="white" /><path fill-rule="evenodd" d="M13 21.5a6 6 0 0 0 5.917-5H19a4 4 0 0 0 0-8v-1H1v8a6 6 0 0 0 6 6zM3 9.5v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-6zm18 3a2 2 0 0 1-2 2v-4a2 2 0 0 1 2 2" clip-rule="evenodd" fill="white" /><path d="M9 3.5a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0zm5-1a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1" fill="white" /><animateTransform attributeName="transform" attributeType="XML" type="scale" values="1 1;1 1;-1 1;1 1;1 1;-1 1;1 1" keyTimes="0.000000;0.400000;0.450000;0.500000;0.900000;0.950000;1.000000" dur="10.000s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" /></g></g>
+  </g>
+</svg>

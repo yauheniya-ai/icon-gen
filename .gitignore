@@ -1,3 +1,5 @@
+.github/copilot-instructions.md
+
 notes/
 output/*
 !output/claude_white_mediumslateblue_bg.svg
@@ -8,10 +10,16 @@ output/*
 !output/deepseek_deepskyblue.svg
 !output/nemotron_deepskyblue.svg
 !output/llama_deepskyblue.svg
-!output/bars_scale_mediumslateblue.svg
-!output/my_location_loop_mediumslateblue.svg
-!output/speedometer_loop_mediumslateblue.svg
-!output/upload_outline_loop_mediumslateblue.svg
+
+!output/ani_custom_card.svg
+!output/ani_custom_circle.svg
+!output/ani_custom_coffee.svg
+!output/ani_custom_disk.svg
+
+!output/ani_embedded_bars.svg
+!output/ani_embedded_location.svg
+!output/ani_embedded_blocks.svg
+!output/ani_embedded_upload.svg
 
 !output/feat_ai.svg
 !output/feat_customize.svg

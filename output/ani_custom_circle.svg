@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="256" height="256"
+     viewBox="0 0 256 256">
+<defs>
+  <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="deeppink" stop-opacity="1" />
+    <stop offset="100%" stop-color="deepskyblue" stop-opacity="1" />
+  </linearGradient>
+</defs>
+  <rect x="0" y="0"
+        width="256" height="256"
+        rx="48" ry="48"
+        fill="url(#bgGradient)" />
+  <g transform="
+      translate(128.0,128.0)
+      scale(4.977777777777777)
+      translate(-18.0,-18.0)
+  ">
+<g xmlns="http://www.w3.org/2000/svg"><g transform-box="view-box" transform-origin="18.0px 18.0px"><path fill="white" d="M18 11a7 7 0 1 1-7 7a7 7 0 0 1 7-7" class="clr-i-outline clr-i-outline-path-1" /><path fill="white" d="M18 34a16 16 0 1 1 16-16a16 16 0 0 1-16 16m0-30a14 14 0 1 0 14 14A14 14 0 0 0 18 4" class="clr-i-outline clr-i-outline-path-2" /><path fill="none" d="M0 0h36v36H0z" /><animateTransform attributeName="transform" attributeType="XML" type="scale" values="1 1;0.1 0.1;1 1" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1" /></g></g>
+  </g>
+</svg>

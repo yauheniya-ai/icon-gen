@@ -54,6 +54,7 @@ def cli():
 @click.option("--border-radius", default=0, show_default=True)
 @click.option("--outline-width", default=0, show_default=True)
 @click.option("--outline-color", help="Outline color")
+@click.option("--animation", help="Animation preset e.g. 'spin:2s', 'pulse:1.5s', 'flip-h:1s', 'flip-v:1s'")
 def generate(
     icon,
     input_file,
@@ -67,6 +68,7 @@ def generate(
     border_radius,
     outline_width,
     outline_color,
+    animation,
 ):
     """Generate icons from Iconify or local files.
     
@@ -147,6 +149,8 @@ def generate(
     click.echo(f"  Background: {parsed_bg or 'transparent'}")
     click.echo(f"  Border radius: {border_radius}px")
 
+    click.echo(f"  Animation: {animation or 'none'}")
+
     if outline_width > 0:
         click.echo(f"  Outline: {outline_width}px ({outline_color})")
 
@@ -162,6 +166,7 @@ def generate(
         border_radius=border_radius,
         outline_width=outline_width,
         outline_color=outline_color,
+        animation=animation,
         direction=direction,
         bg_direction=bg_direction,
     )
