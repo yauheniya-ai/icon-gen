@@ -49,7 +49,7 @@ def main():
     icons_with_custom_ani = {
         f'{cat2}_disk': {'icon':'qlementine-icons:disk-16',"animation":"spin:4s"},
         f'{cat2}_circle': {'icon':'clarity:dot-circle-line',"animation":"pulse:1s"},
-        f'{cat2}_coffee': {'icon':'gg:coffee',"animation":"flip-h:1s"},
+        f'{cat2}_coffee': {'icon':'gg:coffee',"animation":"flip-h:0.7s"},
         f'{cat2}_card': {'icon':'famicons:card-outline',"animation":"flip-v:1s"},
     }
     
