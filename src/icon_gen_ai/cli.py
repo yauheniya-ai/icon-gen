@@ -101,9 +101,15 @@ def generate(
     # Resolve input
     direct_url = None
     local_file = None
+    icon_name = icon
 
     if input_file:
-        if is_url(input_file):
+        # Check if it's an Iconify icon name (contains colon)
+        if ':' in input_file and not is_url(input_file) and not os.path.exists(input_file):
+            # It's an Iconify icon name used with -i flag
+            icon_name = input_file
+            input_file = None
+        elif is_url(input_file):
             direct_url = input_file
         else:
             if not os.path.exists(input_file):
@@ -120,17 +126,22 @@ def generate(
 
     if output_path:
         output_name = output_path.stem
+        # Infer format from extension if output path is specified
+        if output_path.suffix:
+            inferred_format = output_path.suffix.lstrip('.')
+            if inferred_format in ['svg', 'png', 'webp', 'ico']:
+                format = inferred_format
     elif local_file:
         output_name = Path(local_file).stem
     elif direct_url:
         output_name = Path(urlparse(direct_url).path).stem or "icon"
     else:
-        output_name = icon.replace(":", "_").replace("/", "_")
+        output_name = icon_name.replace(":", "_").replace("/", "_")
 
     generator = IconGenerator(output_dir=str(output_dir))
 
     click.echo("\nGenerating icon")
-    click.echo(f"  Source: {icon or input_file}")
+    click.echo(f"  Source: {icon_name or input_file}")
     click.echo(f"  Size: {size}px")
     click.echo(f"  Color: {parsed_color or 'original'}")
     click.echo(f"  Background: {parsed_bg or 'transparent'}")
@@ -140,7 +151,7 @@ def generate(
         click.echo(f"  Outline: {outline_width}px ({outline_color})")
 
     result = generator.generate_icon(
-        icon_name=icon,
+        icon_name=icon_name,
         output_name=output_name,
         color=parsed_color,
         size=size,

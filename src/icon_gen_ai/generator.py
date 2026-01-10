@@ -362,6 +362,8 @@ class IconGenerator:
         Returns a tuple: (svg_content, is_raster_image)
         """
         file_path = Path(file_path)
+        is_jpeg = file_path.suffix.lower() in (".jpg", ".jpeg")
+        
         if not file_path.exists():
             print(f"Error: File not found: {file_path}")
             return None
@@ -387,20 +389,23 @@ class IconGenerator:
             
             width, height = img.size
             
-            # Apply color transformation if requested
+            # Apply color transformation if requested (only for solid colors, not gradients)
             if target_color:
-                target_rgb = parse_color(target_color)
-                
-                # Recolor non-transparent pixels
-                pixels = list(img.getdata())
-                new_pixels = []
-                for r, g, b, a in pixels:
-                    if a > 0:  # Non-transparent pixel
-                        new_pixels.append((*target_rgb, a))
-                    else:
-                        new_pixels.append((r, g, b, a))
-                
-                img.putdata(new_pixels)
+                if is_jpeg:
+                    print(
+                        "Warning: JPEG images do not support safe recoloring. "
+                        "Please use SVG, PNG or WebP images with transparency to apply colors."
+                    )
+                else:
+                    target_rgb = parse_color(target_color)
+                    pixels = list(img.getdata())
+                    new_pixels = []
+                    for r, g, b, a in pixels:
+                        if a > 0:
+                            new_pixels.append((*target_rgb, a))
+                        else:
+                            new_pixels.append((r, g, b, a))
+                    img.putdata(new_pixels)
 
             from base64 import b64encode
             buffer = BytesIO()
@@ -477,14 +482,33 @@ class IconGenerator:
         is_raster_source = False
 
         if local_file:
-            result = self.load_local_file(
-                local_file,
-                color if color and not isinstance(color, tuple) else None,
-                size,
-            )
+            # Check if it's a JPEG and color is requested
+            file_path = Path(local_file)
+            is_jpeg = file_path.suffix.lower() in (".jpg", ".jpeg")
+            
+            if is_jpeg and color:
+                print(
+                    "Error: JPEG images do not support recoloring. "
+                    "Please use SVG, PNG or WebP images with transparency to apply colors."
+                )
+                return None
+            
+            # Don't pass gradient colors to load_local_file - it only handles solid colors
+            solid_color = color if color and not isinstance(color, tuple) else None
+            result = self.load_local_file(local_file, solid_color, size)
             if result is None:
                 return None
             svg_content, is_raster_source = result
+            
+            # If color is a gradient and it's a raster source, apply gradient now
+            if isinstance(color, tuple) and is_raster_source:
+                svg_content = self.apply_gradient_via_raster(
+                    svg_content, 
+                    color[0], 
+                    color[1], 
+                    size, 
+                    direction=direction
+                )
 
         elif direct_url:
             svg_content = self.get_icon_from_url(direct_url)
@@ -538,7 +562,44 @@ class IconGenerator:
             return output_path if self.save_svg(svg_content, output_path) else None
 
         elif format == "ico":
-            return self.generate_ico(svg_content, output_path)
+            return self.generate_ico(svg_content, output_path, size)
+
+        elif format in ("png", "webp", "jpg", "jpeg"):
+            if not RASTER_AVAILABLE:
+                print("Error: PIL/cairosvg not available. Cannot generate raster formats.")
+                return None
+            
+            # Convert SVG to PNG bytes
+            png_bytes = cairosvg.svg2png(
+                bytestring=svg_content.encode('utf-8'), 
+                output_width=size, 
+                output_height=size
+            )
+            
+            if format == "png":
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                with open(output_path, 'wb') as f:
+                    f.write(png_bytes)
+                return output_path
+            
+            else:  # webp, jpg, jpeg
+                image = Image.open(BytesIO(png_bytes))
+                
+                # Convert RGBA to RGB for JPEG (no transparency support)
+                if format in ("jpg", "jpeg"):
+                    if image.mode == "RGBA":
+                        # Create white background
+                        rgb_image = Image.new("RGB", image.size, (255, 255, 255))
+                        rgb_image.paste(image, mask=image.split()[3])  # Use alpha as mask
+                        image = rgb_image
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    image.save(output_path, format='JPEG', quality=95)
+                else:  # webp
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    image.save(output_path, format='WEBP', quality=95)
+                
+                image.close()
+                return output_path
 
         else:
             raise ValueError(f"Unsupported format: {format}")

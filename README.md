@@ -8,9 +8,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/yauheniya-ai/icon-gen)](https://github.com/yauheniya-ai/icon-gen/commits/main)
 [![Downloads](https://pepy.tech/badge/icon-gen-ai)](https://pepy.tech/project/icon-gen-ai)
 
-
-Generate customizable icons from Iconify, direct URLs, or local files with easy export to PNG, SVG, WebP, and ICO formats.
-
+Generate pixel perfect icons from Iconify, direct URLs, and local files and export to PNG, SVG, WebP, and ICO formats.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/docs/screen_recording_icon_gen_ai.webp" width="100%" alt="Playground Demo">
@@ -216,7 +214,7 @@ Browse at <a href="https://icon-sets.iconify.design/" target="_blank" rel="noope
 
 **AI-powered search** (requires `pip install icon-gen-ai[ai]`):
 ```bash
-icon-gen-ai search "payment icons for checkout" --generate
+icon-gen-ai search "payment icons for checkout"
 ```
 
 ### 2. Direct URL
@@ -229,8 +227,10 @@ direct_url='https://companieslogo.com/img/orig/NVDA-df4c2377.svg'
 ### 3. Local File
 Locally saved images:
 ```python
-local_file='input/my-icon.svg'
-local_file='input/my-icon.png'
+local_file='input/pypi-icon.svg'
+local_file='input/github-mark.png'
+local_file='input/html_css_js-icon.jpeg'
+local_file='input/react-icon.webp'
 ```
 
 ## Examples
