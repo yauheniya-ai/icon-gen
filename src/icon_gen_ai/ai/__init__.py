@@ -50,4 +50,6 @@ def get_available_providers() -> list:
         providers.append("openai")
     if AnthropicProvider is not None:
         providers.append("anthropic")
+    if HuggingFaceProvider is not None:
+        providers.append("huggingface")
     return providers
