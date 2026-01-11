@@ -608,22 +608,22 @@ class IconGenerator:
         if not svg_content:
             return None
 
-        # Apply color + size only for vector sources
+        # Apply color + size for vector sources (raster sources are already embedded)
         if not is_raster_source:
             svg_content = self.modify_svg(
-                svg_content, 
-                color, 
-                size, 
-                preserve_animations=True, 
-                direction=direction
+                svg_content,
+                color,
+                size,
+                preserve_animations=True,
+                direction=direction,
             )
 
-            # Apply animation presets (SVG-native) if requested
-            if animation:
-                try:
-                    svg_content = Animator().apply(svg_content, animation)
-                except Exception as e:
-                    print(f"Warning: failed to apply animation: {e}")
+        # Apply animation presets (SVG-native) if requested for all sources
+        if animation:
+            try:
+                svg_content = Animator().apply(svg_content, animation)
+            except Exception as e:
+                print(f"Warning: failed to apply animation: {e}")
 
         # Background / outline wrapper (keep a copy of pre-wrapped svg for exporters)
         svg_before_bg = svg_content
