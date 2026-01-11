@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "icon-gen-ai"
 version = "0.3.1"
-description = "Generate pixel perfect icons from Iconify, URLs, and local files and export to PNG, SVG, WebP, or ICO"
+description = "Generate pixel-perfect icons from Iconify, direct URLs, and local files—with animation support and exports to PNG, SVG, WebP, and ICO"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
