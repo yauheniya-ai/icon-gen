@@ -388,10 +388,15 @@ class IconGenerator:
         try:
             img = Image.open(file_path).convert("RGBA")
             
-            # Resize if requested
+            # Resize if requested: preserve aspect ratio and fit within target_size
+            orig_w, orig_h = img.size
             if target_size:
-                img = img.resize((target_size, target_size), Image.Resampling.LANCZOS)
-            
+                ratio = min(target_size / orig_w, target_size / orig_h)
+                if ratio < 1:
+                    new_w = max(1, int(round(orig_w * ratio)))
+                    new_h = max(1, int(round(orig_h * ratio)))
+                    img = img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+
             width, height = img.size
             
             # Apply color transformation if requested (only for solid colors, not gradients)
@@ -427,11 +432,71 @@ class IconGenerator:
             return None
 
     # -------------------- FETCH ICONS --------------------
-    def get_icon_from_url(self, url: str) -> Optional[str]:
+    def get_icon_from_url(self, url: str, target_size: Optional[int] = None) -> Optional[tuple[str, bool]]:
+        """Fetch an icon from a direct URL.
+
+        Returns a tuple (svg_content, is_raster_image).
+        For SVG responses returns the SVG text and False. For raster images
+        (png/jpg/webp/etc) returns an SVG wrapper embedding the image as
+        a data URI and True.
+        """
         try:
-            r = requests.get(url, headers={"User-Agent":"Mozilla/5.0"}, timeout=10)
+            r = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
             r.raise_for_status()
-            return r.text
+
+            content_type = r.headers.get("Content-Type", "")
+
+            # SVG content
+            if 'svg' in content_type or url.lower().endswith('.svg'):
+                try:
+                    return (r.text, False)
+                except Exception:
+                    return (r.content.decode('utf-8', errors='replace'), False)
+
+            # Raster content (png, jpeg, webp, etc.) - embed as data URI inside an SVG
+            if content_type.startswith('image/') or any(url.lower().endswith(ext) for ext in ('.png', '.jpg', '.jpeg', '.webp')):
+                data = r.content
+                from base64 import b64encode
+
+                # If we can, open and optionally resize the image to the target size
+                if RASTER_AVAILABLE:
+                    try:
+                        img = Image.open(BytesIO(data)).convert('RGBA')
+                        # If a target_size was requested, resize to fit within that size
+                        # while preserving original aspect ratio (do not force a square).
+                        orig_w, orig_h = img.size
+                        if target_size:
+                            ratio = min(target_size / orig_w, target_size / orig_h)
+                            if ratio < 1:
+                                new_w = max(1, int(round(orig_w * ratio)))
+                                new_h = max(1, int(round(orig_h * ratio)))
+                                img = img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+                        width, height = img.size
+
+                        # Re-encode as PNG for consistent embedding
+                        buf = BytesIO()
+                        img.save(buf, format='PNG')
+                        b64 = b64encode(buf.getvalue()).decode('utf-8')
+                        subtype = 'png'
+                    except Exception:
+                        # Fallback to original bytes if PIL processing fails
+                        subtype = content_type.split('/')[-1].split(';')[0] if '/' in content_type else 'png'
+                        b64 = b64encode(data).decode('utf-8')
+                        width = height = target_size or 256
+                else:
+                    subtype = content_type.split('/')[-1].split(';')[0] if '/' in content_type else 'png'
+                    b64 = b64encode(data).decode('utf-8')
+                    width = height = target_size or 256
+
+                svg_content = (
+                    f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">\n'
+                    f'<image width="{width}" height="{height}" href="data:image/{subtype};base64,{b64}" />\n'
+                    '</svg>'
+                )
+                return (svg_content, True)
+
+            # Fallback: try to decode as text
+            return (r.text, False)
         except Exception as e:
             print(f"Error fetching from URL {url}: {e}")
             return None
@@ -517,7 +582,20 @@ class IconGenerator:
                 )
 
         elif direct_url:
-            svg_content = self.get_icon_from_url(direct_url)
+            result = self.get_icon_from_url(direct_url, target_size=size)
+            if result is None:
+                return None
+            svg_content, is_raster_source = result
+
+            # If color is a gradient and the source is raster, apply gradient now
+            if isinstance(color, tuple) and is_raster_source:
+                svg_content = self.apply_gradient_via_raster(
+                    svg_content,
+                    color[0],
+                    color[1],
+                    size,
+                    direction=direction,
+                )
 
         elif icon_name:
             fetch_color = "black" if isinstance(color, tuple) else (color or "currentColor")
