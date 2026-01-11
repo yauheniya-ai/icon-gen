@@ -52,6 +52,7 @@ class IconAssistant:
         Checks in order:
         1. ANTHROPIC_API_KEY
         2. OPENAI_API_KEY
+        3. HUGGINGFACE_API_TOKEN
         
         Returns:
             Initialized provider or None if no credentials found
@@ -83,6 +84,20 @@ class IconAssistant:
                 )
             except ImportError:
                 print("Warning: openai package not installed")
+        
+        # Try HuggingFace
+        huggingface_key = os.getenv("HUGGINGFACE_API_TOKEN")
+        huggingface_base = os.getenv("HUGGINGFACE_BASE_URL")
+        
+        if huggingface_key:
+            try:
+                from .huggingface_provider import HuggingFaceProvider
+                return HuggingFaceProvider(
+                    api_key=huggingface_key,
+                    base_url=huggingface_base
+                )
+            except ImportError:
+                print("Warning: huggingface_hub package not installed")
         
         # No provider found
         return None
@@ -187,7 +202,7 @@ class IconAssistant:
         """Discover icons based on a natural language query.
         
         Args:
-            query: Natural language description (e.g., "payment icons for checkout")
+            query: Natural language description (e.g., "5 payment icons for checkout")
             context: Optional context (project_type, design_style, etc.)
             use_cache: Whether to use cached results
             
@@ -199,8 +214,8 @@ class IconAssistant:
         """
         if not self.is_available():
             raise RuntimeError(
-                "No LLM provider available. Please set OPENAI_API_KEY or "
-                "ANTHROPIC_API_KEY environment variable, or pass a provider explicitly."
+                "No LLM provider available. Please set OPENAI_API_KEY, ANTHROPIC_API_KEY, "
+                "or HUGGINGFACE_API_TOKEN environment variable, or pass a provider explicitly."
             )
         
         # Check cache

@@ -2,17 +2,23 @@
 
 ICON_DISCOVERY_SYSTEM_PROMPT = """You are an expert icon designer and UI/UX consultant helping users find the perfect icons from Iconify.
 
-Iconify has 200,000+ icons from various collections including:
-- simple-icons: Company and brand logos (e.g., simple-icons:openai, simple-icons:google)
-- mdi (Material Design Icons): General purpose icons (e.g., mdi:home, mdi:account)
-- fa6-solid (Font Awesome 6): Popular icon set (e.g., fa6-solid:user, fa6-solid:heart)
-- heroicons: Modern minimal icons (e.g., heroicons:home, heroicons:user)
-- lucide: Clean and consistent icons (e.g., lucide:home, lucide:settings)
-- tabler: Outline style icons (e.g., tabler:home, tabler:user)
+Iconify has 275,000+ icons from various collections including:
+- material-symbols (e.g., material-symbols:cloud, material-symbols:computer-rounded)
+- ic (e.g. ic:baseline-keyboard-voice, ic:outline-insert-emoticon)
+- mdi (e.g., mdi:home, mdi:account, mdi:bank, mdi:book-open-variant) 
+- simple-icons (e.g., simple-icons:openai, simple-icons:googlegemini)
+- fa6-solid (e.g., fa-solid:address-card, fa6-solid:heart)
+- heroicons (e.g., heroicons:cog-8-tooth-solid, heroicons:credit-card)
+- line-md (e.g., line-md:at, line-md:coffee-filled-loop)
+- solar (e.g. solar:cart-large-2-bold, solar:dna-bold)
+- tabler (e.g., tabler:drone)
+- mingcute (e.g., mingcute:plugin-2-fill)
 
 Your task is to:
 1. Understand what the user needs icons for
-2. Suggest 5-10 relevant icons with their exact Iconify names
+2. Suggest relevant icons with their exact Iconify names (maximum 25)
+   - If user specifies a number (e.g., "5 icons", "suggest 7"), provide exactly that many
+   - Otherwise, provide a reasonable number based on the query (e.g., 10-25)
 3. Explain why each icon is appropriate
 4. Suggest styling (color, size, background) if relevant
 
@@ -32,7 +38,7 @@ Respond in this JSON format:
         "color": "white",
         "size": 256,
         "bg_color": "mediumslateblue",
-        "border_radius": 0
+        "border_radius": 48
       }
     }
   ]
@@ -50,21 +56,21 @@ Platform: {platform}
 Suggest appropriate icons and styling that match this context."""
 
 USE_CASE_EXAMPLES = {
-    "dashboard": "For a dashboard, consider: mdi:view-dashboard, mdi:chart-line, mdi:table, heroicons:chart-bar, lucide:layout-dashboard",
-    "authentication": "For auth pages: mdi:login, mdi:logout, mdi:account, fa6-solid:user, heroicons:lock-closed",
-    "e-commerce": "For shopping: mdi:cart, mdi:credit-card, fa6-solid:shopping-bag, lucide:shopping-cart, mdi:package",
-    "social": "For social features: mdi:thumb-up, mdi:comment, mdi:share, fa6-solid:heart, heroicons:chat-bubble-left",
-    "file-management": "For files: mdi:file, mdi:folder, mdi:download, mdi:upload, lucide:file-text",
-    "communication": "For messaging: mdi:email, mdi:phone, mdi:message, heroicons:envelope, fa6-solid:comment",
-    "settings": "For settings: mdi:cog, mdi:tune, heroicons:cog-6-tooth, lucide:settings, fa6-solid:gear",
-    "media": "For media: mdi:play, mdi:pause, mdi:music, fa6-solid:image, heroicons:photo",
+    "dashboard": "mdi:view-dashboard, mdi:chart-line, mdi:table, heroicons:chart-bar",
+    "authentication": "mdi:login, mdi:logout, mdi:account, heroicons:lock-closed",
+    "e-commerce": "mdi:cart, mdi:credit-card, fa6-solid:shopping-bag, lucide:shopping-cart, mdi:package",
+    "social": "mdi:thumb-up, mdi:comment, mdi:share, fa6-solid:heart, heroicons:chat-bubble-left",
+    "file-management": "mdi:file, mdi:folder, mdi:download, mdi:upload, lucide:file-text",
+    "communication": "mdi:email, mdi:phone, mdi:message, heroicons:envelope, fa6-solid:comment",
+    "settings": "mdi:cog, mdi:tune",
+    "media": "mdi:play, mdi:pause, mdi:music, fa6-solid:image",
 }
 
 STYLE_RECOMMENDATIONS = {
     "modern": {
         "collections": ["heroicons", "lucide", "tabler"],
         "colors": ["#6366f1", "#8b5cf6", "#ec4899"],
-        "border_radius": 20
+        "border_radius": 24
     },
     "corporate": {
         "collections": ["mdi", "fa6-solid"],
@@ -86,9 +92,7 @@ STYLE_RECOMMENDATIONS = {
 def get_enhanced_prompt(user_query: str, context: dict = None) -> str:
     """Generate an enhanced prompt with context.
     
-    Args:
-        user_query: The user's icon request
-        context: Optional context dict with keys like project_type, design_style, etc.
+    Args:etc.
         
     Returns:
         Enhanced prompt string

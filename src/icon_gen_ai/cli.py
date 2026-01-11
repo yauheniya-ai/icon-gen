@@ -181,22 +181,23 @@ def generate(
 
 @cli.command()
 @click.argument("query")
-@click.option("-n", "--count", default=10, show_default=True)
-@click.option("-g", "--generate", is_flag=True)
-@click.option("--style")
-@click.option("--project-type")
+@click.option("-c", "--count", type=int, help="Limit number of results to display (overrides LLM response)")
+@click.option("-g", "--generate", is_flag=True, help="Generate icon files")
+@click.option("--style", help="Design style (modern, corporate, minimal, playful)")
+@click.option("--project-type", help="Project type for context")
 def search(query, count, generate, style, project_type):
     """Search for icons using AI-powered natural language queries.
     
+    The AI parses the count from your query (e.g., "5 icons for payment").
+    Use -c to limit/truncate the results shown.
+    
     Examples:
     
-        icon-gen-ai search "payment icons for checkout on mobile" -n 4
+        icon-gen-ai search "payment icons for checkout"
         
-        icon-gen-ai search "vector database RAG-pipeline" --style modern
+        icon-gen-ai search "suggest 10 icons for drone" --style modern
         
-        icon-gen-ai search "social media icons in mediumslateblue color" --generate
-        
-        icon-gen-ai search "multi-agent system for document analysis" --project-type "laws and regulations"
+        icon-gen-ai search "social media icons" -c 5 --generate
     
     Requires: pip install icon-gen-ai[ai] and OPENAI_API_KEY or ANTHROPIC_API_KEY
     """
@@ -222,7 +223,10 @@ def search(query, count, generate, style, project_type):
 
     response = assistant.discover_icons(query, context=context)
 
-    for i, s in enumerate(response.suggestions[:count], 1):
+    # Truncate to user-specified count or show all (max 25)
+    display_count = min(count, len(response.suggestions)) if count else min(25, len(response.suggestions))
+    
+    for i, s in enumerate(response.suggestions[:display_count], 1):
         click.echo(f"{i}. {s.icon_name}")
         click.echo(f"   {s.reason}\n")
 
@@ -233,7 +237,7 @@ def search(query, count, generate, style, project_type):
 
     click.echo("Generating icons...\n")
 
-    for s in response.suggestions[:count]:
+    for s in response.suggestions[:display_count]:
         generator.generate_icon(
             icon_name=s.icon_name,
             output_name=s.icon_name.replace(":", "_"),

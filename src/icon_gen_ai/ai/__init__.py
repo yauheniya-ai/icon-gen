@@ -14,6 +14,11 @@ try:
 except ImportError:
     AnthropicProvider = None
 
+try:
+    from .huggingface_provider import HuggingFaceProvider
+except ImportError:
+    HuggingFaceProvider = None
+
 __all__ = [
     "IconAssistant",
     "BaseLLMProvider",
@@ -21,6 +26,7 @@ __all__ = [
     "LLMResponse",
     "OpenAIProvider",
     "AnthropicProvider",
+    "HuggingFaceProvider",
 ]
 
 
