@@ -92,7 +92,7 @@ class Animator:
 
         # Default durations
         defaults = {
-            'spin': '2s',
+            'spin': '4s',
             'pulse': '1.5s',
             'flip-h': '1s',
             'flip-v': '1s'
@@ -128,8 +128,6 @@ class Animator:
         # Find or create target group to attach animation
         ns = SVG_NS
         tag_g = f'{{{ns}}}g'
-
-        # Note: we don't need a root_tag_endswith_svg variable; namespace handled by tags above
 
         # Find first visual child (not defs) to attach animation
         target = None

@@ -7,6 +7,7 @@ from typing import Optional, Literal, Union, Tuple
 from xml.etree import ElementTree as ET
 from io import BytesIO
 from .animation import Animator
+from .animation.webp_exporter import svg_animation_to_webp
 
 try:
     from PIL import Image, ImageColor
@@ -256,7 +257,7 @@ class IconGenerator:
         """Modify SVG content to apply color and size.
         
         If color is None, preserves original colors.
-        If color is a tuple, applies gradient (loses animations).
+        If color is a tuple, applies gradient (loses embedded animations).
         If color is a string, attempts to recolor while preserving animations.
         
         Args:
@@ -546,7 +547,8 @@ class IconGenerator:
                 except Exception as e:
                     print(f"Warning: failed to apply animation: {e}")
 
-        # Background / outline wrapper
+        # Background / outline wrapper (keep a copy of pre-wrapped svg for exporters)
+        svg_before_bg = svg_content
         if bg_color is not None or border_radius > 0 or outline_width > 0:
             svg_content = self.wrap_with_background(
                 svg_content,
@@ -593,23 +595,50 @@ class IconGenerator:
                 with open(output_path, 'wb') as f:
                     f.write(png_bytes)
                 return output_path
-            
-            else:  # webp, jpg, jpeg
+            # Handle other raster formats
+            if format in ("jpg", "jpeg"):
                 image = Image.open(BytesIO(png_bytes))
-                
                 # Convert RGBA to RGB for JPEG (no transparency support)
-                if format in ("jpg", "jpeg"):
-                    if image.mode == "RGBA":
-                        # Create white background
-                        rgb_image = Image.new("RGB", image.size, (255, 255, 255))
-                        rgb_image.paste(image, mask=image.split()[3])  # Use alpha as mask
-                        image = rgb_image
+                if image.mode == "RGBA":
+                    rgb_image = Image.new("RGB", image.size, (255, 255, 255))
+                    rgb_image.paste(image, mask=image.split()[3])  # Use alpha as mask
+                    image = rgb_image
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                image.save(output_path, format='JPEG', quality=95)
+                image.close()
+                return output_path
+
+            if format == "webp":
+                # If an SVG-native animation was requested and source is vector,
+                # rasterize multiple frames and save an animated WebP.
+                if animation and not is_raster_source:
                     output_path.parent.mkdir(parents=True, exist_ok=True)
-                    image.save(output_path, format='JPEG', quality=95)
-                else:  # webp
-                    output_path.parent.mkdir(parents=True, exist_ok=True)
-                    image.save(output_path, format='WEBP', quality=95)
-                
+                    # Rasterize frames from the pre-wrap (icon-only) SVG and
+                    # let the exporter composite the background so transforms
+                    # and centering are handled consistently.
+                    src_svg_for_export = svg_before_bg or svg_content
+                    result = svg_animation_to_webp(
+                        src_svg_for_export,
+                        output_path,
+                        animation,
+                        size=size,
+                        fps=20,
+                        loop=0,
+                        quality=95,
+                        bg_color=bg_color,
+                        border_radius=border_radius,
+                        outline_width=outline_width,
+                        outline_color=outline_color,
+                        bg_direction=bg_direction,
+                    )
+                    if result:
+                        return Path(result)
+                    # fall through to static webp saving on failure
+
+                # Fallback: static webp from single-frame PNG
+                image = Image.open(BytesIO(png_bytes))
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                image.save(output_path, format='WEBP', quality=95)
                 image.close()
                 return output_path
 
