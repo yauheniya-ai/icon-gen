@@ -24,9 +24,14 @@
             <td>Path to local image file (e.g., <code>"input/html_css_js.jpeg"</code>)</td>
           </tr>
           <tr>
-            <td><code>color</code></td>
-            <td>str or tuple</td>
-            <td>Icon color (solid: <code>"red"</code>, gradient: <code>("red", "blue")</code>)</td>
+            <td><code>output_name</code></td>
+            <td>str</td>
+            <td>Output filename (without extension)</td>
+          </tr>
+          <tr>
+            <td><code>format</code></td>
+            <td>str</td>
+            <td>Output format: <code>"svg"</code>, <code>"png"</code>, <code>"webp"</code>, <code>"ico"</code></td>
           </tr>
           <tr>
             <td><code>size</code></td>
@@ -34,9 +39,23 @@
             <td>Size in pixels (default: <code>256</code>)</td>
           </tr>
           <tr>
+            <td><code>color</code></td>
+            <td>str or tuple</td>
+            <td>Icon color (solid: <code>"red"</code>, gradient: <code>("red", "blue")</code>)</td>
+          </tr>
+          <tr>
+            <td><code>direction</code></td>
+            <td>str</td>
+            <td>Icon gradient direction: <code>"horizontal"</code>, <code>"vertical"</code>, <code>"diagonal"</code></td>
+          </tr>
+          <tr>
             <td><code>bg_color</code></td>
             <td>str or tuple</td>
             <td>Background color (default: <code>None</code>)</td>
+          </tr>
+            <td><code>bg_direction</code></td>
+            <td>str</td>
+            <td>Background gradient direction: <code>"horizontal"</code>, <code>"vertical"</code>, <code>"diagonal"</code></td>
           </tr>
           <tr>
             <td><code>border_radius</code></td>
@@ -54,25 +73,6 @@
             <td>Outline color</td>
           </tr>
           <tr>
-            <td><code>direction</code></td>
-            <td>str</td>
-            <td>Icon gradient direction: <code>"horizontal"</code>, <code>"vertical"</code>, <code>"diagonal"</code></td>
-          </tr>
-          <tr>
-            <td><code>bg_direction</code></td>
-            <td>str</td>
-            <td>Background gradient direction: <code>"horizontal"</code>, <code>"vertical"</code>, <code>"diagonal"</code></td>
-          </tr>
-          <tr>
-            <td><code>format</code></td>
-            <td>str</td>
-            <td>Output format: <code>"svg"</code>, <code>"png"</code>, <code>"webp"</code>, <code>"ico"</code></td>
-          </tr>
-          <tr>
-            <td><code>output_name</code></td>
-            <td>str</td>
-            <td>Output filename (without extension)</td>
-          </tr>
           <tr>
             <td><code>animation</code></td>
             <td>str or dict</td>
