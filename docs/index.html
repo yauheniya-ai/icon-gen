@@ -75,19 +75,19 @@
       <pre><code>pip install icon-gen-ai[ai]</code></pre>
       
       <div class="alert alert-warning">
-        <strong>Note:</strong> To use the AI features, you need an API key from Anthropic, OpenAI or Hugging Face. <br>Support for additional providers is coming soon.
+        <strong>Note:</strong> To use the AI features, you need an API key from Anthropic, Hugging Face, or OpenAI. <br>Support for additional providers is coming soon.
       </div>
       <details class="terminal-output">
       <summary>See <code>.env.example</code></summary>
 
-      <pre class="language-bash"><code>OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
-# Optional: OPENAI_BASE_URL=
-
-ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxx
+      <pre class="language-bash"><code>ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxx
 # Optional: ANTHROPIC_BASE_URL=
 
 HUGGINGFACE_API_TOKEN=hf_xxxxxxxxxxxxx
-# Optional: HF_BASE_URL=</code></pre>
+# Optional: HF_BASE_URL=
+
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
+# Optional: OPENAI_BASE_URL=</code></pre>
       </details>
     </section>
 
@@ -100,47 +100,53 @@ HUGGINGFACE_API_TOKEN=hf_xxxxxxxxxxxxx
       <article class="cmd-article">
         <p>Generate custom icons from Iconify, URL, and a local file:</p>
         <pre class="cmd"><code>icon-gen-ai generate material-icon-theme:python -o docs/output/gens_python.svg \
-    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8
+    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8 \
+    --animation "flip-v:0.7"
 
   icon-gen-ai generate -i 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg' -o docs/output/gens_react.svg \
-    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8
+    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8 \
+    --animation "spin:8"
 
   icon-gen-ai generate -i 'docs/input/html_css_js.jpeg' -o docs/output/gens_hmtl_css_js.svg \
-    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8</code></pre>
+    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8 \
+    --animation "flip-h:1"</code></pre>
         <details class="terminal-output">
         <summary>See full terminal output</summary>
 
         <pre class="out"><code>Generating icon
-    Source: material-icon-theme:python
-    Size: 64px
-    Color: original
-    Background: ivory
-    Border radius: 8px
-    Outline: 4px (mediumslateblue)
+  Source: material-icon-theme:python
+  Size: 64px
+  Color: original
+  Background: ivory
+  Border radius: 8px
+  Animation: flip-v:0.7
+  Outline: 4px (mediumslateblue)
 
-  ✓ Saved to docs/output/gens_python.svg
-
-
-  Generating icon
-    Source: https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
-    Size: 64px
-    Color: original
-    Background: ivory
-    Border radius: 8px
-    Outline: 4px (mediumslateblue)
-
-  ✓ Saved to docs/output/gens_react.svg
+✓ Saved to docs/output/gens_python.svg
 
 
-  Generating icon
-    Source: docs/input/html_css_js.jpeg
-    Size: 64px
-    Color: original
-    Background: ivory
-    Border radius: 8px
-    Outline: 4px (mediumslateblue)
+Generating icon
+  Source: https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
+  Size: 64px
+  Color: original
+  Background: ivory
+  Border radius: 8px
+  Animation: spin:8
+  Outline: 4px (mediumslateblue)
 
-  ✓ Saved to docs/output/gens_hmtl_css_js.svg</code></pre>
+✓ Saved to docs/output/gens_react.svg
+
+
+Generating icon
+  Source: docs/input/html_css_js.jpeg
+  Size: 64px
+  Color: original
+  Background: ivory
+  Border radius: 8px
+  Animation: flip-h:1
+  Outline: 4px (mediumslateblue)
+
+✓ Saved to docs/output/gens_hmtl_css_js.svg</code></pre>
         </details>
         <div class="icon-row">
           <img src="./output/gens_python.svg" alt="Python Icon">
@@ -200,18 +206,18 @@ Generating icons...</code></pre></details>
       <h3>Signature</h3>
       <pre><code class="language-python">generate_icon(
     icon_name: Optional[str] = None,
-    output_name: Optional[str] = None,
-    color: Optional[Union[str, tuple[str, str]]] = None,
-    size: Optional[int] = None,
-    format: str = "svg",
     direct_url: Optional[str] = None,
-    bg_color: Optional[Union[str, tuple[str, str]]] = None,
-    border_radius: int = 0,
     local_file: Optional[str] = None,
+    output_name: Optional[str] = None,
+    format: str = "svg",
+    size: Optional[int] = None,
+    color: Optional[Union[str, tuple[str, str]]] = None,
+    direction: str = "horizontal",
+    bg_color: Optional[Union[str, tuple[str, str]]] = None,
+    bg_direction: str = "horizontal",
+    border_radius: int = 0,
     outline_width: int = 0,
     outline_color: Optional[str] = None,
-    direction: str = "horizontal",
-    bg_direction: str = "horizontal",
     animation: Optional[Union[str, dict]] = None,
 ) -> Optional[Path]</code></pre>
     </section>
@@ -254,14 +260,14 @@ Generating icons...</code></pre></details>
       <h3>Signature</h3>
       <pre><code class="language-python">generate_batch(
     icons: dict[str, str | dict],
-    color: Optional[Union[str, tuple[str, str]]] = None,
     size: Optional[int] = None,
+    color: Optional[Union[str, tuple[str, str]]] = None,
+    direction: str = "horizontal",
     bg_color: Optional[Union[str, tuple[str, str]]] = None,
+    bg_direction: str = "horizontal",
     border_radius: int = 0,
     outline_width: int = 0,
     outline_color: Optional[str] = None,
-    direction: str = "horizontal",
-    bg_direction: str = "horizontal",
     animation: Optional[Union[str, dict]] = None,
 ) -> list[Path]</code></pre>
 
@@ -314,7 +320,7 @@ gen.generate_batch(
       <pre class="out"><code>Installed providers: openai, anthropic
     ✓ Active: openai (gpt-4o-mini)</code></pre>
       <div class="alert alert-warning">
-        <strong>Note:</strong> To use the AI features, you need an API key from Anthropic, OpenAI or Hugging Face. <br>Support for additional providers is coming soon.
+        <strong>Note:</strong> To use the AI features, you need an API key from Anthropic, Hugging Face, or OpenAI. <br>Support for additional providers is coming soon.
       </div>
 
       <h3>Signature</h3>

@@ -226,7 +226,7 @@ Options:
 Commands:
   generate   Generate icons from Iconify or local files.
   providers  Show AI provider status.
-  search     Search for icons using AI-powered natural language queries.
+  search     Search for icons using natural language queries.
 ```
 Read the <a href="https://yauheniya-ai.github.io/icon-gen-ai/" target="_blank" rel="noopener noreferrer">documentation</a> for more detailed instructions.
 
