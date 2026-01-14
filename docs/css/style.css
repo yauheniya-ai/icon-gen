@@ -410,6 +410,29 @@ details.terminal-output pre {
   align-items: center;
 }
 
+.icon-row::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-color-strong);
+  opacity: 0.85;
+  margin-top: 2rem; /* Space above the hr (32px = 2rem) */
+}
+
+/* Optional: Remove hr after the last icon-row in a section */
+section > .icon-row:last-child::after,
+article > .icon-row:last-child::after {
+  display: none;
+}
+
+/* Command article separators: use instead of <hr> for semantic grouping */
+article.cmd-article {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
 /* ============================================
    Demo Section
    ============================================ */
@@ -529,7 +552,7 @@ li code {
   border-left: 4px solid;
   display: flex;
   align-items: center; 
-  gap: 0.5rem;
+  gap: 1.4rem;
   transition: background-color 0.3s ease;
 }
 
@@ -586,6 +609,18 @@ li code {
 /* ============================================
    Syntax Highlighting (works in both themes)
    ============================================ */
+
+/* ============================================
+  Footer
+  ============================================ */
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-color-strong);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
 
 .keyword { color: deeppink; }
 .string { color: gold; }

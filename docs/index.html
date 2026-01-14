@@ -27,7 +27,6 @@
     <div class="nav-section">
       <h3>Python API</h3>
       <ul>
-        <li><a href="#python-basics">Basic Usage</a></li>
         <li><a href="#generate-icon">generate_icon()</a></li>
         <li><a href="#generate-batch">generate_batch()</a></li>
         <li><a href="#discover-icons">discover_icons()</a></li>
@@ -39,7 +38,7 @@
     <div class="nav-section">
       <h3>Resources</h3>
       <ul>
-        <li><a href="https://github.com/yauheniya-ai/icon-gen-ai" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/yauheniya-ai/icon-gen-ai" target="_blank">Repository</a></li>
         <li><a href="https://pypi.org/project/icon-gen-ai/" target="_blank">PyPI</a></li>
         <li><a href="https://yauheniya-ai.github.io/icon-gen-ai-playground/" target="_blank">Playground UI</a></li>
         <li><a href="https://huggingface.co/spaces/Yauheniya/icon-gen-ai-api" target="_blank">Playground API</a></li>
@@ -56,12 +55,15 @@
       <p class="tagline">Generate pixel-perfect icons from Iconify, direct URLs, and local files—with animation support and exports to PNG, SVG, WebP, and ICO</p>
       <div class="badges">
         <span class="badge">Python 3.10+</span>
-        <span class="badge">CLI + API</span>
-        <span class="badge">Iconify, URL, local file</span>
-        <span class="badge">SVG, PNG, WebP, ICO</span>
+        <span class="badge">CLI + Python API</span>
+        <span class="badge">Input sources: Iconify, URL, local file</span>
+        <span class="badge">Input formats: SVG, PNG, WebP, JPEG</span>
+        <span class="badge">Output formats: SVG, PNG, WebP, ICO</span>
+        <span class="badge">Custom animations</span>
+        <span class="badge">Embedded animations</span>
       </div>
     </div>
-
+    <!-- GETTING STARTED -->
     <!-- Installation -->
     <section id="installation">
       <h2>Installation</h2>
@@ -73,74 +75,86 @@
       <pre><code>pip install icon-gen-ai[ai]</code></pre>
       
       <div class="alert alert-warning">
-        <strong>Note:</strong> For using the AI features you need an API-key from <code>anthropic</code> or <code>openai</code>.
+        <strong>Note:</strong> To use the AI features, you need an API key from Anthropic, OpenAI or Hugging Face. <br>Support for additional providers is coming soon.
       </div>
+      <details class="terminal-output">
+      <summary>See <code>.env.example</code></summary>
+
+      <pre class="language-bash"><code>OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
+# Optional: OPENAI_BASE_URL=
+
+ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxx
+# Optional: ANTHROPIC_BASE_URL=
+
+HUGGINGFACE_API_TOKEN=hf_xxxxxxxxxxxxx
+# Optional: HF_BASE_URL=</code></pre>
+      </details>
     </section>
 
     <!-- CLI Usage -->
+
     <section>
       <h2 id="cli-usage">CLI Usage</h2>
 
       <h3>Basic Commands</h3>
-      
-      <div class="alert alert-info">
-        <strong>Generate from Iconify, URL, and local file</strong>
-      </div>
-      <pre class="cmd"><code>icon-gen-ai generate material-icon-theme:python -o docs/output/gens_python.svg \
-  --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8
+      <article class="cmd-article">
+        <p>Generate custom icons from Iconify, URL, and a local file:</p>
+        <pre class="cmd"><code>icon-gen-ai generate material-icon-theme:python -o docs/output/gens_python.svg \
+    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8
 
-icon-gen-ai generate -i 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg' -o docs/output/gens_react.svg \
-  --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8
+  icon-gen-ai generate -i 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg' -o docs/output/gens_react.svg \
+    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8
 
-icon-gen-ai generate -i 'docs/input/html_css_js.jpeg' -o docs/output/gens_hmtl_css_js.svg \
-  --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8</code></pre>
-      <details class="terminal-output">
-  <summary>See full terminal output</summary>
+  icon-gen-ai generate -i 'docs/input/html_css_js.jpeg' -o docs/output/gens_hmtl_css_js.svg \
+    --size 64 --bg-color ivory --outline-width 4 --outline-color mediumslateblue --border-radius 8</code></pre>
+        <details class="terminal-output">
+        <summary>See full terminal output</summary>
 
-  <pre class="out"><code>Generating icon
-  Source: material-icon-theme:python
-  Size: 64px
-  Color: original
-  Background: ivory
-  Border radius: 8px
-  Outline: 4px (mediumslateblue)
+        <pre class="out"><code>Generating icon
+    Source: material-icon-theme:python
+    Size: 64px
+    Color: original
+    Background: ivory
+    Border radius: 8px
+    Outline: 4px (mediumslateblue)
 
-✓ Saved to docs/output/gens_python.svg
+  ✓ Saved to docs/output/gens_python.svg
 
 
-Generating icon
-  Source: https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
-  Size: 64px
-  Color: original
-  Background: ivory
-  Border radius: 8px
-  Outline: 4px (mediumslateblue)
+  Generating icon
+    Source: https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
+    Size: 64px
+    Color: original
+    Background: ivory
+    Border radius: 8px
+    Outline: 4px (mediumslateblue)
 
-✓ Saved to docs/output/gens_react.svg
+  ✓ Saved to docs/output/gens_react.svg
 
 
-Generating icon
-  Source: docs/input/html_css_js.jpeg
-  Size: 64px
-  Color: original
-  Background: ivory
-  Border radius: 8px
-  Outline: 4px (mediumslateblue)
+  Generating icon
+    Source: docs/input/html_css_js.jpeg
+    Size: 64px
+    Color: original
+    Background: ivory
+    Border radius: 8px
+    Outline: 4px (mediumslateblue)
 
-✓ Saved to docs/output/gens_hmtl_css_js.svg</code></pre>
-      </details>
-      <div class="icon-row">
-        <img src="./output/gens_python.svg" alt="Python Icon">
-        <img src="./output/gens_react.svg" alt="React Icon">
-        <img src="./output/gens_hmtl_css_js.svg" alt="HTML CSS JS Icon">
-      </div>
+  ✓ Saved to docs/output/gens_hmtl_css_js.svg</code></pre>
+        </details>
+        <div class="icon-row">
+          <img src="./output/gens_python.svg" alt="Python Icon">
+          <img src="./output/gens_react.svg" alt="React Icon">
+          <img src="./output/gens_hmtl_css_js.svg" alt="HTML CSS JS Icon">
+        </div>
 
-      <div class="alert alert-info">
-        <strong>Search and generate with AI</strong>
-      </div>
-      <pre class="cmd"><code>icon-gen-ai search "github icon and logo" --generate</code></pre>
+      </article>
 
-      <details class="terminal-output">
+      <article class="cmd-article">
+        <p>Search icons based on a natural language query and directly generate based on AI-suggestions:</p>
+        <pre class="cmd"><code>icon-gen-ai search "github icon and logo" --generate</code></pre>
+
+        <details class="terminal-output">
         <summary>See full terminal output</summary>
         <pre class="out"><code>Searching: github icon and logo
 
@@ -152,56 +166,107 @@ Using cached response (saved 696 tokens)
    This icon represents Git, which is the underlying version control system used by GitHub.
 
 Generating icons...</code></pre></details>
-      <div class="icon-row">
-        <img src="./output/simple-icons_github.svg" alt="GitHub Icon"> 
-        <img src="./output/mdi_git.svg" alt="Git Icon">
-      </div>
+        <div class="icon-row">
+          <img src="./output/simple-icons_github.svg" alt="GitHub Icon"> 
+          <img src="./output/mdi_git.svg" alt="Git Icon">
+        </div>
+      </article>
 
-      <div class="alert alert-info">
-        <strong>Show available providers and active LLM</strong>
-      </div>
+      <p>Show available providers and active LLM:</p>
       <pre class="cmd"><code>icon-gen-ai providers</code></pre>
-      <pre class="out"><code>Installed providers: openai, anthropic
+      <pre class="out"><code>Installed providers: openai, anthropic, huggingface
 ✓ Active: openai (gpt-4o-mini)</code></pre>
+    </section>
       
-      <h2 id="cli-options">CLI Options</h2>
-      <section id="cli-options-container">
-        <!-- CLI Options will be loaded here -->
-      </section>
+    <h2 id="cli-options">CLI Options</h2>
+    <section id="cli-options-container">
+      <!-- CLI Options will be loaded here -->
+    </section>
 
-      <!-- Demo -->
+    <!-- Demo -->
+    <section>
       <h2 id="cli-demo">CLI Demo</h2>
       <div class="demo">
-        <img src="demo.svg" alt="CLI Demo" class="demo-svg" />
+        <img src="cli-demo.svg" alt="CLI Demo" class="demo-svg" />
       </div>
     </section>
 
-    <!-- Python Basics -->
-    <section id="python-basics">
-      <h2>Python API</h2>
-      <h3>Basic Usage</h3>
+    <!-- PYTHON API -->
+    <!-- generate_icon() -->
+    <section id="generate-icon">
+      <h2>generate_icon()</h2>
+      <p>Generate a single icon with full customization.</p>
+
+      <h3>Signature</h3>
+      <pre><code class="language-python">generate_icon(
+    icon_name: Optional[str] = None,
+    output_name: Optional[str] = None,
+    color: Optional[Union[str, tuple[str, str]]] = None,
+    size: Optional[int] = None,
+    format: str = "svg",
+    direct_url: Optional[str] = None,
+    bg_color: Optional[Union[str, tuple[str, str]]] = None,
+    border_radius: int = 0,
+    local_file: Optional[str] = None,
+    outline_width: int = 0,
+    outline_color: Optional[str] = None,
+    direction: str = "horizontal",
+    bg_direction: str = "horizontal",
+    animation: Optional[Union[str, dict]] = None,
+) -> Optional[Path]</code></pre>
+    </section>
+    
+    <section id="api-parameters-container">
+      <!-- CLI Options will be loaded here -->
+    </section>
+
+    <section>
       <div class="alert alert-info">
-        <strong>Initialize the icon generator and create a star icon with an embedded SVG animation</strong>
+        <strong>Info:</strong> Provide one input source: <code>icon_name</code>, <code>direct_url</code>, or <code>local_file</code>.
       </div>
-      
+
+      <h3>Basic Example</h3>
+
+      <p>Initialize the icon generator and create a star icon with an embedded SVG animation:</p>
+        
       <pre class="cmd"><code class="language-python">from icon_gen_ai import IconGenerator
 
-gen = IconGenerator(output_dir="docs")
+  gen = IconGenerator(output_dir="docs")
 
-gen.generate_icon(
-    icon_name="meteocons:star-fill",
-    size=64,
-    bg_color="navy",
-    border_radius=4,
-    output_name="output/star-fill"
-)</code></pre>
+  gen.generate_icon(
+      icon_name="meteocons:star-fill",
+      size=64,
+      bg_color="navy",
+      border_radius=4,
+      output_name="output/star-fill"
+  )</code></pre>
       <div class="icon-row">
         <img src="./output/star-fill.svg" alt="Star Icon">
       </div>
+    </section>
 
-      <div class="alert alert-info">
-        <strong>Create a series of icons from different sources with the same styling</strong>
-      </div>
+
+    <!-- generate_batch() -->
+    <section id="generate-batch">
+      <h2>generate_batch()</h2>
+      <p>Generate multiple icons at once with shared default settings:</p>
+
+      <h3>Signature</h3>
+      <pre><code class="language-python">generate_batch(
+    icons: dict[str, str | dict],
+    color: Optional[Union[str, tuple[str, str]]] = None,
+    size: Optional[int] = None,
+    bg_color: Optional[Union[str, tuple[str, str]]] = None,
+    border_radius: int = 0,
+    outline_width: int = 0,
+    outline_color: Optional[str] = None,
+    direction: str = "horizontal",
+    bg_direction: str = "horizontal",
+    animation: Optional[Union[str, dict]] = None,
+) -> list[Path]</code></pre>
+
+      <h3>Basic Example</h3>
+      <p>Create a series of icons from different sources with the same styling:</p>
 
       <pre class="cmd"><code class="language-python">from icon_gen_ai import IconGenerator
 
@@ -228,92 +293,38 @@ gen.generate_batch(
     outline_color='deepskyblue', 
     outline_width=4, 
     border_radius=8
-)</code></pre>
-      <div class="icon-row">
-        <img src="./output/genb_openai.svg" alt="OpenAI">
-        <img src="./output/genb_claude.svg" alt="Claude">
-        <img src="./output/genb_googlegemini.svg" alt="Gemini">
-        <img src="./output/genb_mistralai.svg" alt="Mistral">
-        <img src="./output/genb_llama.svg" alt="Meta">
-        <img src="./output/genb_deepseek.svg" alt="DeepSeek">
-        <img src="./output/genb_nemotron.svg" alt="Nemotron">
-      </div>
+  )</code></pre>
+        <div class="icon-row">
+          <img src="./output/genb_openai.svg" alt="OpenAI">
+          <img src="./output/genb_claude.svg" alt="Claude">
+          <img src="./output/genb_googlegemini.svg" alt="Gemini">
+          <img src="./output/genb_mistralai.svg" alt="Mistral">
+          <img src="./output/genb_llama.svg" alt="Meta">
+          <img src="./output/genb_deepseek.svg" alt="DeepSeek">
+          <img src="./output/genb_nemotron.svg" alt="Nemotron">
+        </div>
+
     </section>
 
-    <!-- generate_icon() -->
-    <section id="generate-icon">
-      <h2>generate_icon()</h2>
-      <p>Generate a single icon with full customization.</p>
-
-      <h3>Signature</h3>
-      <pre><code class="language-python">generate_icon(
-    icon_name: Optional[str] = None,
-    output_name: Optional[str] = None,
-    color: Optional[Union[str, tuple[str, str]]] = None,
-    size: Optional[int] = None,
-    format: str = "svg",
-    direct_url: Optional[str] = None,
-    bg_color: Optional[Union[str, tuple[str, str]]] = None,
-    border_radius: int = 0,
-    local_file: Optional[str] = None,
-    outline_width: int = 0,
-    outline_color: Optional[str] = None,
-    direction: str = "horizontal",
-    bg_direction: str = "horizontal",
-    animation: Optional[Union[str, dict]] = None,
-) -> Optional[Path]</code></pre>
-
-      <h3>Parameters</h3>
-      <section id="api-parameters-container">
-        <!-- CLI Options will be loaded here -->
-      </section>
-
+    <!-- discover_icons() -->
+    <section id="discover-icons">
+      <h2>discover_icons()</h2>
+      <p>Show available providers and active LLM:</p>
+      <pre class="cmd"><code>icon-gen-ai providers</code></pre>
+      <pre class="out"><code>Installed providers: openai, anthropic
+    ✓ Active: openai (gpt-4o-mini)</code></pre>
       <div class="alert alert-warning">
-        <strong>Note:</strong> Provide one input source: <code>icon_name</code>, <code>direct_url</code>, or <code>local_file</code>.
+        <strong>Note:</strong> To use the AI features, you need an API key from Anthropic, OpenAI or Hugging Face. <br>Support for additional providers is coming soon.
       </div>
-    </section>
-
-    <!-- generate_batch() -->
-    <section id="generate-batch">
-      <h2>generate_batch()</h2>
-      <p>Generate multiple icons at once with shared default settings.</p>
 
       <h3>Signature</h3>
-      <pre><code class="language-python">generate_batch(
-    icons: dict[str, str | dict],
-    color: Optional[Union[str, tuple[str, str]]] = None,
-    size: Optional[int] = None,
-    bg_color: Optional[Union[str, tuple[str, str]]] = None,
-    border_radius: int = 0,
-    outline_width: int = 0,
-    outline_color: Optional[str] = None,
-    direction: str = "horizontal",
-    bg_direction: str = "horizontal",
-    animation: Optional[Union[str, dict]] = None,
-) -> list[Path]</code></pre>
-    </section>
-
-  <!-- discover_icons() -->
-  <section id="discover-icons">
-    <h2>discover_icons()</h2>
-    <p>
-      Use AI to discover relevant icons based on natural language queries and optional design context.
-      This method returns ranked icon suggestions with explanations, confidence scores, and styling hints.
-    </p>
-
-    <div class="alert alert-warning">
-      <strong>Note: </strong>Requires AI features. Install with <code>pip install icon-gen-ai[ai]</code> and set
-      <code>OPENAI_API_KEY</code> or <code>ANTHROPIC_API_KEY</code>.
-    </div>
-
-    <h3>Signature</h3>
-    <pre><code class="language-python">discover_icons(
+      <pre><code class="language-python">discover_icons(
       query: str,
       context: Optional[dict] = None
   ) -> IconDiscoveryResponse</code></pre>
 
-    <h3>Basic Example</h3>
-    <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant
+      <h3>Basic Example</h3>
+      <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant
 
 assistant = IconAssistant()
 
@@ -329,10 +340,10 @@ for suggestion in response.suggestions:
         suggestion.confidence,
         suggestion.reason
     )</code></pre>
-    <details class="terminal-output">
-      <summary>See full terminal output</summary>
+      <details class="terminal-output">
+        <summary>See full terminal output</summary>
 
-      <pre class="out"><code>Querying Iconify using openai (model: gpt-4o-mini)...
+        <pre class="out"><code>Querying Iconify using openai (model: gpt-4o-mini)...
 Used 963 tokens (≈$0.0003)
 The icons suggested are essential for a payment checkout page, representing different payment methods and actions a user might take.
 fa6-solid:credit-card 0.95 This icon represents credit card payments, which are commonly used in online transactions.
@@ -340,10 +351,10 @@ mdi:paypal 0.95 The PayPal icon signifies the option to pay using this popular o
 fa6-solid:cash-register 0.9 This icon indicates cash payment options, which can be relevant for certain checkout scenarios.
 mdi:bank 0.9 The bank icon can represent bank transfers, an important payment method.
 fa6-solid:lock 0.92 A lock icon conveys security, which is crucial for assuring users their payment information is safe.
-  </code></pre>
-    </details>
-    <h3>With Design Context</h3>
-    <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant
+    </code></pre>
+      </details>
+      <h3>With Design Context</h3>
+      <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant
 
 assistant = IconAssistant()
 
@@ -366,10 +377,10 @@ for suggestion in response.suggestions:
         suggestion.reason,
         suggestion.style_suggestions
     )</code></pre>
-    <details class="terminal-output">
-      <summary>See full terminal output</summary>
+      <details class="terminal-output">
+        <summary>See full terminal output</summary>
 
-      <pre class="out"><code>Querying Iconify using openai (model: gpt-4o-mini)...
+        <pre class="out"><code>Querying Iconify using openai (model: gpt-4o-mini)...
 Used 941 tokens (≈$0.0003)
 The selected icons are ideal for a finance dashboard as they represent key functions and data visualizations commonly used in financial applications. They align with a modern design style and complement a blue and purple color scheme.
 mdi:view-dashboard 0.95 Use this icon for the main dashboard navigation link. This icon represents an overview of the dashboard, making it perfect for navigation. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
@@ -377,27 +388,27 @@ mdi:chart-line 0.95 Ideal for sections displaying financial performance or trend
 mdi:table 0.95 Use this icon for sections that present tabular financial data. Represents structured data, which is essential for displaying financial reports or transactions. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
 heroicons:chart-bar 0.95 Suitable for sections highlighting key financial indicators or comparisons. This icon is associated with data visualization, perfect for displaying financial metrics. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
 lucide:layout-dashboard 0.95 Can be used for layout settings or customizable dashboard options. Represents a grid layout, which is typical in modern dashboards, enhancing user navigation. {'color': 'white', 'size': 256, 'bg_color': 'mediumslateblue', 'border_radius': 0}
-  </code></pre>
-    </details>
+    </code></pre>
+      </details>
 
-    <h3>Returned Data</h3>
-    <p>
-      Each suggestion contains rich metadata to help you decide which icon to use.
-    </p>
+      <h3>Returned Data</h3>
+      <p>
+        Each suggestion contains rich metadata to help you decide which icon to use.
+      </p>
 
-    <pre><code>IconSuggestion:
+      <pre><code>IconSuggestion:
   - icon_name: str
   - reason: str
   - use_case: str
   - confidence: float
   - style_suggestions: dict | None</code></pre>
 
-    <h3>End-to-End Example</h3>
-    <p>
-      Discover icons with AI and immediately generate them with consistent styling.
-    </p>
+      <h3>End-to-End Example</h3>
+      <p>
+        Discover icons with AI and immediately generate them with consistent styling.
+      </p>
 
-    <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant, IconGenerator
+      <pre class="cmd"><code class="language-python">from icon_gen_ai import IconAssistant, IconGenerator
 
 assistant = IconAssistant()
 generator = IconGenerator(output_dir="docs/output")
@@ -415,16 +426,13 @@ for i, suggestion in enumerate(response.suggestions, 1):
         size=64,
         border_radius=8
     )</code></pre>
-    <div class="icon-row">
-      <img src="./output/payment_1.svg" alt="PayPal">
-      <img src="./output/payment_2.svg" alt="Visa">
-      <img src="./output/payment_3.svg" alt="Mastercard">
-      <img src="./output/payment_4.svg" alt="Stripe">
-    </div>
-  </section>
-
-
-
+      <div class="icon-row">
+        <img src="./output/payment_1.svg" alt="PayPal">
+        <img src="./output/payment_2.svg" alt="Visa">
+        <img src="./output/payment_3.svg" alt="Mastercard">
+        <img src="./output/payment_4.svg" alt="Stripe">
+      </div>
+    </section>
 
     <!-- Colors -->
     <section id="colors">
@@ -525,8 +533,9 @@ gen.generate_icon(
       </div>
     </section>
 
+    <!-- RESOURCES -->
     <!-- Footer -->
-    <footer style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid #2a2a32; text-align: center; color: #888;">
+    <footer class="site-footer">
       <p>
         <a href="https://github.com/yauheniya-ai/icon-gen-ai" target="_blank">
           <img src="./output/github-icon.svg" alt="GitHub" width="24" height="24" style="vertical-align: middle; margin-right: 8px;">
@@ -614,6 +623,7 @@ gen.generate_icon(
   <!-- Prism JS -->
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
 
   <script>
   (function() {
