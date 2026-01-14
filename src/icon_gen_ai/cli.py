@@ -156,19 +156,19 @@ def generate(
 
     result = generator.generate_icon(
         icon_name=icon_name,
-        output_name=output_name,
-        color=parsed_color,
-        size=size,
-        format=format,
-        local_file=local_file,
         direct_url=direct_url,
+        local_file=local_file,
+        output_name=output_name,
+        format=format,
+        size=size,
+        color=parsed_color,
+        direction=direction,
         bg_color=parsed_bg,
+        bg_direction=bg_direction,
         border_radius=border_radius,
         outline_width=outline_width,
         outline_color=outline_color,
         animation=animation,
-        direction=direction,
-        bg_direction=bg_direction,
     )
 
     if not result:
@@ -241,8 +241,8 @@ def search(query, count, generate, style, project_type):
         generator.generate_icon(
             icon_name=s.icon_name,
             output_name=s.icon_name.replace(":", "_"),
-            color=(s.style_suggestions or {}).get("color", "white"),
             size=(s.style_suggestions or {}).get("size", 256),
+            color=(s.style_suggestions or {}).get("color", "white"),
             bg_color=(s.style_suggestions or {}).get("bg_color"),
             border_radius=(s.style_suggestions or {}).get("border_radius", 0),
         )

@@ -535,19 +535,19 @@ class IconGenerator:
     def generate_icon(
         self,
         icon_name: Optional[str] = None,
-        output_name: Optional[str] = None,
-        color: Optional[Union[str, tuple[str, str]]] = None,
-        size: Optional[int] = None,
-        format: FormatType = "svg",
-        animation: Optional[Union[str, dict]] = None,
         direct_url: Optional[str] = None,
-        bg_color: Optional[Union[str, tuple[str, str]]] = None,
-        border_radius: int = 0,
         local_file: Optional[str] = None,
+        output_name: Optional[str] = None,
+        format: FormatType = "svg",
+        size: Optional[int] = None,
+        color: Optional[Union[str, tuple[str, str]]] = None,
+        direction: str = "horizontal",
+        bg_color: Optional[Union[str, tuple[str, str]]] = None,
+        bg_direction: str = "horizontal",
+        border_radius: int = 0,
         outline_width: int = 0,
         outline_color: Optional[str] = None,
-        direction: str = "horizontal",
-        bg_direction: str = "horizontal",
+        animation: Optional[Union[str, dict]] = None,
     ) -> Optional[Path]:
         size = size or 256
         is_raster_source = False
@@ -727,14 +727,14 @@ class IconGenerator:
     def generate_batch(
         self,
         icons: dict[str, str | dict],
-        color: Optional[Union[str, tuple[str, str]]] = None,
         size: Optional[int] = None,
+        color: Optional[Union[str, tuple[str, str]]] = None,
+        direction: str = "horizontal",
         bg_color: Optional[Union[str, tuple[str, str]]] = None,
+        bg_direction: str = "horizontal",
         border_radius: int = 0,
         outline_width: int = 0,
         outline_color: Optional[str] = None,
-        direction: str = "horizontal",
-        bg_direction: str = "horizontal",
         animation: Optional[Union[str, dict]] = None,
     ) -> list[Path]:
         """Generate multiple icons at once."""
@@ -747,32 +747,32 @@ class IconGenerator:
                 path = self.generate_icon(
                     icon_name=icon_config,
                     output_name=output_name,
-                    color=color,
                     size=size,
-                    animation=animation,
+                    color=color,
+                    direction=direction,
                     bg_color=bg_color,
+                    bg_direction=bg_direction,
                     border_radius=border_radius,
                     outline_width=outline_width,
                     outline_color=outline_color,
-                    direction=direction,
-                    bg_direction=bg_direction,
+                    animation=animation,
                 )
 
             elif isinstance(icon_config, dict):
                 path = self.generate_icon(
                     icon_name=icon_config.get("icon"),
-                    output_name=output_name,
-                    color=icon_config.get("color", color),
-                    size=icon_config.get("size", size),
-                    animation=icon_config.get("animation", animation),
                     direct_url=icon_config.get("url"),
                     local_file=icon_config.get("local_file"),
+                    output_name=output_name,
+                    size=icon_config.get("size", size),
+                    color=icon_config.get("color", color),
+                    direction=icon_config.get("direction", direction),
                     bg_color=icon_config.get("bg_color", bg_color),
+                    bg_direction=icon_config.get("bg_direction", bg_direction),
                     border_radius=icon_config.get("border_radius", border_radius),
                     outline_width=icon_config.get("outline_width", outline_width),
                     outline_color=icon_config.get("outline_color", outline_color),
-                    direction=icon_config.get("direction", direction),
-                    bg_direction=icon_config.get("bg_direction", bg_direction),
+                    animation=icon_config.get("animation", animation),
                 )
 
             else:
