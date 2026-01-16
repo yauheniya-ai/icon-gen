@@ -157,6 +157,9 @@ class Animator:
                 new_group.append(child)
             root.append(new_group)
             target = new_group
+        
+        # Preserve any existing transform on the target group (e.g., scale from modify_svg)
+        existing_transform = target.get('transform', '')
 
         # Create animation element depending on preset
         anim_el = None
@@ -166,6 +169,22 @@ class Animator:
             if cx is None or cy is None:
                 cx = 0
                 cy = 0
+            
+            # If there's an existing transform (e.g., scale), preserve it in a nested group
+            if existing_transform:
+                # Create inner group to hold the scale transform
+                inner_group = ET.Element(tag_g)
+                inner_group.set('transform', existing_transform)
+                
+                # Move all children to the inner group
+                for child in list(target):
+                    target.remove(child)
+                    inner_group.append(child)
+                
+                # Clear the transform from target since it's now on inner_group
+                target.attrib.pop('transform', None)
+                target.append(inner_group)
+            
             anim_el = ET.Element(f'{{{ns}}}animateTransform', {
                 'attributeName': 'transform',
                 'attributeType': 'XML',
@@ -183,11 +202,28 @@ class Animator:
                 cx = 0
                 cy = 0
 
-            # Create an inner animation group to be the animated target and move children into it
+            # Create an inner animation group to be the animated target
             anim_group = ET.Element(tag_g)
-            for child in list(target):
-                target.remove(child)
-                anim_group.append(child)
+            
+            # If there's an existing transform (e.g., user scale), preserve it in a nested inner group
+            if existing_transform:
+                inner_scale_group = ET.Element(tag_g)
+                inner_scale_group.set('transform', existing_transform)
+                
+                # Move children to inner scale group
+                for child in list(target):
+                    target.remove(child)
+                    inner_scale_group.append(child)
+                
+                # Add inner scale group to anim group
+                anim_group.append(inner_scale_group)
+                target.attrib.pop('transform', None)
+            else:
+                # No existing transform, move children directly to anim group
+                for child in list(target):
+                    target.remove(child)
+                    anim_group.append(child)
+            
             target.append(anim_group)
 
             # Build composite transform values that include translation to/from center
@@ -225,9 +261,26 @@ class Animator:
 
             # Create inner animation group to host the children
             anim_group = ET.Element(tag_g)
-            for child in list(target):
-                target.remove(child)
-                anim_group.append(child)
+            
+            # If there's an existing transform (e.g., user scale), preserve it in a nested inner group
+            if existing_transform:
+                inner_scale_group = ET.Element(tag_g)
+                inner_scale_group.set('transform', existing_transform)
+                
+                # Move children to inner scale group
+                for child in list(target):
+                    target.remove(child)
+                    inner_scale_group.append(child)
+                
+                # Add inner scale group to anim group
+                anim_group.append(inner_scale_group)
+                target.attrib.pop('transform', None)
+            else:
+                # No existing transform, move children directly to anim group
+                for child in list(target):
+                    target.remove(child)
+                    anim_group.append(child)
+            
             target.append(anim_group)
 
             # Build composite transform values that include translation to/from center
