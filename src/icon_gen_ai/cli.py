@@ -44,11 +44,12 @@ def cli():
 @cli.command()
 @click.argument("icon", required=False)
 @click.option("-i", "--input", "input_file", help="Local image file or direct URL")
+@click.option("-o", "--output", help="Output file path")
+@click.option("--format", default="svg", type=click.Choice(["svg", "png", "webp"]))
+@click.option("--size", default=256, show_default=True)
+@click.option("--scale", type=float, help="Icon scale (0.0-1.0). Default: 1.0 without bg, 0.7 with bg")
 @click.option("--color", help="Icon color or gradient '(c1,c2)'")
 @click.option("--direction", default="horizontal", type=click.Choice(["horizontal", "vertical", "diagonal"]), show_default=True, help="Icon gradient direction")
-@click.option("--size", default=256, show_default=True)
-@click.option("--format", default="svg", type=click.Choice(["svg", "png", "webp"]))
-@click.option("-o", "--output", help="Output file path")
 @click.option("--bg-color", help="Background color or gradient '(c1,c2)'")
 @click.option("--bg-direction", default="horizontal", type=click.Choice(["horizontal", "vertical", "diagonal"]), show_default=True, help="Background gradient direction")
 @click.option("--border-radius", default=0, show_default=True)
@@ -58,11 +59,12 @@ def cli():
 def generate(
     icon,
     input_file,
+    output,
+    format,
+    size,
+    scale,
     color,
     direction,
-    size,
-    format,
-    output,
     bg_color,
     bg_direction,
     border_radius,
@@ -145,6 +147,8 @@ def generate(
     click.echo("\nGenerating icon")
     click.echo(f"  Source: {icon_name or input_file}")
     click.echo(f"  Size: {size}px")
+    if scale is not None:
+        click.echo(f"  Scale: {scale:.0%}")
     click.echo(f"  Color: {parsed_color or 'original'}")
     click.echo(f"  Background: {parsed_bg or 'transparent'}")
     click.echo(f"  Border radius: {border_radius}px")
@@ -161,6 +165,7 @@ def generate(
         output_name=output_name,
         format=format,
         size=size,
+        scale=scale,
         color=parsed_color,
         direction=direction,
         bg_color=parsed_bg,
