@@ -184,6 +184,7 @@ class IconGenerator:
         outline_width: int = 0,
         outline_color: Optional[str] = None,
         bg_direction: str = "horizontal",
+        scale: float = 0.7,
     ) -> str:
         """Wrap SVG icon with a background and optional outline."""
         try:
@@ -224,7 +225,7 @@ class IconGenerator:
             )
 
         # Icon transform
-        scale = size / max(vb_w, vb_h) * 0.7
+        icon_scale = size / max(vb_w, vb_h) * scale
         tx = size / 2
         ty = size / 2
 
@@ -238,7 +239,7 @@ class IconGenerator:
         fill="{bg_fill}"{outline_attrs} />
   <g transform="
       translate({tx},{ty})
-      scale({scale})
+      scale({icon_scale})
       translate({-(vb_x + vb_w/2)},{-(vb_y + vb_h/2)})
   ">
 {icon_elements}
@@ -253,8 +254,9 @@ class IconGenerator:
         size: Optional[int] = None,
         preserve_animations: bool = True,
         direction: str = "horizontal",
+        scale: Optional[float] = None,
     ) -> str:
-        """Modify SVG content to apply color and size.
+        """Modify SVG content to apply color, size, and scale.
         
         If color is None, preserves original colors.
         If color is a tuple, applies gradient (loses embedded animations).
@@ -262,6 +264,7 @@ class IconGenerator:
         
         Args:
             preserve_animations: If True, tries to preserve <style>, <animate>, etc.
+            scale: Optional scale factor to apply to the icon (e.g., 0.7 for 70%)
         """
         try:
             # If no color specified, just apply size
@@ -279,6 +282,23 @@ class IconGenerator:
                     if size:
                         root.set("width", str(size))
                         root.set("height", str(size))
+
+                    # Apply scale if provided
+                    if scale is not None and scale != 1.0:
+                        # Wrap content in a scaled group
+                        vb = root.get("viewBox", "0 0 24 24").split()
+                        vb_x, vb_y, vb_w, vb_h = map(float, vb)
+                        
+                        # Create wrapper group with transform
+                        g = ET.Element("g")
+                        cx, cy = vb_w / 2, vb_h / 2
+                        g.set("transform", f"translate({cx},{cy}) scale({scale}) translate({-cx},{-cy})")
+                        
+                        # Move all children to the group
+                        for child in list(root):
+                            root.remove(child)
+                            g.append(child)
+                        root.append(g)
 
                     return ET.tostring(root, encoding="unicode")
                 except Exception as e:
@@ -343,6 +363,24 @@ class IconGenerator:
                             apply_color_preserve_animation(child)
                     
                     apply_color_preserve_animation(root)
+                    
+                    # Apply scale if provided and no background will be added
+                    if scale is not None and scale != 1.0:
+                        # Wrap content in a scaled group
+                        vb = root.get("viewBox", "0 0 24 24").split()
+                        vb_x, vb_y, vb_w, vb_h = map(float, vb)
+                        
+                        # Create wrapper group with transform
+                        g = ET.Element("g")
+                        cx, cy = vb_w / 2, vb_h / 2
+                        g.set("transform", f"translate({cx},{cy}) scale({scale}) translate({-cx},{-cy})")
+                        
+                        # Move all children to the group
+                        for child in list(root):
+                            root.remove(child)
+                            g.append(child)
+                        root.append(g)
+                    
                     return ET.tostring(root, encoding="unicode")
                     
                 except Exception as e:
@@ -540,6 +578,7 @@ class IconGenerator:
         output_name: Optional[str] = None,
         format: FormatType = "svg",
         size: Optional[int] = None,
+        scale: Optional[float] = None,
         color: Optional[Union[str, tuple[str, str]]] = None,
         direction: str = "horizontal",
         bg_color: Optional[Union[str, tuple[str, str]]] = None,
@@ -551,6 +590,11 @@ class IconGenerator:
     ) -> Optional[Path]:
         size = size or 256
         is_raster_source = False
+        
+        # Determine effective scale based on whether background will be applied
+        # Default: 0.7 (70%) if bg is present, 1.0 (100%) if no bg
+        has_background = (bg_color is not None or border_radius > 0 or outline_width > 0)
+        effective_scale = scale if scale is not None else (0.7 if has_background else 1.0)
 
         if local_file:
             # Check if it's a JPEG and color is requested
@@ -608,7 +652,9 @@ class IconGenerator:
         if not svg_content:
             return None
 
-        # Apply color + size for vector sources (raster sources are already embedded)
+        # Apply color + size + scale transformations
+        # For raster sources, only apply scale if no background (color already applied during load)
+        # For vector sources, apply color, size, and scale if no background
         if not is_raster_source:
             svg_content = self.modify_svg(
                 svg_content,
@@ -616,6 +662,17 @@ class IconGenerator:
                 size,
                 preserve_animations=True,
                 direction=direction,
+                scale=effective_scale if not has_background else None,
+            )
+        elif not has_background and effective_scale != 1.0:
+            # For raster sources without background, apply scale transformation
+            svg_content = self.modify_svg(
+                svg_content,
+                None,  # No color change needed
+                size,
+                preserve_animations=False,
+                direction=direction,
+                scale=effective_scale,
             )
 
         # Apply animation presets (SVG-native) if requested for all sources
@@ -627,7 +684,7 @@ class IconGenerator:
 
         # Background / outline wrapper (keep a copy of pre-wrapped svg for exporters)
         svg_before_bg = svg_content
-        if bg_color is not None or border_radius > 0 or outline_width > 0:
+        if has_background:
             svg_content = self.wrap_with_background(
                 svg_content,
                 size,
@@ -636,6 +693,7 @@ class IconGenerator:
                 outline_width,
                 outline_color,
                 bg_direction=bg_direction,
+                scale=effective_scale,
             )
 
         if output_name is None:
@@ -728,6 +786,7 @@ class IconGenerator:
         self,
         icons: dict[str, str | dict],
         size: Optional[int] = None,
+        scale: Optional[float] = None,
         color: Optional[Union[str, tuple[str, str]]] = None,
         direction: str = "horizontal",
         bg_color: Optional[Union[str, tuple[str, str]]] = None,
@@ -748,6 +807,7 @@ class IconGenerator:
                     icon_name=icon_config,
                     output_name=output_name,
                     size=size,
+                    scale=scale,
                     color=color,
                     direction=direction,
                     bg_color=bg_color,
@@ -765,6 +825,7 @@ class IconGenerator:
                     local_file=icon_config.get("local_file"),
                     output_name=output_name,
                     size=icon_config.get("size", size),
+                    scale=icon_config.get("scale", scale),
                     color=icon_config.get("color", color),
                     direction=icon_config.get("direction", direction),
                     bg_color=icon_config.get("bg_color", bg_color),
