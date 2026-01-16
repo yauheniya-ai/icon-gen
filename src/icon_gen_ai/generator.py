@@ -307,13 +307,37 @@ class IconGenerator:
             
             # Handle gradient colors - must use raster method (loses animations)
             if isinstance(color, tuple):
-                return self.apply_gradient_via_raster(
+                svg_content = self.apply_gradient_via_raster(
                     svg_content, 
                     color[0], 
                     color[1], 
                     size or 256,
                     direction=direction
                 )
+                
+                # Apply scale if provided
+                if scale is not None and scale != 1.0:
+                    try:
+                        root = ET.fromstring(svg_content)
+                        vb = root.get("viewBox", "0 0 256 256").split()
+                        vb_x, vb_y, vb_w, vb_h = map(float, vb)
+                        
+                        # Create wrapper group with transform
+                        g = ET.Element("g")
+                        cx, cy = vb_w / 2, vb_h / 2
+                        g.set("transform", f"translate({cx},{cy}) scale({scale}) translate({-cx},{-cy})")
+                        
+                        # Move all children to the group
+                        for child in list(root):
+                            root.remove(child)
+                            g.append(child)
+                        root.append(g)
+                        
+                        return ET.tostring(root, encoding="unicode")
+                    except Exception as e:
+                        print(f"Warning: Could not apply scale to gradient: {e}")
+                
+                return svg_content
             
             # For solid colors with animation preservation
             if color and preserve_animations:
