@@ -777,6 +777,12 @@ class IconGenerator:
                     # let the exporter composite the background so transforms
                     # and centering are handled consistently.
                     src_svg_for_export = svg_before_bg or svg_content
+                    
+                    # Important: if no background, scale was already applied in modify_svg,
+                    # so pass scale=1.0 to avoid double-scaling. If there's a background,
+                    # wrap_with_background will handle it, so pass effective_scale.
+                    webp_scale = 1.0 if not has_background else effective_scale
+                    
                     result = svg_animation_to_webp(
                         src_svg_for_export,
                         output_path,
@@ -790,6 +796,7 @@ class IconGenerator:
                         outline_width=outline_width,
                         outline_color=outline_color,
                         bg_direction=bg_direction,
+                        scale=webp_scale,
                     )
                     if result:
                         return Path(result)
