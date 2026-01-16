@@ -31,7 +31,7 @@ output/*
 
 input/*
 !input/.gitkeep
-test_output/*
+test_output/
 
 # Python
 __pycache__/
