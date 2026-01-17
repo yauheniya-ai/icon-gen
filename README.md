@@ -164,7 +164,7 @@ generated = generator.generate_batch(
     icons_with_custom_ani, 
     color='white', 
     size=256,  
-    bg_color=('deeppink','deepskyblue'), 
+    bg_color=('deeppink','mediumslateblue'), 
     border_radius=48)
 ```
 
