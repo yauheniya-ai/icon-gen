@@ -47,6 +47,11 @@ where = ["src"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 
+[tool.coverage.run]
+omit = [
+    "src/icon_gen/*",  # Legacy compatibility layer
+]
+
 [dependency-groups]
 dev = [
     "black",
