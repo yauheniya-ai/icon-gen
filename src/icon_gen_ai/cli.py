@@ -204,7 +204,7 @@ def search(query, count, generate, style, project_type):
         
         icon-gen-ai search "social media icons" -c 5 --generate
     
-    Requires: pip install icon-gen-ai[ai] and OPENAI_API_KEY or ANTHROPIC_API_KEY
+    Requires: pip install icon-gen-ai[ai] and ANTHROPIC_API_KEY, HF_TOKEN, or OPENAI_API_KEY
     """
 
     try:
@@ -216,7 +216,9 @@ def search(query, count, generate, style, project_type):
 
     assistant = IconAssistant()
     if not assistant.is_available():
-        raise click.ClickException("No AI provider configured")
+        raise click.ClickException(
+            "No AI provider configured. Set ANTHROPIC_API_KEY, HF_TOKEN, or OPENAI_API_KEY"
+        )
 
     context = {}
     if style:
@@ -262,20 +264,42 @@ def providers():
     try:
         from .ai import IconAssistant, get_available_providers
     except ImportError:
-        click.echo("AI features not installed")
+        click.echo("\n❌ AI features not installed")
+        click.echo("\nTo enable AI-powered icon search, install the AI extras:")
+        click.echo("  pip install icon-gen-ai[ai]")
+        click.echo("\nThen configure at least one API key:")
+        click.echo("  • ANTHROPIC_API_KEY (Anthropic)")
+        click.echo("  • HF_TOKEN (Hugging Face)")
+        click.echo("  • OPENAI_API_KEY (OpenAI)")
         return
 
     providers = get_available_providers()
-    click.echo(f"\nInstalled providers: {', '.join(providers) or 'none'}")
+    
+    if not providers:
+        click.echo("\n❌ No AI provider packages found")
+        click.echo("\nTo enable AI-powered icon search, install the AI extras:")
+        click.echo("  pip install icon-gen-ai[ai]")
+        click.echo("\nThen configure at least one API key:")
+        click.echo("  • ANTHROPIC_API_KEY (Anthropic)")
+        click.echo("  • HF_TOKEN (Hugging Face)")
+        click.echo("  • OPENAI_API_KEY (OpenAI)")
+        return
+    
+    click.echo(f"\n✓ Available providers: {', '.join(providers)}")
 
     assistant = IconAssistant()
     if assistant.is_available():
         click.echo(
-            f"✓ Active: {assistant.provider.get_provider_name()} "
-            f"({assistant.provider.model})"
+            f"✓ Active provider: {assistant.provider.get_provider_name()} "
+            f"({assistant.provider.model})\n"
         )
     else:
-        click.echo("⚠ No provider configured")
+        click.echo("\n⚠ No API key configured")
+        click.echo("\nConfigure at least one API key to use AI features:")
+        click.echo("  • ANTHROPIC_API_KEY (Anthropic)")
+        click.echo("  • HF_TOKEN (Hugging Face)")
+        click.echo("  • OPENAI_API_KEY (OpenAI)")
+        click.echo("\nSet via environment variable or .env file\n")
 
 
 # -------------------- ENTRYPOINT --------------------

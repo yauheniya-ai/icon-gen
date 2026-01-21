@@ -46,10 +46,10 @@ def get_available_providers() -> list:
         List of provider names that are available
     """
     providers = []
-    if OpenAIProvider is not None:
-        providers.append("openai")
     if AnthropicProvider is not None:
         providers.append("anthropic")
     if HuggingFaceProvider is not None:
         providers.append("huggingface")
+    if OpenAIProvider is not None:
+        providers.append("openai")
     return providers

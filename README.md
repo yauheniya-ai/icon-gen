@@ -39,19 +39,19 @@ pip install icon-gen-ai
 pip install icon-gen-ai[ai]
 ```
 
+After installing AI features, configure at least one API key:
+- **OpenAI**: Set `OPENAI_API_KEY` environment variable
+- **Anthropic**: Set `ANTHROPIC_API_KEY` environment variable  
+- **Hugging Face**: Set `HF_TOKEN` environment variable
+
+Check provider status:
+```bash
+icon-gen-ai providers
+```
+
 ## Quick Start
 
 ### Generate Single Icons
-
-<div align="center" style="padding: 40px; ">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/claude_white_mediumslateblue_bg.svg" width="70" alt="Claude">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/gemini_white_deeppink_bg.svg" width="70" alt="Gemini">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/mistral_white_gradient_bg.svg" width="70" alt="Mistral">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/openai_gradient_transparent_bg.svg" width="70" alt="OpenAI">
-</div>
 
 ```python
 from icon_gen_ai import IconGenerator
@@ -100,17 +100,17 @@ generator.generate_icon(
 )
 ```
 
-### Generate Multiple Icons (Batch)
-
-<div align="center" style="padding: 40px; ">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/llama_deepskyblue.svg" width="70" alt="Llama">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/deepseek_deepskyblue.svg" width="70" alt="DeepSeek">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/nemotron_deepskyblue.svg" width="70" alt="Nemotron">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/grok_deepskyblue.svg" width="70" alt="Grok">
+<div align="center">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/claude_white_mediumslateblue_bg.svg" width="40" alt="Claude">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/gemini_white_deeppink_bg.svg" width="40" alt="Gemini">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/mistral_white_gradient_bg.svg" width="40" alt="Mistral">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/openai_gradient_transparent_bg.svg" width=40" alt="OpenAI">
 </div>
+
+### Generate Multiple Icons (Batch)
 
 ```python
 from icon_gen_ai import IconGenerator
@@ -134,19 +134,19 @@ ai_icons = {
 generator.generate_batch(ai_icons, color='deepskyblue', size=256, outline_color='deepskyblue', outline_width=8, border_radius=48)
 ```
 
+<div align="center">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/llama_deepskyblue.svg" width="40" alt="Llama">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/deepseek_deepskyblue.svg" width="40" alt="DeepSeek">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/nemotron_deepskyblue.svg" width="40" alt="Nemotron">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/grok_deepskyblue.svg" width="40" alt="Grok">
+</div>
+
 ### Create Custom Animations
 
 You can add four types of animations to the SVG icons: spin, pulse, flip horizontally, and flip vertically.
-
-<div align="center" style="padding: 40px; ">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_disk.svg" width="70" alt="Spinning Disk">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_circle.svg" width="70" alt="Pulsating Circle">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_coffee.svg" width="70" alt="Flipping Coffee">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_card.svg" width="70" alt="Flipping Card">
-</div>
 
 ```python
 from icon_gen_ai import IconGenerator
@@ -168,19 +168,20 @@ generated = generator.generate_batch(
     border_radius=48)
 ```
 
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_disk.svg" width="40" alt="Spinning Disk">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_circle.svg" width="40" alt="Pulsating Circle">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_coffee.svg" width="40" alt="Flipping Coffee">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_card.svg" width="40" alt="Flipping Card">
+</div>
+
 ### Support for Embedded Animations
 
 When you apply a solid color to an animated SVG icon, the animations are automatically preserved:
-
-<div align="center" style="padding: 40px; ">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_blocks.svg" width="70" alt="bars scale">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_upload.svg" width="70" alt="my location loop">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_location.svg" width="70" alt="speedometer loop">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="1" alt="">
-  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_bars.svg" width="70" alt="upload outline loop">
-</div>
 
 
 ```python
@@ -199,6 +200,16 @@ animated_icons = {
 
 generator.generate_batch(animated_icons, color=color, size=256, outline_color='springgreen', bg_color='snow', outline_width=8, border_radius=48)
 ```
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_blocks.svg" width="40" alt="bars scale">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_upload.svg" width="40" alt="my location loop">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_location.svg" width="40" alt="speedometer loop">
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
+  <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_bars.svg" width="40" alt="upload outline loop">
+</div>
 
 **What preserves animations:**
 - Solid colors
@@ -299,7 +310,7 @@ MIT License – see <a href="https://github.com/yauheniya-ai/icon-gen-ai/blob/ma
 
 ## Author
 
-Yauheniya Varabyova (yauheniya.ai@gmail.com)
+Yauheniya
 
 ## Contributing
 
