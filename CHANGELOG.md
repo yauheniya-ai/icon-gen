@@ -1,5 +1,10 @@
 # icon-gen-ai – Changelog
 
+## 0.4.9
+
+### Fixed
+- **AI: Fixed provider detection** - Now correctly checks if third-party packages (`anthropic`, `openai`, `huggingface-hub`) are actually installed, not just if provider modules exist. This fixes the issue where `icon-gen-ai providers` incorrectly showed providers as available when AI extras weren't installed
+
 ## 0.4.8
 
 ### Fixed

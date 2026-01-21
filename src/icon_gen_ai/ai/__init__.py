@@ -3,21 +3,10 @@
 from .base import BaseLLMProvider, IconSuggestion, LLMResponse
 from .assistant import IconAssistant
 
-# Optional imports - only load if packages are available
-try:
-    from .openai_provider import OpenAIProvider
-except ImportError:
-    OpenAIProvider = None
-
-try:
-    from .anthropic_provider import AnthropicProvider
-except ImportError:
-    AnthropicProvider = None
-
-try:
-    from .huggingface_provider import HuggingFaceProvider
-except ImportError:
-    HuggingFaceProvider = None
+# Import provider classes (always available as Python modules)
+from .openai_provider import OpenAIProvider, OPENAI_AVAILABLE
+from .anthropic_provider import AnthropicProvider, ANTHROPIC_AVAILABLE
+from .huggingface_provider import HuggingFaceProvider, HUGGINGFACE_AVAILABLE
 
 __all__ = [
     "IconAssistant",
@@ -36,20 +25,20 @@ def is_ai_available() -> bool:
     Returns:
         True if at least one LLM provider package is installed
     """
-    return OpenAIProvider is not None or AnthropicProvider is not None
+    return OPENAI_AVAILABLE or ANTHROPIC_AVAILABLE or HUGGINGFACE_AVAILABLE
 
 
 def get_available_providers() -> list:
     """Get list of available LLM providers.
     
     Returns:
-        List of provider names that are available
+        List of provider names that have their required packages installed
     """
     providers = []
-    if AnthropicProvider is not None:
+    if ANTHROPIC_AVAILABLE:
         providers.append("anthropic")
-    if HuggingFaceProvider is not None:
+    if HUGGINGFACE_AVAILABLE:
         providers.append("huggingface")
-    if OpenAIProvider is not None:
+    if OPENAI_AVAILABLE:
         providers.append("openai")
     return providers
