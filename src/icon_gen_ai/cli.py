@@ -208,11 +208,22 @@ def search(query, count, generate, style, project_type):
     """
 
     try:
-        from .ai import IconAssistant
+        from .ai import IconAssistant, get_available_providers
     except ImportError:
         raise click.ClickException(
             'AI features not installed. Run: pip install "icon-gen-ai[ai]"'
         )
+
+    providers = get_available_providers()
+    if not providers:
+        click.echo("\nAI provider packages not found\n")
+        click.echo("Install AI extras to use AI-powered icon search:")
+        click.echo('  pip install "icon-gen-ai[ai]"')
+        click.echo("\nAfter installation, configure at least one API key:")
+        click.echo("  • ANTHROPIC_API_KEY (Anthropic)")
+        click.echo("  • HF_TOKEN (Hugging Face)")
+        click.echo("  • OPENAI_API_KEY (OpenAI)\n")
+        return
 
     assistant = IconAssistant()
     if not assistant.is_available():
@@ -265,8 +276,8 @@ def providers():
     try:
         from .ai import IconAssistant, get_available_providers
     except ImportError:
-        click.echo("\n❌ AI features not installed")
-        click.echo("\nInstall AI extras to use AI-powered icon search:")
+        click.echo("\nAI features not installed\n")
+        click.echo("Install AI extras to use AI-powered icon search:")
         click.echo('  pip install "icon-gen-ai[ai]"')
         click.echo("\nAfter installation, configure at least one API key:")
         click.echo("  • ANTHROPIC_API_KEY (Anthropic)")
@@ -277,8 +288,8 @@ def providers():
     providers = get_available_providers()
     
     if not providers:
-        click.echo("\n❌ AI provider packages not found")
-        click.echo("\nInstall AI extras to use AI-powered icon search:")
+        click.echo("\nAI provider packages not found\n")
+        click.echo("Install AI extras to use AI-powered icon search:")
         click.echo('  pip install "icon-gen-ai[ai]"')
         click.echo("\nAfter installation, configure at least one API key:")
         click.echo("  • ANTHROPIC_API_KEY (Anthropic)")

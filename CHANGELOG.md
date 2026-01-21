@@ -1,5 +1,13 @@
 # icon-gen-ai – Changelog
 
+## 0.4.10
+
+### Fixed
+- **CLI: Consistent error messaging** - `search` command now shows the same installation instructions as `providers` command when AI extras are not installed
+
+### Changed
+- **CLI: Removed emoji from error messages** - Removed red cross emoji (❌) for better terminal compatibility
+
 ## 0.4.9
 
 ### Fixed
