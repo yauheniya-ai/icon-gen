@@ -100,6 +100,7 @@ generator.generate_icon(
 )
 ```
 
+<br>
 <div align="center">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/claude_white_mediumslateblue_bg.svg" width="40" alt="Claude">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
@@ -134,6 +135,7 @@ ai_icons = {
 generator.generate_batch(ai_icons, color='deepskyblue', size=256, outline_color='deepskyblue', outline_width=8, border_radius=48)
 ```
 
+<br>
 <div align="center">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/llama_deepskyblue.svg" width="40" alt="Llama">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
@@ -168,7 +170,7 @@ generated = generator.generate_batch(
     border_radius=48)
 ```
 
-
+<br>
 <div align="center">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_custom_disk.svg" width="40" alt="Spinning Disk">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
@@ -201,6 +203,7 @@ animated_icons = {
 generator.generate_batch(animated_icons, color=color, size=256, outline_color='springgreen', bg_color='snow', outline_width=8, border_radius=48)
 ```
 
+<br>
 <div align="center">
   <img src="https://raw.githubusercontent.com/yauheniya-ai/icon-gen-ai/main/output/ani_embedded_blocks.svg" width="40" alt="bars scale">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="10" height="1" alt="">
