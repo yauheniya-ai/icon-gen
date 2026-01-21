@@ -647,7 +647,7 @@ wheels = [
 
 [[package]]
 name = "icon-gen-ai"
-version = "0.4.7"
+version = "0.4.8"
 source = { editable = "." }
 dependencies = [
     { name = "cairosvg" },

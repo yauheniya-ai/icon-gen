@@ -211,13 +211,14 @@ def search(query, count, generate, style, project_type):
         from .ai import IconAssistant
     except ImportError:
         raise click.ClickException(
-            "AI features not installed. Run: pip install icon-gen-ai[ai]"
+            'AI features not installed. Run: pip install "icon-gen-ai[ai]"'
         )
 
     assistant = IconAssistant()
     if not assistant.is_available():
         raise click.ClickException(
-            "No AI provider configured. Set ANTHROPIC_API_KEY, HF_TOKEN, or OPENAI_API_KEY"
+            "AI extras installed but no API key configured.\n"
+            "Set one of: ANTHROPIC_API_KEY, HF_TOKEN, or OPENAI_API_KEY"
         )
 
     context = {}
@@ -265,27 +266,28 @@ def providers():
         from .ai import IconAssistant, get_available_providers
     except ImportError:
         click.echo("\n❌ AI features not installed")
-        click.echo("\nTo enable AI-powered icon search, install the AI extras:")
-        click.echo("  pip install icon-gen-ai[ai]")
-        click.echo("\nThen configure at least one API key:")
+        click.echo("\nInstall AI extras to use AI-powered icon search:")
+        click.echo('  pip install "icon-gen-ai[ai]"')
+        click.echo("\nAfter installation, configure at least one API key:")
         click.echo("  • ANTHROPIC_API_KEY (Anthropic)")
         click.echo("  • HF_TOKEN (Hugging Face)")
-        click.echo("  • OPENAI_API_KEY (OpenAI)")
+        click.echo("  • OPENAI_API_KEY (OpenAI)\n")
         return
 
     providers = get_available_providers()
     
     if not providers:
-        click.echo("\n❌ No AI provider packages found")
-        click.echo("\nTo enable AI-powered icon search, install the AI extras:")
-        click.echo("  pip install icon-gen-ai[ai]")
-        click.echo("\nThen configure at least one API key:")
+        click.echo("\n❌ AI provider packages not found")
+        click.echo("\nInstall AI extras to use AI-powered icon search:")
+        click.echo('  pip install "icon-gen-ai[ai]"')
+        click.echo("\nAfter installation, configure at least one API key:")
         click.echo("  • ANTHROPIC_API_KEY (Anthropic)")
         click.echo("  • HF_TOKEN (Hugging Face)")
-        click.echo("  • OPENAI_API_KEY (OpenAI)")
+        click.echo("  • OPENAI_API_KEY (OpenAI)\n")
         return
     
-    click.echo(f"\n✓ Available providers: {', '.join(providers)}")
+    click.echo(f"\n✓ AI extras installed")
+    click.echo(f"✓ Available providers: {', '.join(providers)}")
 
     assistant = IconAssistant()
     if assistant.is_available():
